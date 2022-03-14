@@ -52,11 +52,16 @@ Message *Message::fromJsonObject(QJsonObject object) {
         message->setChat(true);
         message->setChatId(object.value("chat_id").toInt());
     }
+    if (object.contains("from_id")) {
+        message->setChat(false);
+        message->setUserId(object.value("from_id").toInt());
+    }
+
     if (object.contains("from_id")) message->setFromId(object.value("from_id").toInt());
     if (object.contains("date")) message->setDate(object.value("date").toInt());
     if (object.contains("read_state")) message->setReadState(object.value("read_state").toInt() == 1);
     if (object.contains("out")) message->setOut(object.value("out").toInt() == 1);
-    if (object.contains("body")) message->setBody(object.value("body").toString());
+    if (object.contains("text")) message->setBody(object.value("text").toString());
     if (object.contains("geo")) {
         QJsonObject geo = object.value("geo").toObject();
         QStringList coords = geo.value("coordinates").toString().split(" ");
@@ -64,8 +69,11 @@ Message *Message::fromJsonObject(QJsonObject object) {
         message->setGeoTile(coords.at(0).toDouble(), coords.at(1).toDouble());
     }
     if (object.contains("attachments")) {
-        message->setHasAttachments(true);
+
         QJsonArray attachments = object.value("attachments").toArray();
+        if (attachments.contains(0)) {
+            message->setHasAttachments(true);
+        }
         for (qint64 index = 0; index < attachments.size(); ++index) {
             QJsonObject attachment = attachments.at(index).toObject();
             if (attachment.value("type").toString() == "gift") {

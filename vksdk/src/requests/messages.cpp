@@ -20,6 +20,9 @@
 */
 
 #include "messages.h"
+#include <QTime>
+#include "src/utils.h"
+#include <QDebug>
 
 Messages::Messages(QObject *parent) : RequestBase(parent)
 {}
@@ -61,6 +64,11 @@ void Messages::send(int peerId, const QString &text, const QString &attachmentsL
     query.addQueryItem("peer_id", QString::number(peerId));
     if (!text.isEmpty()) query.addQueryItem("message", text);
     if (!attachmentsList.isEmpty()) query.addQueryItem("attachment", attachmentsList);
+    query.addQueryItem("intent", "default");
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
+    int randomValue = Utils::randInt(1,1000);
+    query.addQueryItem("random_id", QString::number(randomValue));
     _api->makeApiGetRequest("messages.send", query, ApiRequest::MESSAGES_SEND);
 }
 

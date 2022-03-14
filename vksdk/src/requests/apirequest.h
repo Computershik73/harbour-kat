@@ -99,7 +99,7 @@ public slots:
 
 private:
     const QString API_URL = "https://api.vk.com/method/";
-    const QString API_VERSION = "5.63";
+    const QString API_VERSION = "5.93";
 
     QString _accessToken;
     QNetworkAccessManager *_manager;

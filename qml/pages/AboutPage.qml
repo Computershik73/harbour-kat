@@ -59,7 +59,7 @@ Page {
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: "© 2015-2017 Petr Vytovtov"
+                text: "© 2015-2017 Petr Vytovtov\nPatched in 2022 by Ilya Vysotsky"
             }
 
             Label {

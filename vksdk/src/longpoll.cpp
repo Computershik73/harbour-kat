@@ -38,7 +38,7 @@ void LongPoll::getLongPollServer() {
     QUrl url("https://api.vk.com/method/messages.getLongPollServer");
     QUrlQuery query;
     query.addQueryItem("access_token", _accessToken);
-    query.addQueryItem("v", "5.53");
+    query.addQueryItem("v", "5.93");
     url.setQuery(query);
     _manager->get(QNetworkRequest(url));
 }

@@ -19,7 +19,7 @@ greaterThan(QT_VERSION, 5.5) {
     QMAKE_CXXFLAGS += -std=gnu++11
 }
 
-QT += multimedia
+QT += multimedia core gui
 
 include("vksdk/vksdk.pri")
 
@@ -27,14 +27,16 @@ HEADERS += \
     src/settingswrapper.h \
     src/mediaplayerwrapper.h \
     src/playlistmodel.h \
-    src/filesaver.h
+    src/filesaver.h \
+    src/utils.h
 
 SOURCES += \
     src/harbour-kat.cpp \
     src/settingswrapper.cpp \
     src/mediaplayerwrapper.cpp \
     src/playlistmodel.cpp \
-    src/filesaver.cpp
+    src/filesaver.cpp \
+    src/utils.cpp
 
 OTHER_FILES += \
     qml/harbour-kat.qml \

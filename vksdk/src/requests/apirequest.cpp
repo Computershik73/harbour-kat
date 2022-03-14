@@ -69,6 +69,8 @@ void ApiRequest::finished(QNetworkReply *reply) {
             emit gotResponse(jObj, taskType);
         } else if (jObj.contains("response")) {
             QJsonValue jVal = jObj.value("response");
+            QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
+                qDebug() << "Reply: " << strFromObj << "\n";
             emit gotResponse(jVal, taskType);
         } else if (jObj.contains("error")) {
             qDebug() << "Error in API request!";

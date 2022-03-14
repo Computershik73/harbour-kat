@@ -20,6 +20,7 @@
 */
 
 #include "chat.h"
+#include <QJsonDocument>
 
 Chat::Chat(QObject *parent) : QObject(parent)
 {}
@@ -30,6 +31,8 @@ Chat::~Chat() {
 
 Chat *Chat::fromJsonObject(QJsonObject object)
 {
+    QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
+     qDebug() << "Chat: " << strFromObj << "\n";
     Chat *chat = new Chat();
     chat->setId(object.value("id").toInt());
     chat->setTitle(object.value("title").toString());

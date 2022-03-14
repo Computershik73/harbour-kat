@@ -20,7 +20,7 @@
 */
 
 #include "photo.h"
-
+#include <QJsonArray>
 Photo::Photo(QObject *parent) : QObject(parent)
 {}
 
@@ -37,6 +37,13 @@ Photo *Photo::fromJsonObject(QJsonObject object) {
     if (object.contains("photo_807")) photo->setPhoto807(object.value("photo_807").toString());
     if (object.contains("photo_1280")) photo->setPhoto1280(object.value("photo_1280").toString());
     if (object.contains("photo_2560")) photo->setPhoto2560(object.value("photo_2560").toString());
+    QJsonArray photosizes = object.value("sizes").toArray();
+    QJsonObject photosize1 = photosizes.at(0).toObject();
+    photo->setPhoto75(photosize1.value("url").toString());
+    QJsonObject photosize2 = photosizes.at(1).toObject();
+    photo->setPhoto130(photosize2.value("url").toString());
+    QJsonObject photosize3 = photosizes.at(2).toObject();
+    photo->setPhoto604(photosize3.value("url").toString());
     return photo;
 }
 

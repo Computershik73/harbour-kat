@@ -39,7 +39,7 @@ QString Authorization::authUrl() {
     query.addQueryItem("display", "mobile");
     query.addQueryItem("scope", "friends,photos,audio,video,docs,notes,pages,status,wall,groups,messages,notifications,offline,stats");
     query.addQueryItem("response_type", "token");
-    query.addQueryItem("v", "5.60");
+    query.addQueryItem("v", "5.93");
     query.addQueryItem("revoke", "1");
     url.setQuery(query);
     return url.toString();
