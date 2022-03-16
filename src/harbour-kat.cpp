@@ -85,7 +85,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 
 int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
-         qInstallMessageHandler(myMessageOutput);
+        // qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QScopedPointer<FileSaver> fileSaver(new FileSaver(view.data()));

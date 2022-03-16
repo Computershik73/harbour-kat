@@ -369,11 +369,18 @@ void VkSDK::parseChatsInfo(QJsonArray array) {
     _chatsIds.clear();
     for (int index = 0; index < array.size(); ++index) {
         Chat *chat = Chat::fromJsonObject(array.at(index).toObject());
+        if (chat->users().size()>0) {
         foreach (QVariant user, chat->users()) _usersIds.append(user.toString());
+        }
+
+        //foreach (QVariant user, chat->users()) _usersIds.append(user.toString());
+
         _dialogsListModel->addChat(chat);
     }
+    if (array.size()>0) {
     _usersIds.removeDuplicates();
     _users->getUsersByIds(_usersIds);
+    }
 }
 
 void VkSDK::parseComments(QJsonObject object) {
@@ -395,23 +402,30 @@ void VkSDK::parseComments(QJsonObject object) {
 }
 
 void VkSDK::parseDialogsInfo(QJsonObject object) {
-    if (object.contains("unread_dialogs")) emit gotUnreadCounter(object.value("unread_dialogs").toInt());
+    if (object.contains("unread_count")) emit gotUnreadCounter(object.value("unread_count").toInt());
+    parseFriendsInfo(object.value("profiles").toArray());
+    parseGroupsInfo(object.value("groups").toArray());
     QJsonArray dialogs = object.value("items").toArray();
     for (int index = 0; index < dialogs.size(); ++index) {
         Dialog *dialog = Dialog::fromJsonObject(dialogs.at(index).toObject());
         if (dialog->isChat()) _chatsIds.append(QString::number(dialog->lastMessage()->chatId() - 2000000000));
-        else _usersIds.append(QString::number(dialog->lastMessage()->userId()));
+        else _usersIds.append(QString::number(dialog->lastMessage()->peerId()));
         _dialogsListModel->add(dialog);
     }
-    if (_chatsIds.empty()) {
+   if (_chatsIds.empty()) {
+       //if (!(_usersIds.empty())) {
         _usersIds.removeDuplicates();
+
         _users->getUsersByIds(_usersIds);
+
+
+         //}
     } else _messages->getChat(_chatsIds);
 }
 
 void VkSDK::parseEntireFriendsList(QJsonArray array) {
     for (int index = 0; index < array.size(); ++index) {
-        Friend *profile = Friend::fromJsonObject(array.at(index).toObject());
+        Friend *profile = Friend::fromJsonObject(array.at(index).toObject(), false);
         _friendsListModel->add(profile);
     }
 }
@@ -420,22 +434,32 @@ void VkSDK::parseFriendsInfo(QJsonArray array) {
     if (!_usersIds.empty()) {
         _usersIds.clear();
         for (int index = 0; index < array.size(); ++index) {
-            Friend *profile = Friend::fromJsonObject(array.at(index).toObject());
+            Friend *profile = Friend::fromJsonObject(array.at(index).toObject(), false);
             _dialogsListModel->addProfile(profile);
         }
     } else if (!_chatUsersIds.empty()) {
         _chatUsersIds.clear();
         for (int index = 0; index < array.size(); ++index) {
-            Friend *profile = Friend::fromJsonObject(array.at(index).toObject());
+            Friend *profile = Friend::fromJsonObject(array.at(index).toObject(), false);
             _messagesModel->addProfile(profile);
         }
     } else {
         for (int index = 0; index < array.size(); ++index) {
-            Friend *profile = Friend::fromJsonObject(array.at(index).toObject());
+            Friend *profile = Friend::fromJsonObject(array.at(index).toObject(), false);
             _friendsListModel->add(profile);
         }
     }
 }
+
+void VkSDK::parseGroupsInfo(QJsonArray array) {
+
+    if (array.size() == 0) return;
+    foreach (QJsonValue value, array) {
+        _dialogsListModel->addProfile(Friend::fromJsonObject(value.toObject(), true));
+    }
+
+}
+
 
 void VkSDK::parseGroupsList(QJsonArray array) {
     if (array.size() == 0) return;
@@ -468,8 +492,8 @@ void VkSDK::parseMessages(QJsonArray array) {
 
 void VkSDK::parseNewMessage(QJsonObject object) {
     Message *message = Message::fromJsonObject(object);
-    if (message->chat()) message->setFromId(message->userId());
-    else message->setFromId(message->out() ? 0 : message->userId());
+    if (message->chat()) message->setFromId(message->fromId());
+    else message->setFromId(message->out() ? 0 : message->fromId());
     // Update dialogs
     _dialogsListModel->update(message);
     // Update chat
@@ -477,7 +501,7 @@ void VkSDK::parseNewMessage(QJsonObject object) {
     // Show notification
     if (message->out()) return;
     _messagePreview = (message->hasAttachments() ? "[ 📎 ] " : "") + message->body();
-    _users->getUserProfile(message->userId());
+    _users->getUserProfile(message->fromId());
     qDebug() << "...finished...";
 }
 

@@ -50,6 +50,7 @@ class Message : public QObject
     Q_PROPERTY(qint64 userId READ userId CONSTANT)
     Q_PROPERTY(qint64 chatId READ chatId CONSTANT)
     Q_PROPERTY(qint64 fromId READ fromId CONSTANT)
+    Q_PROPERTY(qint64 peerId READ peerId CONSTANT)
     Q_PROPERTY(qint64 date READ date CONSTANT)
     Q_PROPERTY(bool chat READ chat CONSTANT)
     Q_PROPERTY(bool readState READ readState CONSTANT)
@@ -82,6 +83,9 @@ public:
 
     qint64 fromId() const;
     void setFromId(qint64 fromId);
+
+    qint64 peerId() const;
+    void setPeerId(qint64 fromId);
 
     qint64 date() const;
     void setDate(qint64 date);
@@ -140,6 +144,7 @@ private:
     qint64 _userId = 0;
     qint64 _chatId = 0;
     qint64 _fromId = 0;
+    qint64 _peerId = 0;
     qint64 _date = 0;
     bool _chat;
     bool _readState;

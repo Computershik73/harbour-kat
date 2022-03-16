@@ -31,19 +31,38 @@ Chat::~Chat() {
 
 Chat *Chat::fromJsonObject(QJsonObject object)
 {
-    QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
+    /*QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
      qDebug() << "Chat: " << strFromObj << "\n";
     Chat *chat = new Chat();
-    chat->setId(object.value("id").toInt());
-    chat->setTitle(object.value("title").toString());
-    if (object.contains("photo_50")) chat->setPhoto(object.value("photo_50").toString());
-    chat->setUsers(object.value("users").toArray().toVariantList());
-    return chat;
+    QJsonObject conversation = object.value("conversation").toObject();
+    QJsonObject peer = conversation.value("peer").toObject();
+
+    chat->setId(peer.value("id").toInt());
+    QJsonObject chat_settings = object.value("chat_settings").toObject();
+    chat->setTitle(chat_settings.value("title").toString());
+    if (chat_settings.contains("photo")) {
+     QJsonObject chat_photos = chat_settings.value("photo").toObject();
+    if (chat_photos.contains("photo_50")) chat->setPhoto(chat_photos.value("photo_50").toString());
+    }
+    //chat->setUsers(object.value("users").toArray().toVariantList());
+    return chat;*/
+
+    Chat *chat = new Chat();
+        chat->setId(object.value("id").toInt());
+        chat->setTitle(object.value("title").toString());
+        if (object.contains("photo_50")) chat->setPhoto(object.value("photo_50").toString());
+        if (object.value("users").toArray().contains(0)) {
+        chat->setUsers(object.value("users").toArray().toVariantList());
+        } else {
+             QVariantList vl;
+            chat->setUsers(vl);
+        }
+        return chat;
 }
 
 qint64 Chat::id() const
 {
-    return _id + 2000000000;
+     return _id + 2000000000;
 }
 
 void Chat::setId(qint64 id)

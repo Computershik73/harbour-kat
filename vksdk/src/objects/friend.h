@@ -44,7 +44,7 @@ public:
     explicit Friend(QObject *parent = 0);
     ~Friend();
 
-    static Friend* fromJsonObject(QJsonObject object);
+    static Friend* fromJsonObject(QJsonObject object, bool isGroup=false);
 
     int id() const;
     void setId(int id);

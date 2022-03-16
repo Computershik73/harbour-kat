@@ -44,24 +44,29 @@ Message::~Message() {
 Message *Message::fromJsonObject(QJsonObject object) {
     Message *message = new Message();
     message->setId(object.value("id").toInt());
-    if (object.contains("user_id")) {
+    /*if (object.contains("user_id")) {
         message->setChat(false);
         message->setUserId(object.value("user_id").toInt());
-    }
-    if (object.contains("chat_id")) {
-        message->setChat(true);
-        message->setChatId(object.value("chat_id").toInt());
+    }*/
+    if (object.contains("peer_id")) {
+        message->setChat((object.value("peer_id").toInt())>2000000000);
+        message->setChatId(object.value("peer_id").toInt());
+         message->setPeerId(object.value("peer_id").toInt());
     }
     if (object.contains("from_id")) {
-        message->setChat(false);
+        //message->setChat(false);
         message->setUserId(object.value("from_id").toInt());
     }
 
     if (object.contains("from_id")) message->setFromId(object.value("from_id").toInt());
+   // if (object.contains("peer_id"))
     if (object.contains("date")) message->setDate(object.value("date").toInt());
-    if (object.contains("read_state")) message->setReadState(object.value("read_state").toInt() == 1);
+    if (object.contains("read_state")) message->setReadState(object.contains("unread_count"));
     if (object.contains("out")) message->setOut(object.value("out").toInt() == 1);
-    if (object.contains("text")) message->setBody(object.value("text").toString());
+    if (object.contains("text")) { message->setBody(object.value("text").toString());
+    } else {
+        message->setBody(QString("action"));
+    }
     if (object.contains("geo")) {
         QJsonObject geo = object.value("geo").toObject();
         QStringList coords = geo.value("coordinates").toString().split(" ");
@@ -73,7 +78,7 @@ Message *Message::fromJsonObject(QJsonObject object) {
         QJsonArray attachments = object.value("attachments").toArray();
         if (attachments.contains(0)) {
             message->setHasAttachments(true);
-        }
+
         for (qint64 index = 0; index < attachments.size(); ++index) {
             QJsonObject attachment = attachments.at(index).toObject();
             if (attachment.value("type").toString() == "gift") {
@@ -100,12 +105,19 @@ Message *Message::fromJsonObject(QJsonObject object) {
                 //
             }
         }
+        } else {
+            message->setHasAttachments(false);
+        }
     }
     if (object.contains("fwd_messages")) {
+
         QJsonArray fwds = object.value("fwd_messages").toArray();
+        if (fwds.contains(0)) {
+
         for (qint64 index = 0; index < fwds.size(); ++index) {
             QJsonObject fwd = fwds.at(index).toObject();
             message->addFwdMessages(Message::fromJsonObject(fwd));
+        }
         }
     }
     return message;
@@ -133,7 +145,7 @@ void Message::setUserId(qint64 userId)
 
 qint64 Message::chatId() const
 {
-    return _chatId + 2000000000;
+    return _chatId;
 }
 
 void Message::setChatId(qint64 chatId)
@@ -149,6 +161,16 @@ qint64 Message::fromId() const
 void Message::setFromId(qint64 fromId)
 {
     _fromId = fromId;
+}
+
+qint64 Message::peerId() const
+{
+    return _peerId;
+}
+
+void Message::setPeerId(qint64 peerId)
+{
+    _peerId = peerId;
 }
 
 qint64 Message::date() const

@@ -31,7 +31,7 @@ Dialog::~Dialog() {
 
 Dialog *Dialog::fromJsonObject(QJsonObject object) {
     Dialog *dialog = new Dialog();
-    dialog->setLastMessage(Message::fromJsonObject(object.value("message").toObject()));
+    dialog->setLastMessage(Message::fromJsonObject(object.value("last_message").toObject()));
     dialog->setIsChat(dialog->lastMessage()->chat());
     dialog->setUnread(object.contains("unread") || !dialog->lastMessage()->readState());
     return dialog;

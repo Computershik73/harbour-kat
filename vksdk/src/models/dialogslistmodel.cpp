@@ -33,7 +33,7 @@ QVariant DialogsListModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid()) return QVariant();
 
     Dialog *dialog = _dialogs[_dialogsIds.at(index.row())];
-    qint64 profileId = dialog->lastMessage()->userId();
+    qint64 profileId = dialog->lastMessage()->peerId();
     qint64 chatId = dialog->lastMessage()->chatId();
 
     switch (role) {
@@ -47,10 +47,11 @@ QVariant DialogsListModel::data(const QModelIndex &index, int role) const {
             if (!_chats.contains(chatId)) return QVariant();
             if (!_chats[chatId]->photo().isEmpty()) avatarUrls.append(_chats[chatId]->photo());
             else {
-                for (int index = 0; index < _chats[chatId]->users().size() && index < 4; ++index) {
+                /*for (int index = 0; index < _chats[chatId]->users().size() && index < 4; ++index) {
                     qint64 userId = _chats[chatId]->users().at(index).toInt();
                     if (_profiles.contains(userId)) avatarUrls.append(_profiles[userId]->photo50());
-                }
+                }*/
+                return QVariant();
             }
             return QVariant(avatarUrls);
         } else {
@@ -109,7 +110,7 @@ QHash<int, QByteArray> DialogsListModel::roleNames() const {
 }
 
 void DialogsListModel::add(Dialog *dialog) {
-    qint64 id = dialog->isChat() ? dialog->lastMessage()->chatId() : dialog->lastMessage()->userId();
+    qint64 id = dialog->isChat() ? dialog->lastMessage()->chatId() : (dialog->lastMessage()->out() ? dialog->lastMessage()->peerId() : dialog->lastMessage()->fromId());
     if (_dialogs.contains(id)) return;
 
     beginInsertRows(QModelIndex(), _dialogsIds.size(), _dialogsIds.size());
@@ -131,12 +132,17 @@ void DialogsListModel::addProfile(Friend *profile) {
 }
 
 void DialogsListModel::addChat(Chat *chat) {
+    try {
     if (_chats.contains(chat->id())) return;
     _chats[chat->id()] = chat;
 
     QModelIndex startIndex = createIndex(0, 0, static_cast<void *>(0));
     QModelIndex endIndex = createIndex(_dialogsIds.size(), 0, static_cast<void *>(0));
     emit dataChanged(startIndex, endIndex);
+    } catch  (std::exception &e) {
+        qDebug() << " Bad chat! ";
+        return;
+    }
 }
 
 void DialogsListModel::readMessages(qint64 peerId, qint64 localId, bool out) {
@@ -154,7 +160,7 @@ void DialogsListModel::update(Message *message) {
 
     qint64 id = 0;
     if (message->chat()) id = message->chatId();
-    else id = message->userId();
+    else id = message->peerId();
 
     if (_dialogs.contains(id)) {
         if (_dialogsIds.indexOf(id) != 0) {
@@ -167,7 +173,7 @@ void DialogsListModel::update(Message *message) {
         beginInsertRows(QModelIndex(), 0, 0);
         _dialogsIds.insert(0, id);
         _dialogs[id] = new Dialog();
-        _dialogs[id]->setIsChat(message->chatId() != 2000000000);
+        _dialogs[id]->setIsChat(message->chatId() > 2000000000);
         endInsertRows();
     }
     _dialogs[id]->setUnread(!message->readState());

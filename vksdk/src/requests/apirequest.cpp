@@ -43,6 +43,7 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, Ta
     query.addQueryItem("v", API_VERSION);
     QUrl url(API_URL + method);
     url.setQuery(query.query());
+    qDebug() << "URL: " << url.toString();
     QNetworkReply *reply = _manager->get(QNetworkRequest(url));
     reply->setProperty(TASK_TYPE_KEY, type);
 }

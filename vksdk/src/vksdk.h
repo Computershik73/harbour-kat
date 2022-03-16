@@ -213,6 +213,7 @@ private:
     void parseDialogsInfo(QJsonObject object);
     void parseEntireFriendsList(QJsonArray array);
     void parseFriendsInfo(QJsonArray array);
+    void parseGroupsInfo(QJsonArray array);
     void parseGroupsList(QJsonArray array);
     void parseLimitedFriendsList(QJsonArray array);
     void parseMessages(QJsonArray array);

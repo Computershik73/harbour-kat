@@ -28,19 +28,19 @@ Friend::Friend(QObject *parent) : QObject(parent)
 Friend::~Friend()
 {}
 
-Friend *Friend::fromJsonObject(QJsonObject object) {
+Friend *Friend::fromJsonObject(QJsonObject object, bool isGroup) {
     QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
     qDebug() << "User: " << strFromObj << "\n";
     Friend *frnd = new Friend();
     frnd->setId(object.value("id").toInt());
-    if (object.value("id").toInt()>0) {
+    if ((object.value("id").toInt()>0) && (!isGroup)) {
     frnd->setFirstName(object.value("first_name").toString());
     frnd->setLastName(object.value("last_name").toString());
     if (object.contains("photo_50")) frnd->setPhoto50(object.value("photo_50").toString());
     if (object.contains("online")) frnd->setOnline(object.value("online").toInt() == 1);
     if (object.contains("status")) frnd->setStatus(object.value("status").toString());
     } else {
-        if (object.contains("id")) frnd->setId(object.value("id").toInt());
+        if (object.contains("id")) frnd->setId(object.value("id").toInt()*(-1));
         if (object.contains("name")) { frnd->setFirstName(object.value("name").toString());
         frnd->setLastName(QString(""));
         }

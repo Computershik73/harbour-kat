@@ -43,7 +43,8 @@ void Messages::getChat(const QStringList &ids) {
 void Messages::getDialogs(int offset) {
     QUrlQuery query;
     query.addQueryItem("offset", QString::number(offset));
-    _api->makeApiGetRequest("messages.getDialogs", query, ApiRequest::MESSAGES_GET_DIALOGS);
+    query.addQueryItem("extended", "1");
+    _api->makeApiGetRequest("messages.getConversations", query, ApiRequest::MESSAGES_GET_DIALOGS);
 }
 
 void Messages::getHistory(int peerId, int offset) {
