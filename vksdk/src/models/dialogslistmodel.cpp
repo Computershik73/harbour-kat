@@ -20,6 +20,7 @@
 */
 
 #include "dialogslistmodel.h"
+#include "vksdk/src/vksdk.h"
 
 DialogsListModel::DialogsListModel(QObject *parent) : QAbstractListModel(parent)
 {}
@@ -34,12 +35,12 @@ QVariant DialogsListModel::data(const QModelIndex &index, int role) const {
 
     Dialog *dialog = _dialogs[_dialogsIds.at(index.row())];
     qint64 profileId = dialog->lastMessage()->peerId();
-    qint64 chatId = dialog->lastMessage()->chatId();
+    qint64 chatId = dialog->lastMessage()->peerId();
 
     switch (role) {
     case IdRole:
         if (dialog->isChat()) return QVariant(dialog->lastMessage()->chatId());
-        return QVariant(dialog->lastMessage()->userId());
+        return QVariant(dialog->lastMessage()->peerId());
 
     case AvatarRole: {
         QStringList avatarUrls;
@@ -72,7 +73,7 @@ QVariant DialogsListModel::data(const QModelIndex &index, int role) const {
 
     case PreviewRole: {
         QString attachments = dialog->lastMessage()->hasAttachments() ? "[ 📎 ] " : "";
-        return QVariant(QString("%1%2").arg(attachments).arg(dialog->lastMessage()->body()));
+        return QVariant(QString("%1%2").arg(attachments).arg(dialog->lastMessage()->out()==1 ? QString("Я: ") + dialog->lastMessage()->body() : dialog->lastMessage()->body()));
     }
 
     case UnreadRole:
@@ -110,7 +111,7 @@ QHash<int, QByteArray> DialogsListModel::roleNames() const {
 }
 
 void DialogsListModel::add(Dialog *dialog) {
-    qint64 id = dialog->isChat() ? dialog->lastMessage()->chatId() : (dialog->lastMessage()->out() ? dialog->lastMessage()->peerId() : dialog->lastMessage()->fromId());
+    qint64 id = dialog->isChat() ? dialog->lastMessage()->chatId() : dialog->lastMessage()->peerId();
     if (_dialogs.contains(id)) return;
 
     beginInsertRows(QModelIndex(), _dialogsIds.size(), _dialogsIds.size());
@@ -141,7 +142,7 @@ void DialogsListModel::addChat(Chat *chat) {
     emit dataChanged(startIndex, endIndex);
     } catch  (std::exception &e) {
         qDebug() << " Bad chat! ";
-        return;
+        //return;
     }
 }
 
@@ -156,7 +157,7 @@ void DialogsListModel::readMessages(qint64 peerId, qint64 localId, bool out) {
 }
 
 void DialogsListModel::update(Message *message) {
-    if (_dialogsIds.isEmpty()) return;
+    //if (_dialogsIds.isEmpty()) return;
 
     qint64 id = 0;
     if (message->chat()) id = message->chatId();
@@ -173,7 +174,7 @@ void DialogsListModel::update(Message *message) {
         beginInsertRows(QModelIndex(), 0, 0);
         _dialogsIds.insert(0, id);
         _dialogs[id] = new Dialog();
-        _dialogs[id]->setIsChat(message->chatId() > 2000000000);
+        _dialogs[id]->setIsChat(message->peerId() > 2000000000);
         endInsertRows();
     }
     _dialogs[id]->setUnread(!message->readState());
@@ -186,10 +187,10 @@ void DialogsListModel::update(Message *message) {
 
 void DialogsListModel::clear() {
     beginRemoveRows(QModelIndex(), 0, _dialogsIds.size());
-    _dialogsIds.clear();
-    _chats.clear();
-    _dialogs.clear();
-    _profiles.clear();
+    //_dialogsIds.clear();
+    //_chats.clear();
+   // _dialogs.clear();
+    //_profiles.clear();
     endRemoveRows();
 
     QModelIndex index = createIndex(0, 0, static_cast<void *>(0));

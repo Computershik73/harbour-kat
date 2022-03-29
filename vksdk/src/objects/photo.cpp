@@ -38,12 +38,59 @@ Photo *Photo::fromJsonObject(QJsonObject object) {
     if (object.contains("photo_1280")) photo->setPhoto1280(object.value("photo_1280").toString());
     if (object.contains("photo_2560")) photo->setPhoto2560(object.value("photo_2560").toString());
     QJsonArray photosizes = object.value("sizes").toArray();
-    QJsonObject photosize1 = photosizes.at(0).toObject();
+    for (int i=0; i<photosizes.size(); i++) {
+        QJsonObject photosizei = photosizes.at(i).toObject();
+        switch (photosizei.value("height").toInt()) {
+            case 75: {
+                photo->setPhoto75(photosizei.value("url").toString());
+                break;
+            }
+            case 130: {
+                photo->setPhoto130(photosizei.value("url").toString());
+                break;
+            }
+            case 604: {
+                photo->setPhoto604(photosizei.value("url").toString());
+                break;
+            }
+            case 807: {
+                photo->setPhoto807(photosizei.value("url").toString());
+                break;
+            }
+            case 961: {
+                photo->setPhoto1280(photosizei.value("url").toString());
+                break;
+            }
+            case 1080: {
+                photo->setPhoto1280(photosizei.value("url").toString());
+                break;
+            }
+            case 1280: {
+                photo->setPhoto1280(photosizei.value("url").toString());
+                break;
+            }
+            case 2560: {
+            photo->setPhoto2560(photosizei.value("url").toString());
+            break;
+            }
+            default: {
+                break;
+            }
+
+        }
+    }
+    /*QJsonObject photosize1 = photosizes.at(0).toObject();
     photo->setPhoto75(photosize1.value("url").toString());
     QJsonObject photosize2 = photosizes.at(1).toObject();
     photo->setPhoto130(photosize2.value("url").toString());
     QJsonObject photosize3 = photosizes.at(2).toObject();
     photo->setPhoto604(photosize3.value("url").toString());
+    QJsonObject photosize4 = photosizes.at(3).toObject();
+    photo->setPhoto807(photosize4.value("url").toString());
+    QJsonObject photosize5 = photosizes.at(4).toObject();
+    photo->setPhoto1280(photosize5.value("url").toString());
+    QJsonObject photosize6 = photosizes.at(5).toObject();
+    photo->setPhoto2560(photosize6.value("url").toString());*/
     return photo;
 }
 

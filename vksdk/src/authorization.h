@@ -28,6 +28,7 @@
 #include <QUrlQuery>
 
 #include <QDebug>
+#include <QNetworkReply>
 
 class Authorization : public QObject
 {
@@ -41,10 +42,11 @@ public:
 
     QString authUrl();
 
-    Q_INVOKABLE void tryToGetAccessToken(QString url);
-
+    Q_INVOKABLE void tryToGetAccessToken(QString namepass);
+public slots:
+    void finished(QNetworkReply *reply);
 signals:
-    void authorized(QString accessToken, QString userId);
+    void authorized(QString accessToken, int userId);
     void error(QString errorCode, QString errorMessage);
 };
 

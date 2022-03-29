@@ -40,7 +40,10 @@ void LongPoll::getLongPollServer() {
     query.addQueryItem("access_token", _accessToken);
     query.addQueryItem("v", "5.93");
     url.setQuery(query);
-    _manager->get(QNetworkRequest(url));
+    QNetworkRequest request(url);
+    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+
+    _manager->get(request);
 }
 
 void LongPoll::finished(QNetworkReply *reply) {
@@ -81,7 +84,11 @@ void LongPoll::doLongPollRequest() {
     query.addQueryItem("wait", "25");
     query.addQueryItem("mode", "10");
     url.setQuery(query);
-    _manager->get(QNetworkRequest(url));
+    QNetworkRequest request(url);
+    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+
+
+    _manager->get(request);
 }
 
 void LongPoll::parseLongPollUpdates(QJsonArray updates) {

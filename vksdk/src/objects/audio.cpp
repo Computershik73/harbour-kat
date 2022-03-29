@@ -32,6 +32,12 @@ Audio *Audio::fromJsonObject(QJsonObject object) {
     if (object.contains("artist")) audio->setArtist(object.value("artist").toString());
     if (object.contains("title")) audio->setTitle(object.value("title").toString());
     if (object.contains("url")) audio->setUrl(object.value("url").toString());
+    if (object.contains("link_mp3")) {
+        audio->setUrl(object.value("link_mp3").toString());
+        audio->setTitle(QString("Голосовое сообщение"));
+        audio->setArtist(QString("Голосовое сообщение"));
+    }
+
     return audio;
 }
 

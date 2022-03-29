@@ -101,6 +101,7 @@ public:
     Q_INVOKABLE void setAccessTocken(QString value);
     Q_INVOKABLE void setUserId(int value);
 
+
     Authorization *auth() const;
     LongPoll* longPoll() const;
 

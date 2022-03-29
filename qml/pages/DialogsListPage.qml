@@ -122,7 +122,7 @@ Page {
         VerticalScrollDecorator {}
     }
 
-//    onStatusChanged: if (status === PageStatus.Active) pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
+    onStatusChanged: if (status === PageStatus.Active) pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
 
     Component.onCompleted: vksdk.messages.getDialogs()
 }

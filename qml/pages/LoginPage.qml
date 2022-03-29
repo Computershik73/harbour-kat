@@ -21,7 +21,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import org.nemomobile.notifications 1.0
+;import org.nemomobile.notifications 1.0
 
 Page {
     id: loginPage
@@ -31,13 +31,29 @@ Page {
         category: "harbour-kat"
     }
 
-    SilicaWebView {
+    //SilicaWebView {
+  //      id: loginWebView
+
+ //       anchors.fill: parent
+  //      url: vksdk.auth.authUrl
+
+   //     onUrlChanged: vksdk.auth.tryToGetAccessToken(url)
+   // }
+
+    TextField {
         id: loginWebView
+        width: parent.width - parent.spacing
+        placeholderText: qsTr("Логин и пароль через пробел")
+        label: qsTr("Логин и пароль через пробел")
 
-        anchors.fill: parent
-        url: vksdk.auth.authUrl
 
-        onUrlChanged: vksdk.auth.tryToGetAccessToken(url)
+
+        EnterKey.enabled: text.length > 0
+        EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+        EnterKey.onClicked: {
+            vksdk.auth.tryToGetAccessToken(loginWebView.text)
+            loginWebView.text = ""
+        }
     }
 
     Connections {
@@ -54,7 +70,7 @@ Page {
         onError: {
             loginNotification.previewBody = errorMessage
             loginNotification.publish()
-            loginWebView.url = vksdk.auth.authUrl
+            //loginWebView.url = vksdk.auth.authUrl
         }
     }
 }

@@ -73,7 +73,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
         fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
         abort();
     }*/
-    QFile fileOut("/home/defaultuser/log.txt");
+    QFile fileOut("/home/nemo/log.txt");
         if(fileOut.open(QIODevice::Append | QIODevice::Text))
         {
             fileOut.write(localMsg);
@@ -85,7 +85,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 
 int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
-        // qInstallMessageHandler(myMessageOutput);
+         qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QScopedPointer<FileSaver> fileSaver(new FileSaver(view.data()));

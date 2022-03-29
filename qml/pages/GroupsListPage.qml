@@ -52,7 +52,7 @@ Page {
     }
 
     onStatusChanged: if (status === PageStatus.Active) {
-//                         pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
+                         pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
                          vksdk.groupsListModel.clear()
                          vksdk.groups.get(userId)
                      }

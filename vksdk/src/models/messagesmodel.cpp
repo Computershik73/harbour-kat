@@ -37,6 +37,7 @@ QVariant MessagesModel::data(const QModelIndex &index, int role) const {
     switch (role) {
     case AvatarRole:
         if (_profiles.contains(message->fromId())) return QVariant(_profiles[message->fromId()]->photo50());
+        if (_profiles.contains(message->fromId())) return QVariant(_profiles[message->fromId()]->photo50());
         return QVariant();
 
     case IdRole:
@@ -132,7 +133,7 @@ void MessagesModel::add(Message *message) {
 void MessagesModel::addToBegin(Message *message) {
     if (_messages.isEmpty()) return;
     if (message->chat() && _messages.at(0)->chatId() != message->chatId()) return;
-    if (!message->chat() && _messages.at(0)->userId() != message->userId()) return;
+    if (!message->chat() && _messages.at(0)->fromId() != message->fromId()) return;
 
     beginInsertRows(QModelIndex(), 0, 0);
     _messages.insert(0, message);

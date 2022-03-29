@@ -42,7 +42,7 @@ Page {
         vksdk.stats.trackVisitor()
         vksdk.users.getSelfProfile()
         vksdk.messages.getDialogs()
-//        vksdk.audios.get()
+        vksdk.audios.get()
         vksdk.longPoll.getLongPollServer()
     }
 
@@ -169,7 +169,7 @@ Page {
     }
 
     onStatusChanged: if (status === PageStatus.Active) {
-//                         pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
+                         pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
                          vksdk.dialogsListModel.clear()
 //                         vksdk.friendsListModel.clear()
                          vksdk.groupsListModel.clear()

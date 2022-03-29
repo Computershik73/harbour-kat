@@ -9,6 +9,7 @@ void Account::setOnline() {
     _api->makeApiGetRequest("account.setOnline", query, ApiRequest::ACCOUNT_SET_ONLINE);
 }
 
+
 void Account::banUser(int id) {
     QUrlQuery query;
     query.addQueryItem("user_id", QString::number(id));

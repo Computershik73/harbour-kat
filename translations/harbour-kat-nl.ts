@@ -246,7 +246,13 @@
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="51"/>
+        <location filename="../qml/pages/LoginPage.qml" line="46"/>
+        <location filename="../qml/pages/LoginPage.qml" line="47"/>
+        <source>Логин и пароль через пробел</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="67"/>
         <source>Logged to vk.com with Kat</source>
         <translation>Ingelogd op vk.com met Kat</translation>
     </message>
@@ -341,7 +347,7 @@
         <translation>Videos</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="268"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="272"/>
         <source>Notes</source>
         <translation>Aantekeningen</translation>
     </message>
@@ -351,7 +357,7 @@
         <translation>Openen in browser</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="324"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="328"/>
         <source>The user is baned</source>
         <translation>De gebruiker is verbannen</translation>
     </message>
@@ -392,22 +398,22 @@
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="256"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="260"/>
         <source>Groups</source>
         <translation>Groepen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="277"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="281"/>
         <source>Wall</source>
         <translation>Prikbord</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="323"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="327"/>
         <source>The user is deleted</source>
         <translation>De gebruiker is verwijderd</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="306"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="310"/>
         <source>Load more</source>
         <translation>Laad meer</translation>
     </message>

@@ -492,16 +492,22 @@ void VkSDK::parseMessages(QJsonArray array) {
 
 void VkSDK::parseNewMessage(QJsonObject object) {
     Message *message = Message::fromJsonObject(object);
-    if (message->chat()) message->setFromId(message->fromId());
-    else message->setFromId(message->out() ? 0 : message->fromId());
+    /*if (message->chat()) {
+        message->setFromId(message->fromId());
+        message->setPeerId(message->peerId());
+    } else {
+        message->setFromId(message->fromId());
+        message->setPeerId(message->peerId());
+    }*/
     // Update dialogs
     _dialogsListModel->update(message);
     // Update chat
     _messagesModel->addToBegin(message);
     // Show notification
+     _users->getUserProfile(message->fromId());
     if (message->out()) return;
     _messagePreview = (message->hasAttachments() ? "[ 📎 ] " : "") + message->body();
-    _users->getUserProfile(message->fromId());
+    //_users->getUserProfile(message->fromId());
     qDebug() << "...finished...";
 }
 

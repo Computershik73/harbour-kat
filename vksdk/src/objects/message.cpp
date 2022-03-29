@@ -56,9 +56,10 @@ Message *Message::fromJsonObject(QJsonObject object) {
     if (object.contains("from_id")) {
         //message->setChat(false);
         message->setUserId(object.value("from_id").toInt());
+        message->setFromId(object.value("from_id").toInt());
     }
 
-    if (object.contains("from_id")) message->setFromId(object.value("from_id").toInt());
+   // if (object.contains("from_id")) message->setFromId(object.value("from_id").toInt());
    // if (object.contains("peer_id"))
     if (object.contains("date")) message->setDate(object.value("date").toInt());
     if (object.contains("read_state")) message->setReadState(object.contains("unread_count"));
@@ -76,8 +77,9 @@ Message *Message::fromJsonObject(QJsonObject object) {
     if (object.contains("attachments")) {
 
         QJsonArray attachments = object.value("attachments").toArray();
-        if (attachments.contains(0)) {
+        if (!(attachments.empty())) {
             message->setHasAttachments(true);
+
 
         for (qint64 index = 0; index < attachments.size(); ++index) {
             QJsonObject attachment = attachments.at(index).toObject();
@@ -89,6 +91,8 @@ Message *Message::fromJsonObject(QJsonObject object) {
                 message->addVideo(Video::fromJsonObject(attachment.value("video").toObject()));
             } else if (attachment.value("type").toString() == "audio") {
                 message->addAudio(Audio::fromJsonObject(attachment.value("audio").toObject()));
+            } else if (attachment.value("type").toString() == "audio_message") {
+                message->addAudio(Audio::fromJsonObject(attachment.value("audio_message").toObject()));
             } else if (attachment.value("type").toString() == "doc") {
                 message->addDocument(Document::fromJsonObject(attachment.value("doc").toObject()));
             } else if (attachment.value("type").toString() == "wall") {
@@ -108,11 +112,13 @@ Message *Message::fromJsonObject(QJsonObject object) {
         } else {
             message->setHasAttachments(false);
         }
+    } else {
+        message->setHasAttachments(false);
     }
     if (object.contains("fwd_messages")) {
 
         QJsonArray fwds = object.value("fwd_messages").toArray();
-        if (fwds.contains(0)) {
+        if (!(fwds.empty())) {
 
         for (qint64 index = 0; index < fwds.size(); ++index) {
             QJsonObject fwd = fwds.at(index).toObject();

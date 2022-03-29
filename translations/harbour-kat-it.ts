@@ -246,7 +246,13 @@
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="51"/>
+        <location filename="../qml/pages/LoginPage.qml" line="46"/>
+        <location filename="../qml/pages/LoginPage.qml" line="47"/>
+        <source>Логин и пароль через пробел</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="67"/>
         <source>Logged to vk.com with Kat</source>
         <translation>Loggato a vk.com da Kat</translation>
     </message>
@@ -372,27 +378,27 @@
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="256"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="260"/>
         <source>Groups</source>
         <translation>Gruppi</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="277"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="281"/>
         <source>Wall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="306"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="310"/>
         <source>Load more</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="323"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="327"/>
         <source>The user is deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="324"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="328"/>
         <source>The user is baned</source>
         <translation type="unfinished"></translation>
     </message>
@@ -402,7 +408,7 @@
         <translation>Amici</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfilePage.qml" line="268"/>
+        <location filename="../qml/pages/ProfilePage.qml" line="272"/>
         <source>Notes</source>
         <translation>Note</translation>
     </message>
