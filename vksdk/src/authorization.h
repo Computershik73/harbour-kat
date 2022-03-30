@@ -43,6 +43,7 @@ public:
     QString authUrl();
 
     Q_INVOKABLE void tryToGetAccessToken(QString namepass);
+
 public slots:
     void finished(QNetworkReply *reply);
 signals:

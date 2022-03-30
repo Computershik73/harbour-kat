@@ -24,6 +24,7 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QEventLoop>
 
 Authorization::Authorization(QObject *parent) : QObject(parent)
 {}
@@ -111,3 +112,5 @@ void Authorization::finished(QNetworkReply *reply) {
 
     reply->deleteLater();
 }
+
+

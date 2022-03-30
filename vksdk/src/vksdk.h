@@ -100,6 +100,7 @@ public:
 
     Q_INVOKABLE void setAccessTocken(QString value);
     Q_INVOKABLE void setUserId(int value);
+    Q_INVOKABLE bool checkToken(QString token);
 
 
     Authorization *auth() const;

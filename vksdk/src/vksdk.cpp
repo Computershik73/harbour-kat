@@ -145,6 +145,34 @@ void VkSDK::setAccessTocken(QString value) {
     _longPoll->setAccessToken(value);
 }
 
+bool VkSDK::checkToken(QString token) {
+    QUrl urll("https://api.vk.com/method/audio.get");
+    QUrlQuery query;
+
+    query.addQueryItem("count", "1");
+    query.addQueryItem("access_token", token);
+    query.addQueryItem("v", "5.93");
+    urll.setQuery(query);
+    QNetworkRequest request(urll);
+    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+    QNetworkAccessManager* _manager = new QNetworkAccessManager(this);
+    connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+    QNetworkReply *reply = _manager->get(request);
+    QEventLoop looppp;
+    QObject::connect(reply, SIGNAL(finished()) , &looppp, SLOT(quit()));
+    looppp.exec();
+     QByteArray dataaa = reply->readAll();
+     QString DataAsString     = QString::fromUtf8(dataaa);
+     qDebug() << DataAsString;
+     if (DataAsString.contains("response")) {
+         return true;
+     } else if (DataAsString.contains("authorization failed")) {
+         return false;
+     } else {
+         return false;
+     }
+}
+
 void VkSDK::setUserId(int value) {
     _userId = value;
 }
