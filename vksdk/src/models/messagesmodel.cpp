@@ -132,9 +132,9 @@ void MessagesModel::add(Message *message) {
 
 void MessagesModel::addToBegin(Message *message) {
     if (_messages.isEmpty()) return;
-    if (message->chat() && _messages.at(0)->chatId() != message->chatId()) return;
-    if (!message->chat() && _messages.at(0)->fromId() != message->fromId()) return;
-
+   // if (message->chat() && _messages.at(0)->chatId() != message->chatId()) return;
+   // if (!message->chat() && _messages.at(0)->peerId() != message->peerId()) return;
+    if (_messages.at(0)->peerId() != message->peerId()) { return; }
     beginInsertRows(QModelIndex(), 0, 0);
     _messages.insert(0, message);
     endInsertRows();
