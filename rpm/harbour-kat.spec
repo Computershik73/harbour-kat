@@ -14,7 +14,7 @@ Name:       harbour-kat
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    The unofficial client for vk.com
 Version:    0.5.4
-Release:    40
+Release:    41
 Group:      Qt/Qt
 License:    GNU GPLv3
 URL:        https://vk.com/mobilevika

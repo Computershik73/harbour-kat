@@ -246,15 +246,9 @@
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="46"/>
-        <location filename="../qml/pages/LoginPage.qml" line="47"/>
-        <source>Логин и пароль через пробел</source>
+        <location filename="../qml/pages/LoginPage.qml" line="111"/>
+        <source>Войти</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/LoginPage.qml" line="67"/>
-        <source>Logged to vk.com with Kat</source>
-        <translation>Ingelogd op vk.com met Kat</translation>
     </message>
 </context>
 <context>

@@ -394,7 +394,7 @@ void VkSDK::parseAudiosList(QJsonArray array) {
 }
 
 void VkSDK::parseChatsInfo(QJsonArray array) {
-    _chatsIds.clear();
+    //_chatsIds.clear();
     for (int index = 0; index < array.size(); ++index) {
         Chat *chat = Chat::fromJsonObject(array.at(index).toObject());
         if (chat->users().size()>0) {

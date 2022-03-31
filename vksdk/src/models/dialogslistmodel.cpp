@@ -35,11 +35,11 @@ QVariant DialogsListModel::data(const QModelIndex &index, int role) const {
 
     Dialog *dialog = _dialogs[_dialogsIds.at(index.row())];
     qint64 profileId = dialog->lastMessage()->peerId();
-    qint64 chatId = dialog->lastMessage()->peerId();
+    qint64 chatId = dialog->lastMessage()->chatId();
 
     switch (role) {
     case IdRole:
-        if (dialog->isChat()) return QVariant(dialog->lastMessage()->chatId());
+        if (dialog->isChat()) return QVariant(dialog->lastMessage()->peerId());
         return QVariant(dialog->lastMessage()->peerId());
 
     case AvatarRole: {
@@ -48,10 +48,10 @@ QVariant DialogsListModel::data(const QModelIndex &index, int role) const {
             if (!_chats.contains(chatId)) return QVariant();
             if (!_chats[chatId]->photo().isEmpty()) avatarUrls.append(_chats[chatId]->photo());
             else {
-                /*for (int index = 0; index < _chats[chatId]->users().size() && index < 4; ++index) {
+                for (int index = 0; index < _chats[chatId]->users().size() && index < 4; ++index) {
                     qint64 userId = _chats[chatId]->users().at(index).toInt();
                     if (_profiles.contains(userId)) avatarUrls.append(_profiles[userId]->photo50());
-                }*/
+                }
                 return QVariant();
             }
             return QVariant(avatarUrls);
@@ -72,8 +72,43 @@ QVariant DialogsListModel::data(const QModelIndex &index, int role) const {
         }
 
     case PreviewRole: {
-        QString attachments = dialog->lastMessage()->hasAttachments() ? "[ 📎 ] " : "";
-        return QVariant(QString("%1%2").arg(attachments).arg(dialog->lastMessage()->out()==1 ? QString("Я: ") + dialog->lastMessage()->body() : dialog->lastMessage()->body()));
+        QString preview = "";
+        qint64 frid = dialog->lastMessage()->fromId();
+        if (dialog->lastMessage()->out()==1) {
+            preview+="Я: ";
+        } else {
+            if (dialog->isChat()) {
+                if (_profiles.contains(frid)) {
+                    preview+= _profiles[frid]->firstName()+ ": ";
+                } else {
+                    preview+= "Сообщество: ";
+                }
+            } else {
+
+            }
+        }
+        if (!(dialog->lastMessage()->fwdMessagesList().empty())) {
+            preview+= "[📢]";
+        }
+
+        if (dialog->lastMessage()->hasAttachments()) {
+           if (!(dialog->lastMessage()->photosList().empty())) {
+               preview+="[📷]";
+           }
+           if (!(dialog->lastMessage()->audiosList().empty())) {
+               preview+="[🎵]";
+           }
+           if (!(dialog->lastMessage()->videosList().empty())) {
+               preview+="[🎬]";
+           }
+           if (!(dialog->lastMessage()->newsList().empty())) {
+               preview+="[📰]";
+           }
+        preview+= " ";
+        }
+        return QVariant(QString("%1%2").arg(preview).arg(dialog->lastMessage()->body()));
+        //QString attachments = dialog->lastMessage()->hasAttachments() ? "[ 📎 ] " : "";
+        //return QVariant(QString("%1%2").arg(preview).arg(dialog->lastMessage()->out()==1 ? QString("Я: ") + dialog->lastMessage()->body() : dialog->lastMessage()->body()));
     }
 
     case UnreadRole:
@@ -117,6 +152,7 @@ void DialogsListModel::add(Dialog *dialog) {
     beginInsertRows(QModelIndex(), _dialogsIds.size(), _dialogsIds.size());
     _dialogsIds.append(id);
     _dialogs[id] = dialog;
+
     endInsertRows();
 
     QModelIndex index = createIndex(0, 0, static_cast<void *>(0));
@@ -160,7 +196,7 @@ void DialogsListModel::update(Message *message) {
     //if (_dialogsIds.isEmpty()) return;
 
     qint64 id = 0;
-    if (message->chat()) id = message->chatId();
+    if (message->chat()) id = message->peerId();
     else id = message->peerId();
 
     if (_dialogs.contains(id)) {
