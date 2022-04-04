@@ -44,7 +44,6 @@ OTHER_FILES += \
     qml/pages/*.qml \
     qml/views/*.qml \
     translations/*.ts \
-    rpm/harbour-kat.yaml \
     rpm/harbour-kat.spec \
     rpm/harbour-kat.changes.in \
     LICENSE \

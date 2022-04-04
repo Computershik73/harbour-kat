@@ -24,6 +24,7 @@
 #endif
 
 #include <QGuiApplication>
+#include <QStandardPaths>
 #include <QQmlContext>
 #include <QQuickView>
 #include <QScopedPointer>
@@ -55,6 +56,9 @@
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
+    Q_UNUSED(type);
+    Q_UNUSED(context);
+    Q_UNUSED(msg);
     QByteArray localMsg = msg.toLocal8Bit();
     //switch (type) {
     /*case QtDebugMsg:
@@ -73,6 +77,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
         fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
         abort();
     }*/
+
     QFile fileOut("/home/nemo/log.txt");
         if(fileOut.open(QIODevice::Append | QIODevice::Text))
         {
@@ -85,6 +90,8 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 
 int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
+    application->setOrganizationName(QStringLiteral("org.osanwe"));
+    application->setApplicationName(QStringLiteral("kat"));
        //  qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
