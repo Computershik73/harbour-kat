@@ -5,3 +5,8 @@ Icon=harbour-kat
 Exec=harbour-kat
 Name=Kat
 
+
+[X-Sailjail]
+Permissions=Internet;Pictures;Camera;Location;Bluetooth;Audio;Microphone;PublicDir;RemovableMedia;WebView;
+OrganizationName=org.osanwe
+ApplicationName=kat

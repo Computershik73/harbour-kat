@@ -61,11 +61,18 @@ desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
    %{buildroot}%{_datadir}/applications/*.desktop
 
+mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/108x108/apps/
+cp %{buildroot}/%{_datadir}/icons/hicolor/86x86/apps/%{name}.png %{buildroot}/%{_datadir}/icons/hicolor/108x108/apps/
+mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/128x128/apps/
+cp %{buildroot}/%{_datadir}/icons/hicolor/86x86/apps/%{name}.png %{buildroot}/%{_datadir}/icons/hicolor/128x128/apps/
+mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/172x172/apps/
+cp %{buildroot}/%{_datadir}/icons/hicolor/86x86/apps/%{name}.png %{buildroot}/%{_datadir}/icons/hicolor/172x172/apps/
+
 %files
 %defattr(-,root,root,-)
 %{_bindir}
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/86x86/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 # >> files
 # << files
