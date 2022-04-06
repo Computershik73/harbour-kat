@@ -72,37 +72,37 @@
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="133"/>
         <source>Single</source>
-        <translation type="unfinished"></translation>
+        <translation>Subay</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="136"/>
         <source>In a relationship</source>
-        <translation type="unfinished"></translation>
+        <translation>Görüşür</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="139"/>
         <source>Engaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Nişanlıdır</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="142"/>
         <source>Married</source>
-        <translation type="unfinished"></translation>
+        <translation>Evlidir</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="145"/>
         <source>It&apos;s complicated</source>
-        <translation type="unfinished"></translation>
+        <translation>Qəlizdir</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="148"/>
         <source>Actively searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiv axtarışdadır</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="151"/>
         <source>In love</source>
-        <translation type="unfinished"></translation>
+        <translation>Vurulub</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="206"/>
@@ -258,17 +258,17 @@
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="70"/>
         <source>Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kod:</translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="90"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Daxil ol</translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="107"/>
         <source>Logged to vk.com with Kat</source>
-        <translation type="unfinished"></translation>
+        <translation>vk.com-a Kat tətbiqindən giriş</translation>
     </message>
 </context>
 <context>
