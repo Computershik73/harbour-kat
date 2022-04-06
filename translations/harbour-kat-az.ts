@@ -59,7 +59,7 @@
     <message>
         <location filename="../qml/pages/AudioPlayerPage.qml" line="58"/>
         <source>My audios</source>
-        <translation>Musiqi</translation>
+        <translation>Musiqim</translation>
     </message>
 </context>
 <context>
