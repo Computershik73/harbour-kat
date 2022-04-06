@@ -248,20 +248,25 @@
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="36"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>Email или номер телефона:</translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="52"/>
         <source>Password:</source>
+        <translation>Пароль:</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="70"/>
+        <source>Code:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="72"/>
+        <location filename="../qml/pages/LoginPage.qml" line="90"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="89"/>
+        <location filename="../qml/pages/LoginPage.qml" line="107"/>
         <source>Logged to vk.com with Kat</source>
         <translation type="unfinished"></translation>
     </message>

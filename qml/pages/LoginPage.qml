@@ -64,17 +64,35 @@ Page {
         echoMode: TextInput.Password
     }
 
+    Label {
+        id: label3
+        anchors.top: textField2.bottom
+        text: qsTr("Code:")
+        visible: false
+        color: Theme.primaryColor
+    }
+
+    TextField {
+        id: textField3
+        width: parent.width
+        anchors.top: label3.bottom
+        color: Theme.primaryColor
+        visible: false
+        EnterKey.enabled: false
+        text: ""
+    }
+
     Button {
         id: enterButton
-        anchors.top: textField2.bottom
+        anchors.top: textField3.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         text: qsTr("Login")
         onClicked: {
-            vksdk.auth.tryToGetAccessToken(textField1.text+ " "+ textField2.text)
-            textField1.text = ""
-            textField2.text = ""
-            enterButton.enabled = false
+            vksdk.auth.tryToGetAccessToken(textField1.text+ " "+ textField2.text, textField3.text)
+            //textField1.text = ""
+            //textField2.text = ""
+            //enterButton.enabled = false
         }
     }
 
@@ -89,10 +107,16 @@ Page {
             loginNotification.previewBody = qsTr("Logged to vk.com with Kat")
             loginNotification.publish()
         }
+
         onError: {
             enterButton.enabled = true
             loginNotification.previewBody = errorMessage
             loginNotification.publish()
+        }
+
+        onCoderequired: {
+           label3.visible = true;
+           textField3.visible = true
         }
     }
 }

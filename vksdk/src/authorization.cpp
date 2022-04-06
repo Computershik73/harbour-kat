@@ -27,7 +27,11 @@
 #include <QEventLoop>
 
 Authorization::Authorization(QObject *parent) : QObject(parent)
-{}
+{
+    codeisrequired=false;
+    _manager = new QNetworkAccessManager(this);
+    connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+}
 
 Authorization::~Authorization()
 {}
@@ -58,7 +62,7 @@ QString Authorization::authUrl() {
  *        or error code and error message.
  * @param url - URL for checking.
  */
-void Authorization::tryToGetAccessToken(QString namepass) {
+void Authorization::tryToGetAccessToken(QString namepass, QString code) {
     QStringList w=namepass.split(" ", QString::SkipEmptyParts);
     QUrl urll("https://oauth.vk.com/token");
     QUrlQuery query;
@@ -71,24 +75,22 @@ void Authorization::tryToGetAccessToken(QString namepass) {
     query.addQueryItem("password", w.at(1));
     query.addQueryItem("2fa_supported", "1");
     query.addQueryItem("force_sms", "1");
+    if (code!="") {
+       query.addQueryItem("code", code);
+    }
     query.addQueryItem("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline");
     query.addQueryItem("v", "5.93");
     urll.setQuery(query);
     QNetworkRequest request(urll);
     request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
-    QNetworkAccessManager* _manager = new QNetworkAccessManager(this);
-    connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+
+
     QNetworkReply *reply = _manager->get(request);
     char TASK_TYPE_K[] = "taskType";
     reply->setProperty(TASK_TYPE_K, 0);
 
 
-   /* QUrlQuery query(QUrl(url).fragment());
-    if (query.hasQueryItem("access_token")) {
-        emit authorized(query.queryItemValue("access_token"), query.queryItemValue("user_id"));
-    } else if (query.hasQueryItem("error")) {
-        emit error(query.queryItemValue("error"), query.queryItemValue("error_description"));
-    }*/
+
 }
 
 void Authorization::finished(QNetworkReply *reply) {
@@ -98,18 +100,37 @@ void Authorization::finished(QNetworkReply *reply) {
         QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
         qDebug() << strFromObj;
          if (jObj.contains("access_token")) {
-           // QJsonValue jVal = jObj.value("response");
 
-               // qDebug() << "Reply: " << strFromObj << "\n";
-            //emit gotResponse(jVal);
             emit authorized(jObj.value("access_token").toString(), jObj.value("user_id").toInt());
-        } else
-             //if (jObj.contains("error"))
-         {
-             emit error(QString("Двухфакторка или капча или неверный пароль"),QString("Двухфакторка или капча или неверный пароль"));
-            //qDebug() << "Error in API request!";
-        }
+        } else {
+             if (strFromObj.contains("2fa")) {
 
+                     QString validation_sid = jObj.value("validation_sid").toString();
+                     QUrl urll("https://api.vk.com/method/auth.validatePhone");
+                     QUrlQuery query;
+
+                     query.addQueryItem("sid", validation_sid);
+                     query.addQueryItem("v", "5.131");
+                     urll.setQuery(query);
+                     QNetworkRequest request(urll);
+                     request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+
+                     QNetworkReply *reply = _manager->get(request);
+                     char TASK_TYPE_K[] = "taskType";
+                     reply->setProperty(TASK_TYPE_K, 0);
+
+
+
+                emit coderequired();
+
+
+        } else {
+                 if (strFromObj.contains("invalid")) {
+                 qDebug() << "VK said: " << strFromObj;
+                emit error(QString("Капча или неверный пароль"),QString("Капча или неверный пароль"));
+                 }
+             }
+    }
     reply->deleteLater();
 }
 

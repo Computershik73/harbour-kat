@@ -29,6 +29,7 @@
 
 #include <QDebug>
 #include <QNetworkReply>
+#include <QNetworkAccessManager>
 
 class Authorization : public QObject
 {
@@ -42,13 +43,17 @@ public:
 
     QString authUrl();
 
-    Q_INVOKABLE void tryToGetAccessToken(QString namepass);
+    Q_INVOKABLE void tryToGetAccessToken(QString namepass, QString code);
 
+    Q_INVOKABLE bool codeisrequired;
+QNetworkAccessManager* _manager;
 public slots:
     void finished(QNetworkReply *reply);
 signals:
     void authorized(QString accessToken, int userId);
     void error(QString errorCode, QString errorMessage);
+
+   void coderequired();
 };
 
 #endif // AUTHORIZATION_H
