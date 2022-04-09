@@ -64,7 +64,9 @@ public:
     Q_INVOKABLE void prev();
     Q_INVOKABLE void seekTo(int value);
     Q_INVOKABLE void jumpTo(int index);
-    bool isPlaying() const;
+     bool isPlaying() const;
+     bool isPaused() const;
+     bool isStopped() const;
     qint64 position();
     int currentIndex() const;
     int size() const;

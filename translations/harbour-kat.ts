@@ -299,17 +299,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="94"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="95"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="99"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="100"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="104"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="105"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>

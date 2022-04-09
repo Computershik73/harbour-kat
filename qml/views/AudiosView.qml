@@ -67,7 +67,11 @@ Item {
                     }
                 }
 
-//                onClicked: player.setPlaylist(audios, index)
+                onClicked: {
+                    player.setPlaylist(audios, 0)
+                    player.jumpTo(index)
+                    player.play()
+                }
             }
         }
     }

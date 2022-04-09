@@ -44,6 +44,7 @@ Page {
         vksdk.messages.getDialogs()
         vksdk.audios.get()
         vksdk.longPoll.getLongPollServer()
+        busyIndicator.running = false
     }
 
     /**

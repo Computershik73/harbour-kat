@@ -24,6 +24,7 @@
 MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent) {
     qsrand(time(NULL));
     _player = new QMediaPlayer(this);
+    _player->stop();
     _model = new PlaylistModel(this);
     connect(_player, SIGNAL(currentMediaChanged(QMediaContent)), this, SLOT(_mediaChanged(QMediaContent)));
     connect(_player, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(_stateChanged(QMediaPlayer::State)));
@@ -40,6 +41,7 @@ void MediaPlayerWrapper::setPlaylist(QVariantList audios, int index) {
     _audios.clear();
     _model->clear();
     QMediaPlaylist *_playlist = new QMediaPlaylist();
+    _playlist->setPlaybackMode(QMediaPlaylist::Loop);
     foreach (QVariant audio, audios) {
         Audio *_audio = (Audio*)audio.value<QObject*>();
         _playlist->addMedia(QUrl(_audio->url()));
@@ -64,7 +66,11 @@ void MediaPlayerWrapper::pause() {
 
 void MediaPlayerWrapper::next() {
     if (_shuffle) _player->playlist()->setCurrentIndex(qrand() % _audios.size());
-    else _player->playlist()->next();
+    else {
+        if (_player->playlist()->currentIndex()<=_audios.size()-1) {
+        _player->playlist()->next();
+        }
+    }
 }
 
 void MediaPlayerWrapper::prev() {
@@ -117,7 +123,11 @@ qint64 MediaPlayerWrapper::audioId() {
 }
 
 void MediaPlayerWrapper::_mediaChanged(QMediaContent content) {
-    if (repeat()) _player->playlist()->setCurrentIndex(_currIndex);
+    /*if (!((_player==NULL) || (_player->playlist()==NULL) || (content==NULL))) {
+    if ((repeat()) || (_player->playlist()->currentIndex()>=_audios.size()-1)) {
+        _player->playlist()->setCurrentIndex(_currIndex);
+        emit mediaChanged();
+    }
     else {
         if (_shuffle && _shuffleNow) {
             _shuffleNow = false;
@@ -126,6 +136,8 @@ void MediaPlayerWrapper::_mediaChanged(QMediaContent content) {
         _currIndex = _player->playlist()->currentIndex();
         emit mediaChanged();
     }
+    }*/
+     emit mediaChanged();
 }
 
 void MediaPlayerWrapper::_positionChanged(qint64 pos) {
@@ -133,6 +145,11 @@ void MediaPlayerWrapper::_positionChanged(qint64 pos) {
 }
 
 void MediaPlayerWrapper::_stateChanged(QMediaPlayer::State state) {
+    /*if (state == QMediaPlayer::State::StoppedState)
+            {
+                _player->play();
+            }*/
+    //_player->play();
     emit stateChanged();
 }
 
@@ -163,5 +180,13 @@ PlaylistModel *MediaPlayerWrapper::model() const {
 
 bool MediaPlayerWrapper::isPlaying() const {
     return _player->state() == QMediaPlayer::PlayingState;
+}
+
+bool MediaPlayerWrapper::isPaused() const {
+    return _player->state() == QMediaPlayer::PausedState;
+}
+
+bool MediaPlayerWrapper::isStopped() const {
+    return _player->state() == QMediaPlayer::StoppedState;
 }
 

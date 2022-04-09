@@ -31,7 +31,7 @@ CoverBackground {
 
         Row {
             spacing: Theme.paddingMedium
-
+            anchors.horizontalCenter: parent.horizontalCenter
             Image {
                 anchors.verticalCenter: messagesCounter.verticalCenter
                 source: "image://theme/icon-m-message"
@@ -44,6 +44,39 @@ CoverBackground {
                 font.pixelSize: Theme.fontSizeHuge
             }
         }
+
+
+
+
+
+
+
+
+                Label {
+                    visible: player.isPlaying || player.isPaused
+                    id: title
+                    width: contentWidth>cover.width ? cover.width : contentWidth
+                    //elide: Text.ElideRight
+                    //wrapMode: Text.Wrap
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: player.isPlaying ? player.title : ""
+                    font.pixelSize: Theme.fontSizeSmall
+                    truncationMode: TruncationMode.Fade
+                }
+                Label {
+                    visible: player.isPlaying || player.isPaused
+                    id: artist
+                    width: contentWidth>cover.width ? cover.width : contentWidth
+                   // wrapMode: Text.Wrap
+                   // elide: Text.ElideRight
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: player.isPlaying ? player.author : ""
+                    color: Theme.secondaryColor
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    truncationMode: TruncationMode.Fade
+                }
+
+
     }
 
 //    CoverActionList {
@@ -53,6 +86,51 @@ CoverBackground {
 //            iconSource: "image://theme/icon-cover-new"
 //        }
 //    }
+
+    CoverActionList {
+        id: activecover
+            enabled: player.isPlaying || player.isPaused
+            CoverAction {
+                iconSource: "image://theme/icon-cover-previous-song"
+                onTriggered: {
+                    if (player.currentIndex > 0) {
+                        player.prev()
+                    if (!player.isPlaying) {
+                        player.play()
+                    }
+                    }
+                }
+            }
+
+            CoverAction {
+                iconSource: player.isPlaying ? "image://theme/icon-cover-pause" : "image://theme/icon-cover-play"
+                onTriggered: {
+                        if (player.isPlaying) {
+                            player.pause()
+
+                        } else {
+                            player.play()
+                        }
+                }
+            }
+
+            CoverAction {
+                iconSource: "image://theme/icon-cover-next-song"
+                onTriggered: {
+
+                    if (player.currentIndex < player.size-1) {
+                        player.next()
+                    if (!player.isPlaying) {
+                        player.play()
+                    }
+                 }
+                }
+            }
+
+
+        }
+
+
 
     Connections {
         target: vksdk
