@@ -30,7 +30,7 @@ import QtMultimedia 5.0
 ApplicationWindow
 {
     id: application
-     property alias mprisPlayer: mprisPlayer
+     //property alias mprisPlayer: mprisPlayer
 
     function convertUnixtimeToString(unixtime) {
         var d = new Date(unixtime * 1000)
@@ -73,6 +73,8 @@ ApplicationWindow
 
     MprisPlayer {
             id: mprisPlayer
+            property string artist
+            property string song
 
            // property string artist: "Loading"
           //  property string song: "tags..."
@@ -102,6 +104,22 @@ ApplicationWindow
                 //mprisPlayer.metadata = metadata
                 mprisPlayer.setMetadata(metadata)*/
            // }
+
+            onArtistChanged: {
+                        var metadata = mprisPlayer.metadata
+
+                        metadata[Mpris.metadataToString(Mpris.Artist)] = [artist] // List of strings
+
+                        mprisPlayer.metadata = metadata
+                    }
+
+                    onSongChanged: {
+                        var metadata = mprisPlayer.metadata
+
+                        metadata[Mpris.metadataToString(Mpris.Title)] = song // String
+
+                        mprisPlayer.metadata = metadata
+                    }
 
             onPauseRequested: {
                     player.pause()
@@ -154,20 +172,21 @@ ApplicationWindow
         target: player
         onMediaChanged: {
             //qDebug() << "mediachanged"
-
-            var metaData = mprisPlayer.metaData
+            mprisPlayer.song = player.title
+            mprisPlayer.artist = player.author
+            //var metaData = mprisPlayer.metaData
             //metaData['mpris:title'] = "test"
             //metaData['mpris:albumArtist'] = "test"
-            metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
-            metaData[Mpris.metadataToString(Mpris.Title)] = "test"
-           mprisPlayer.metaData = metaData
+            //metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
+            //metaData[Mpris.metadataToString(Mpris.Title)] = "test"
+           //mprisPlayer.metaData = metaData
             //metaData['xesam:title'] = "test"
             // metaData['xesam:albumArtist'] = "test"
              //mprisPlayer.setMetadata(metaData)
 
         }
 
-        onStateChanged: {
+       /* onStateChanged: {
             // qDebug() << "statechanged"
             var metaData = mprisPlayer.metaData
             // metaData['mpris:title'] = "app.streamMetaText1"
@@ -177,7 +196,7 @@ ApplicationWindow
             metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
             metaData[Mpris.metadataToString(Mpris.Title)] = "test"
              mprisPlayer.setMetadata(metaData)
-        }
+        }*/
     }
 
 
