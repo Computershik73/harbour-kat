@@ -172,6 +172,7 @@ ApplicationWindow
         target: player
         onMediaChanged: {
             //qDebug() << "mediachanged"
+
             mprisPlayer.song = player.title
             mprisPlayer.artist = player.author
             //var metaData = mprisPlayer.metaData
