@@ -44,7 +44,7 @@ Page {
         vksdk.messages.getDialogs()
         vksdk.audios.get()
         vksdk.longPoll.getLongPollServer()
-        busyIndicator.running = false
+
     }
 
     /**
@@ -155,6 +155,12 @@ Page {
         onGotUnreadCounter: {
             menuList.model.setProperty(2, "counter", value)
         }
+        onGotUserAudios: {
+
+            busyIndicator.running = false
+            player.setPlaylist(audios, -1)
+        }
+
     }
 
     Timer {

@@ -57,9 +57,14 @@
         <translation>Поиск аудиозаписей...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AudioPlayerPage.qml" line="58"/>
+        <location filename="../qml/pages/AudioPlayerPage.qml" line="69"/>
         <source>My audios</source>
         <translation>Мои аудиозаписи</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioPlayerPage.qml" line="76"/>
+        <source>Recommendations</source>
+        <translation>Рекомендации</translation>
     </message>
 </context>
 <context>

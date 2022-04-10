@@ -32,6 +32,7 @@ public:
 
     Q_INVOKABLE void add(qint64 ownerId, qint64 audioId);
     Q_INVOKABLE void get(qint64 ownerId = 0, int count = 6000);
+    Q_INVOKABLE void getRecommendations(int count = 50);
     Q_INVOKABLE void search(QString query);
 };
 

@@ -36,8 +36,14 @@ Page {
             width: parent.width
             placeholderText: qsTr("Search audio...")
             onTextChanged: {
-                if (text.length !== 0) vksdk.audios.search(text)
-                else vksdk.audios.get()
+                if (text.length !== 0) {
+                    busyIndicator.running = true
+                    vksdk.audios.search(text)
+                }
+                else {
+                    busyIndicator.running = true
+                    vksdk.audios.get()
+                }
             }
         }
         delegate: MediaListItem {
@@ -49,15 +55,38 @@ Page {
             subtitle: _subtitle
             playing: _playing
 
-            onClicked: player.jumpTo(index)
+            onClicked: {
+                player.jumpTo(index)
+                if (!player.isPlaying) {
+                    player.play()
+                }
+            }
         }
 
         PullDownMenu {
 
             MenuItem {
                 text: qsTr("My audios")
-                onClicked: vksdk.audios.get()
+                onClicked: {
+                    busyIndicator.running = true
+                    vksdk.audios.get()
+                }
             }
+            MenuItem {
+                text: qsTr("Recommendations")
+                onClicked: {
+                    busyIndicator.running = true
+                    vksdk.audios.getRecommendations()
+
+                }
+            }
+        }
+
+        BusyIndicator {
+           id: busyIndicator
+           anchors.centerIn: parent
+           size: BusyIndicatorSize.Large
+           running: false
         }
 
         VerticalScrollDecorator {}
@@ -107,6 +136,7 @@ Page {
         target: vksdk
         onGotUserAudios: {
 //            console.log(audios.length)
+            busyIndicator.running = false
             player.setPlaylist(audios, -1)
         }
     }

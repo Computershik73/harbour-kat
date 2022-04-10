@@ -38,6 +38,13 @@ void Audios::get(qint64 ownerId, int count) {
     _api->makeApiGetRequest("audio.get", query, ApiRequest::AUDIO_GET);
 }
 
+void Audios::getRecommendations(int count) {
+    QUrlQuery query;
+    //if (ownerId != 0) query.addQueryItem("owner_id", QString::number(ownerId));
+    query.addQueryItem("count", QString::number(count));
+    _api->makeApiGetRequest("audio.getRecommendations", query, ApiRequest::AUDIO_GET);
+}
+
 void Audios::search(QString _query) {
     QUrlQuery query;
     query.addQueryItem("q", _query);

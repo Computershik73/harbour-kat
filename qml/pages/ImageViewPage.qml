@@ -99,7 +99,7 @@ Page {
             width: imageViewPage.width
             height: imageViewPage.height
             model: fromAlbum ? vksdk.photosModel : imagesModel.length
-
+            anchors.fill: parent
             delegate: Image {
                     id: imageView
                     width: imageViewPage.width
