@@ -97,8 +97,8 @@ Page {
         active: true
         open: true
         playing: player.isPlaying
-//        author: player.author
-//        title: player.title
+        //author: player.author
+        //title: player.title
         duration: player.duration
         position: player.position / 1000
 

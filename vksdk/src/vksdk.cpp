@@ -156,7 +156,7 @@ bool VkSDK::checkToken(QString token) {
     QNetworkRequest request(urll);
     request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
     QNetworkAccessManager* _manager = new QNetworkAccessManager(this);
-    connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+   // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
     QNetworkReply *reply = _manager->get(request);
     QEventLoop looppp;
     QObject::connect(reply, SIGNAL(finished()) , &looppp, SLOT(quit()));

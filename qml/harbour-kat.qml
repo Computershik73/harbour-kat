@@ -22,10 +22,15 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import org.nemomobile.notifications 1.0
+import org.nemomobile.mpris 1.0
+import QtMultimedia 5.0
+
+
 
 ApplicationWindow
 {
     id: application
+     property alias mprisPlayer: mprisPlayer
 
     function convertUnixtimeToString(unixtime) {
         var d = new Date(unixtime * 1000)
@@ -33,6 +38,8 @@ ApplicationWindow
         var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()
         return d.getDate() + "." + month + "." + d.getFullYear() + " " + d.getHours() + ":" + minutes
     }
+
+
 
     allowedOrientations: Orientation.All
     _defaultPageOrientations: Orientation.All
@@ -64,6 +71,65 @@ ApplicationWindow
         ]
     }
 
+    MprisPlayer {
+            id: mprisPlayer
+
+           // property string artist: "Loading"
+          //  property string song: "tags..."
+          //  artist: "test"
+          //  song: "testt"
+
+            serviceName: "kat-music"
+            identity: "Kat Music"
+            supportedUriSchemes: ["file", "http"]
+            supportedMimeTypes: ["audio/x-wav", "audio/x-vorbis+ogg", "audio/mpeg"]
+
+            canControl: true
+
+            canGoNext: true
+            canGoPrevious: true
+            canPause: true
+            canPlay: true
+            canSeek: false
+
+
+            playbackStatus: player.isPlaying ? Mpris.Playing : Mpris.Paused
+
+          //  onMetaDataChanged: {
+                /*var metadata = mprisPlayer.metaData
+                metadata[Mpris.metadataToString(Mpris.albumArtist)] = player.author
+                metadata[Mpris.metadataToString(Mpris.Title)] = player.title
+                //mprisPlayer.metadata = metadata
+                mprisPlayer.setMetadata(metadata)*/
+           // }
+
+            onPauseRequested: {
+                    player.pause()
+                }
+                onPlayRequested: {
+                    player.play()
+                }
+                onPlayPauseRequested: {
+                    if (player.isPlaying) {
+                    player.pause()
+                    } else {
+                    player.play()
+                    }
+                }
+                onStopRequested: {
+                    player.stop()
+                }
+
+                onNextRequested: {
+                    player.next()
+                }
+                onPreviousRequested: {
+                    player.prev()
+                }
+        }
+
+
+
     Connections {
         target: vksdk
         onGotNewMessage: {
@@ -75,4 +141,46 @@ ApplicationWindow
             commonNotification.publish()
         }
     }
+
+    Connections {
+        target: vksdk.longPoll
+        onUnreadDialogsCounterUpdated: {
+            console.log("onUnreadDialogsCounterUpdated", value)
+            messagesCounter.text = value
+        }
+    }
+
+    Connections {
+        target: player
+        onMediaChanged: {
+            //qDebug() << "mediachanged"
+
+            var metaData = mprisPlayer.metaData
+            //metaData['mpris:title'] = "test"
+            //metaData['mpris:albumArtist'] = "test"
+            metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
+            metaData[Mpris.metadataToString(Mpris.Title)] = "test"
+           mprisPlayer.metaData = metaData
+            //metaData['xesam:title'] = "test"
+            // metaData['xesam:albumArtist'] = "test"
+             //mprisPlayer.setMetadata(metaData)
+
+        }
+
+        onStateChanged: {
+            // qDebug() << "statechanged"
+            var metaData = mprisPlayer.metaData
+            // metaData['mpris:title'] = "app.streamMetaText1"
+            // metaData['mpris:albumArtist'] = "app.stationName"
+            //metadata[Mpris.metadataToString(Mpris.albumArtist)] = player.author
+            //metadata[Mpris.metadataToString(Mpris.Title)] = player.title
+            metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
+            metaData[Mpris.metadataToString(Mpris.Title)] = "test"
+             mprisPlayer.setMetadata(metaData)
+        }
+    }
+
+
+
+
 }

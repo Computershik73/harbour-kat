@@ -70,6 +70,8 @@ Item {
                 onClicked: {
                     player.setPlaylist(audios, 0)
                     player.jumpTo(index)
+                    player.title = audios[index].title;
+                    player.author = audios[index].author;
                     player.play()
                 }
             }
