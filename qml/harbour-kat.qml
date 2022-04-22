@@ -47,11 +47,14 @@ ApplicationWindow
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     initialPage: {
         if (settings.accessToken()) {
-            vksdk.setAccessTocken(settings.accessToken())
-            vksdk.setUserId(settings.userId())
+
             if (vksdk.checkToken(settings.accessToken())) {
+                vksdk.setAccessTocken(settings.accessToken())
+                vksdk.setUserId(settings.userId())
             return Qt.createComponent(Qt.resolvedUrl("pages/MainMenuPage.qml"))
             } else {
+            settings.removeAccessToken()
+            settings.removeUserId()
             return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
             }
         } else {

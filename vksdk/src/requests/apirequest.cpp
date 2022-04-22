@@ -45,7 +45,8 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, Ta
     url.setQuery(query.query());
     qDebug() << "URL: " << url.toString();
     QNetworkRequest request(url);
-    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+    request.setRawHeader("Authorization", "Bearer "+_accessToken.toUtf8());
+    request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
     QNetworkReply *reply = _manager->get(request);
     reply->setProperty(TASK_TYPE_KEY, type);
 }

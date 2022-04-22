@@ -66,23 +66,29 @@ void Authorization::tryToGetAccessToken(QString namepass, QString code) {
     QStringList w=namepass.split(" ", QString::SkipEmptyParts);
     QUrl urll("https://oauth.vk.com/token");
     QUrlQuery query;
-
+//https://oauth.vk .com/token?grant_type=password&client_id=6146827&client_secret=qVxWRF1CwHERuIrKBnqe&username=имя&password=пароль&v=5.131&2fa_supported=1
     query.addQueryItem("grant_type", "password");
-    query.addQueryItem("client_id", "3140623");
+    query.addQueryItem("client_id", "6146827");
+                       //"3140623");
                        //"4803503");
-    query.addQueryItem("client_secret", "VeWdmVclDCtn6ihuP1nt");
+
+    query.addQueryItem("client_secret", "qVxWRF1CwHERuIrKBnqe");
+    //query.addQueryItem("client_secret", "VeWdmVclDCtn6ihuP1nt");
     query.addQueryItem("username", w.at(0));
     query.addQueryItem("password", w.at(1));
     query.addQueryItem("2fa_supported", "1");
     query.addQueryItem("force_sms", "1");
+    query.addQueryItem("device_id", "8DB2CDDB-0D89-4262-A91F-3A945DD63BF5");
+    query.addQueryItem("external_device_id", "8DB2CDDB-0D89-4262-A91F-3A945DD63BF5");
+
     if (code!="") {
        query.addQueryItem("code", code);
     }
     query.addQueryItem("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline");
-    query.addQueryItem("v", "5.93");
+    query.addQueryItem("v", "5.153");
     urll.setQuery(query);
     QNetworkRequest request(urll);
-    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+    request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
 
 
     QNetworkReply *reply = _manager->get(request);
@@ -100,6 +106,7 @@ void Authorization::finished(QNetworkReply *reply) {
         QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
         qDebug() << strFromObj;
          if (jObj.contains("access_token")) {
+
 
             emit authorized(jObj.value("access_token").toString(), jObj.value("user_id").toInt());
         } else {

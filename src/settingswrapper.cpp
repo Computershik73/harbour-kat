@@ -23,7 +23,7 @@
 
 SettingsWrapper::SettingsWrapper(QObject *parent) : QObject(parent) {
     _settings = new QSettings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                              "/harbour-kat/harbour-kat.conf", QSettings::NativeFormat);
+                              "/org.osanwe/kat/harbour-kat.conf", QSettings::NativeFormat);
 }
 
 SettingsWrapper::~SettingsWrapper() {

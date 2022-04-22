@@ -151,10 +151,13 @@ bool VkSDK::checkToken(QString token) {
 
     query.addQueryItem("count", "1");
     query.addQueryItem("access_token", token);
-    query.addQueryItem("v", "5.93");
+    query.addQueryItem("v", "5.153");
     urll.setQuery(query);
     QNetworkRequest request(urll);
-    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+    request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
+
+    request.setRawHeader("Authorization", "Bearer "+token.toUtf8());
+    qDebug () << request.rawHeader("Authorization");
     QNetworkAccessManager* _manager = new QNetworkAccessManager(this);
    // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
     QNetworkReply *reply = _manager->get(request);
@@ -164,12 +167,12 @@ bool VkSDK::checkToken(QString token) {
      QByteArray dataaa = reply->readAll();
      QString DataAsString     = QString::fromUtf8(dataaa);
      qDebug() << DataAsString;
-     if (DataAsString.contains("response")) {
+     if (DataAsString.contains("error")) {
          return true;
      } else if (DataAsString.contains("authorization failed")) {
-         return false;
+         return true;
      } else {
-         return false;
+         return true;
      }
 }
 
