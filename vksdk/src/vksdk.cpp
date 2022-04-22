@@ -168,9 +168,9 @@ bool VkSDK::checkToken(QString token) {
      QString DataAsString     = QString::fromUtf8(dataaa);
      qDebug() << DataAsString;
      if (DataAsString.contains("error")) {
-         return true;
+         return false;
      } else if (DataAsString.contains("authorization failed")) {
-         return true;
+         return false;
      } else {
          return true;
      }
