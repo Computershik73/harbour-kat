@@ -20,6 +20,13 @@
 */
 
 #include "video.h"
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QEventLoop>
+#include <QUrlQuery>
 
 Video::Video(QObject *parent) : QObject(parent)
 {
@@ -28,6 +35,8 @@ Video::Video(QObject *parent) : QObject(parent)
 
 Video *Video::fromJsonObject(QJsonObject object) {
     Video *video = new Video();
+    QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
+    qDebug() << "Video: " << strFromObj << "\n";
     if (object.contains("id")) video->setId(object.value("id").toInt());
     if (object.contains("owner_id")) video->setOwnerId(object.value("owner_id").toInt());
     if (object.contains("duration")) video->setDuration(object.value("duration").toInt());
@@ -35,13 +44,87 @@ Video *Video::fromJsonObject(QJsonObject object) {
     if (object.contains("photo_130")) video->setPhoto130(object.value("photo_130").toString());
     if (object.contains("photo_320")) video->setPhoto320(object.value("photo_320").toString());
     if (object.contains("photo_640")) video->setPhoto640(object.value("photo_640").toString());
+    QJsonArray photosizes = object.value("image").toArray();
+    for (int i=0; i<photosizes.size(); i++) {
+        QJsonObject photosizei = photosizes.at(i).toObject();
+        switch (photosizei.value("height").toInt()) {
+
+            case 120: {
+                video->setPhoto130(photosizei.value("url").toString());
+                break;
+            }
+            case 450: {
+                video->setPhoto640(photosizei.value("url").toString());
+                break;
+            }
+
+            default: {
+                break;
+            }
+
+        }
+    }
+
     if (object.contains("files")) {
         QJsonObject files = object.value("files").toObject();
         if (files.contains("mp4_240")) video->setMp4240(files.value("mp4_240").toString());
         if (files.contains("mp4_360")) video->setMp4360(files.value("mp4_360").toString());
         if (files.contains("mp4_480")) video->setMp4480(files.value("mp4_480").toString());
         if (files.contains("mp4_720")) video->setMp4720(files.value("mp4_720").toString());
-        if (files.contains("external")) video->setExternal(files.value("external").toString());
+        if (files.contains("external")) {
+            QString external_url = files.value("external").toString();
+            if (external_url.contains("watch")) {
+            QString external_id = external_url.right(external_url.length()-external_url.indexOf(QString("?v="))-3);
+            qDebug() << external_id << "\n";
+            QUrl urll("https://iteroni.com/api/v1/videos/"+external_id);
+            qDebug() << "QUrl: " << urll.toString() + "\n";
+            QNetworkRequest request(urll);
+            QNetworkAccessManager* _manager = new QNetworkAccessManager();
+           // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+            QNetworkReply *reply = _manager->get(request);
+            QEventLoop looppp;
+            QObject::connect(reply, SIGNAL(finished()) , &looppp, SLOT(quit()));
+            looppp.exec();
+             QByteArray dataaa = reply->readAll();
+             QString DataAsString     = QString::fromUtf8(dataaa);
+           //  qDebug() << DataAsString;
+             QJsonDocument jDoc = QJsonDocument::fromJson(dataaa);
+             QJsonObject jObj = jDoc.object();
+             if (DataAsString.contains("formatStreams")) {
+                 qDebug() << "contains formatStreams";
+                 QJsonArray videoformats = jObj.value("formatStreams").toArray();
+                 for (int i=0; i<videoformats.size(); i++) {
+                     qDebug() << QString::number(i);
+                     QJsonObject videoformati = videoformats.at(i).toObject();
+                     switch (((videoformati.value("itag").toString()).toInt())) {
+                     case 18: {
+                         qDebug() << "360";
+                         QString video360url = videoformati.value("url").toString();
+                         qDebug() << "video360url: ";
+                         video->setMp4360(video360url);
+                          qDebug() << videoformati.value("url").toString();
+                          break;
+                     }
+                     case 22: {
+                         qDebug() << "720";
+                          QString video720url = videoformati.value("url").toString();
+                          qDebug() << "video720url: ";
+                         video->setMp4720(video720url);
+                         qDebug() << video720url;
+                         break;
+                     }
+
+
+                     }
+                 }
+             } else {
+                 // video->setExternal(files.value("external").toString());
+             }
+            } else {
+                //video->setExternal(files.value("external").toString());
+            }
+            //video->setExternal(files.value("external").toString());
+        }
     }
     return video;
 }

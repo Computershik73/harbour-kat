@@ -24,7 +24,7 @@ import QtMultimedia 5.0
 import Sailfish.Silica 1.0
 
 Page {
-    anchors.fill: parent
+    //anchors.fill: parent
 
     property var ownerId
     property var videoId
@@ -38,7 +38,7 @@ Page {
     Video {
         id: videoView
         anchors.fill: parent
-        fillMode: VideoOutput.PreserveAspectFit
+        fillMode: VideoOutput.Stretch
         autoPlay: true
 
         MouseArea {
@@ -80,8 +80,20 @@ Page {
         id: videoProgressBar
         anchors.bottom: parent.bottom
         width: parent.width
-        value: videoView.position / 1000
+        value: videoView.position
         visible: false
+        MouseArea {
+            id: mouseareaa
+            anchors.fill: parent
+            onClicked: {
+
+                    videoView.seek(mouseareaa.mouseX * videoProgressBar.maximumValue / parent.width )
+                    isPlaying = true
+
+
+            }
+        }
+
     }
 
     Connections {
@@ -93,7 +105,7 @@ Page {
             } else {
                 placeholder.enabled = false
                 videoView.source = video.video
-                videoProgressBar.maximumValue = video.duration
+                videoProgressBar.maximumValue = video.duration * 1000
             }
         }
     }

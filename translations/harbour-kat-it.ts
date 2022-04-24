@@ -521,7 +521,7 @@
         <translation>Video in caricamento...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/VideoPlayerPage.qml" line="91"/>
+        <location filename="../qml/pages/VideoPlayerPage.qml" line="103"/>
         <source>The video is opened in a browser</source>
         <translation>Video aperto nel browser</translation>
     </message>

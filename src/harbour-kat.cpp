@@ -78,7 +78,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
         abort();
     }*/
 
-    QFile fileOut("/home/defaultuser/log.txt");
+    QFile fileOut("/home/nemo/log.txt");
         if(fileOut.open(QIODevice::Append | QIODevice::Text))
         {
             fileOut.write(localMsg);
@@ -90,9 +90,9 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 
 int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
-    application->setOrganizationName(QStringLiteral("org.osanwe"));
+    application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("kat"));
-      //  qInstallMessageHandler(myMessageOutput);
+       // qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QScopedPointer<FileSaver> fileSaver(new FileSaver(view.data()));
