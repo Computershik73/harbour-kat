@@ -70,7 +70,11 @@ Video *Video::fromJsonObject(QJsonObject object) {
         if (files.contains("mp4_240")) video->setMp4240(files.value("mp4_240").toString());
         if (files.contains("mp4_360")) video->setMp4360(files.value("mp4_360").toString());
         if (files.contains("mp4_480")) video->setMp4480(files.value("mp4_480").toString());
-        if (files.contains("mp4_720")) video->setMp4720(files.value("mp4_720").toString());
+        if (files.contains("mp4_720")) {
+            qDebug() << " containsnum ";
+            video->setMp4720(files.value("mp4_720").toString());
+        }
+
         if (files.contains("external")) {
             QString external_url = files.value("external").toString();
             if (external_url.contains("watch")) {
@@ -118,12 +122,12 @@ Video *Video::fromJsonObject(QJsonObject object) {
                      }
                  }
              } else {
-                 // video->setExternal(files.value("external").toString());
+                  video->setExternal(files.value("external").toString());
              }
             } else {
-                //video->setExternal(files.value("external").toString());
+                video->setExternal(files.value("external").toString());
             }
-            //video->setExternal(files.value("external").toString());
+            video->setExternal(files.value("external").toString());
         }
     }
     return video;

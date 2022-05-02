@@ -120,7 +120,7 @@ void Authorization::finished(QNetworkReply *reply) {
                      query.addQueryItem("v", "5.131");
                      urll.setQuery(query);
                      QNetworkRequest request(urll);
-                     request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+                     request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
 
                      QNetworkReply *reply = _manager->get(request);
                      char TASK_TYPE_K[] = "taskType";

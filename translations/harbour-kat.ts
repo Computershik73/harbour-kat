@@ -158,18 +158,18 @@
 <context>
     <name>DialogPage</name>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="85"/>
+        <location filename="../qml/pages/DialogPage.qml" line="86"/>
         <source>typing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="108"/>
         <location filename="../qml/pages/DialogPage.qml" line="109"/>
+        <location filename="../qml/pages/DialogPage.qml" line="110"/>
         <source>Your message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="187"/>
+        <location filename="../qml/pages/DialogPage.qml" line="188"/>
         <source>Photo</source>
         <translation type="unfinished"></translation>
     </message>
@@ -249,10 +249,33 @@
     </message>
 </context>
 <context>
+    <name>ImageViewPage</name>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="45"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="46"/>
+        <source>Like</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="47"/>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="48"/>
+        <source>Copy link</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LoginPage</name>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="36"/>
-        <source>Email:</source>
+        <source>Email/Phone:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -285,32 +308,32 @@
     </message>
     <message>
         <location filename="../qml/pages/MainMenuPage.qml" line="30"/>
-        <source>News</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="31"/>
         <source>Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="32"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="31"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="33"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="32"/>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="95"/>
-        <source>About</source>
+        <location filename="../qml/pages/MainMenuPage.qml" line="33"/>
+        <source>Photos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="100"/>
-        <source>Logout</source>
+        <location filename="../qml/pages/MainMenuPage.qml" line="34"/>
+        <source>Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainMenuPage.qml" line="99"/>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -330,7 +353,12 @@
 <context>
     <name>NewsfeedPage</name>
     <message>
-        <location filename="../qml/pages/NewsfeedPage.qml" line="43"/>
+        <location filename="../qml/pages/NewsfeedPage.qml" line="42"/>
+        <source>Refresh newsfeed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewsfeedPage.qml" line="55"/>
         <source>Newsfeed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -453,17 +481,22 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="15"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="23"/>
+        <source>Logout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="34"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="21"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="40"/>
         <source>Be offline if possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="22"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="41"/>
         <source>Your status will be online only if you publish something on the wall or in the group.</source>
         <translation type="unfinished"></translation>
     </message>

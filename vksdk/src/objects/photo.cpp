@@ -41,41 +41,98 @@ Photo *Photo::fromJsonObject(QJsonObject object) {
     for (int i=0; i<photosizes.size(); i++) {
         QJsonObject photosizei = photosizes.at(i).toObject();
         switch (photosizei.value("height").toInt()) {
-            case 75: {
-                photo->setPhoto75(photosizei.value("url").toString());
-                break;
-            }
-            case 130: {
-                photo->setPhoto130(photosizei.value("url").toString());
-                break;
-            }
-            case 604: {
-                photo->setPhoto604(photosizei.value("url").toString());
-                break;
-            }
-            case 807: {
-                photo->setPhoto807(photosizei.value("url").toString());
-                break;
-            }
-            case 961: {
-                photo->setPhoto1280(photosizei.value("url").toString());
-                break;
-            }
-            case 1080: {
-                photo->setPhoto1280(photosizei.value("url").toString());
-                break;
-            }
-            case 1280: {
-                photo->setPhoto1280(photosizei.value("url").toString());
-                break;
-            }
-            case 2560: {
+        case 58: {
+            photo->setPhoto75(photosizei.value("url").toString());
+            break;
+        }
+        case 75: {
+            photo->setPhoto75(photosizei.value("url").toString());
+            break;
+        }
+        case 92: {
+            photo->setPhoto75(photosizei.value("url").toString());
+            break;
+        }
+        case 100: {
+            photo->setPhoto130(photosizei.value("url").toString());
+            break;
+        }
+        case 130: {
+            photo->setPhoto130(photosizei.value("url").toString());
+            break;
+        }
+        case 141: {
+            photo->setPhoto130(photosizei.value("url").toString());
+            break;
+        }
+        case 154: {
+            photo->setPhoto130(photosizei.value("url").toString());
+            break;
+        }
+        case 246: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 361: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 392: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 427: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 464: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 604: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 571: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 620: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
+        case 800: {
+            photo->setPhoto807(photosizei.value("url").toString());
+            break;
+        }
+        case 807: {
+            photo->setPhoto807(photosizei.value("url").toString());
+            break;
+        }
+        case 961: {
+            photo->setPhoto1280(photosizei.value("url").toString());
+            break;
+        }
+        case 984: {
+            photo->setPhoto1280(photosizei.value("url").toString());
+            break;
+        }
+        case 1080: {
+            photo->setPhoto1280(photosizei.value("url").toString());
+            break;
+        }
+        case 1280: {
+            photo->setPhoto1280(photosizei.value("url").toString());
+            break;
+        }
+        case 2560: {
             photo->setPhoto2560(photosizei.value("url").toString());
             break;
-            }
-            default: {
-                break;
-            }
+        }
+        default: {
+            photo->setPhoto604(photosizei.value("url").toString());
+            break;
+        }
 
         }
     }

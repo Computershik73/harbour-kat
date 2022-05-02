@@ -35,6 +35,18 @@ Page {
     }
 
     SilicaListView {
+
+        PullDownMenu {
+
+            MenuItem {
+                text: qsTr("Refresh newsfeed")
+                onClicked: {
+                vksdk.newsfeedModel.clear()
+                vksdk.newsfeed.get()
+                }
+            }
+        }
+
         id: newsfeed
         anchors.fill: parent
         model: vksdk.newsfeedModel
@@ -57,11 +69,14 @@ Page {
         VerticalScrollDecorator {}
     }
 
-    onStatusChanged: if (status === PageStatus.Active) pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
+    onStatusChanged: if (status === PageStatus.Active) pageStack.pushAttached(Qt.resolvedUrl("DialogsListPage.qml"))
 
     Component.onCompleted: {
+        //vksdk.newsfeedModel.clear()
+        if  (vksdk.newsfeedModel.size<=0) {
         vksdk.newsfeedModel.clear()
         vksdk.newsfeed.get()
+        }
     }
 }
 

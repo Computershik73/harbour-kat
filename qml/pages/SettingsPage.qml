@@ -3,9 +3,28 @@ import Sailfish.Silica 1.0
 
 Page {
 
+    /**
+     * The function removes access token and user id from the config file.
+     */
+    function logout() {
+        settings.removeAccessToken()
+        settings.removeUserId()
+        pageContainer.replace(Qt.resolvedUrl("LoginPage.qml"))
+    }
+
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: content.height
+
+       PullDownMenu {
+
+        MenuItem {
+            text: qsTr("Logout")
+            onClicked: logout()
+        }
+
+         }
 
         Column {
             id: content

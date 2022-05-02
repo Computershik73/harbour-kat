@@ -27,10 +27,15 @@ Page {
 
     property var menuItems: [
         { itemText: qsTr("My profile"), counter: 0 },
-        { itemText: qsTr("News"),       counter: 0 },
         { itemText: qsTr("Messages"),   counter: 0 },
         { itemText: qsTr("Friends"),   counter: 0 },
         { itemText: qsTr("Groups"),   counter: 0 },
+        { itemText: qsTr("Photos"),   counter: 0 },
+        { itemText: qsTr("Music"),   counter: 0 },
+
+
+
+
     ]
 
     /**
@@ -47,41 +52,40 @@ Page {
 
     }
 
-    /**
-     * The function removes access token and user id from the config file.
-     */
-    function logout() {
-        settings.removeAccessToken()
-        settings.removeUserId()
-        pageContainer.replace(Qt.resolvedUrl("LoginPage.qml"))
-    }
+
 
     function openSubPage(menuItemIndex) {
         switch (menuItemIndex) {
         case 0: // Self profile page
             pageContainer.push(Qt.resolvedUrl("ProfilePage.qml"), { profileId: settings.userId() })
             break
-        case 1: // Newsfeed page
-            pageContainer.push(Qt.resolvedUrl("NewsfeedPage.qml"))
-            break
-        case 2: // Dialogs page
+            // case 1: // Newsfeed page
+            //     pageContainer.push(Qt.resolvedUrl("NewsfeedPage.qml"))
+            //     break
+        case 1: // Dialogs page
             pageContainer.push(Qt.resolvedUrl("DialogsListPage.qml"))
             break
-        case 3: // Friends page
+        case 2: // Friends page
             pageContainer.push(Qt.resolvedUrl("FriendsListPage.qml"), { userId: settings.userId(),
-                                                                        type:   1 })
+                                   type:   1 })
             break
-        case 4: // Groups page
+        case 3: // Groups page
             pageContainer.push(Qt.resolvedUrl("GroupsListPage.qml"), { userId: settings.userId() })
+            break
+        case 4: // Photos page
+            pageContainer.push(Qt.resolvedUrl("PhotoAlbumPage.qml"), { ownerId: settings.userId() })
+            break
+        case 5: //Music page
+            pageContainer.push(Qt.resolvedUrl("AudioPlayerPage.qml"))
             break
         }
     }
 
     BusyIndicator {
-       id: busyIndicator
-       anchors.centerIn: parent
-       size: BusyIndicatorSize.Large
-       running: false
+        id: busyIndicator
+        anchors.centerIn: parent
+        size: BusyIndicatorSize.Large
+        running: false
     }
 
     SilicaListView {
@@ -96,10 +100,6 @@ Page {
                 onClicked: pageContainer.push(Qt.resolvedUrl("AboutPage.qml"))
             }
 
-            MenuItem {
-                text: qsTr("Logout")
-                onClicked: logout()
-            }
 
             MenuItem {
                 text: qsTr("Settings")
@@ -176,13 +176,13 @@ Page {
     }
 
     onStatusChanged: if (status === PageStatus.Active) {
-                         pageStack.pushAttached(Qt.resolvedUrl("AudioPlayerPage.qml"))
-                         vksdk.dialogsListModel.clear()
-//                         vksdk.friendsListModel.clear()
-                         vksdk.groupsListModel.clear()
-                         vksdk.messagesModel.clear()
-                         vksdk.newsfeedModel.clear()
-                         vksdk.wallModel.clear()
+                         pageStack.pushAttached(Qt.resolvedUrl("NewsfeedPage.qml"))
+                         // vksdk.dialogsListModel.clear()
+                         // vksdk.friendsListModel.clear()
+                         // vksdk.groupsListModel.clear()
+                         //vksdk.messagesModel.clear()
+                         // vksdk.newsfeedModel.clear()
+                         // vksdk.wallModel.clear()
                      }
 
     Component.onCompleted: {

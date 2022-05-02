@@ -31,7 +31,7 @@
 #include <QtGlobal>
 
 #include <stdio.h>
- #include <stdlib.h>
+#include <stdlib.h>
 #include </home/okabe2011/SailfishOS/mersdk/targets/SailfishOS-3.4.0.24-armv7hl.default/usr/include/sailfishapp/sailfishapp.h>
 
 #include "filesaver.h"
@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("kat"));
-       // qInstallMessageHandler(myMessageOutput);
+        qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QScopedPointer<FileSaver> fileSaver(new FileSaver(view.data()));

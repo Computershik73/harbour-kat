@@ -129,6 +129,8 @@ public:
     NewsfeedModel* wallModel() const;
     PhotosModel* photosModel() const;
 
+    bool isNewsfeedEmpty();
+
     Q_INVOKABLE void attachPhotoToMessage(QString path);
 
 //    User* selfProfile() const;

@@ -264,6 +264,10 @@ NewsfeedModel* VkSDK::newsfeedModel() const {
     return _newsfeedModel;
 }
 
+bool VkSDK::isNewsfeedEmpty() {
+    return _newsfeedModel->size()<=0;
+}
+
 NewsfeedModel *VkSDK::wallModel() const {
     return _wallModel;
 }

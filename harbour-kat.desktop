@@ -7,6 +7,6 @@ Name=Kat
 
 
 [X-Sailjail]
-Permissions=Internet;Pictures;Camera;Location;Bluetooth;Audio;Microphone;PublicDir;RemovableMedia;WebView;
-OrganizationName=org.osanwe
+Permissions=Audio;Bluetooth;Documents;Downloads;Internet;Location;MediaIndexing;Microphone;Music;Pictures;PublicDir;RemovableMedia;UserDirs;Videos
+OrganizationName=org.ilyavysotsky
 ApplicationName=kat

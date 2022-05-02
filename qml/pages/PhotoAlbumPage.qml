@@ -75,18 +75,23 @@ Page {
                 anchors.fill: parent
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("../pages/ImageViewPage.qml"), { current: index,
-                                                                                   fromAlbum: true })
+                                       fromAlbum: true })
                 }
             }
         }
 
         PushUpMenu {
-            visible: vksdk.photosModel.size !== vksdk.photosModel.count
+            visible: true
 
             MenuItem {
                 text: qsTr("Load more")
-                onClicked: if (album === 0) vksdk.photos.getAll(ownerId, vksdk.photosModel.size)
-                           else vksdk.photos.get(ownerId, album, vksdk.photosModel.size)
+                onClicked: {
+                    if (album === 0) vksdk.photos.getAll(ownerId, vksdk.photosModel.size)
+                    else vksdk.photos.get(ownerId, album, vksdk.photosModel.size)
+                    //if (vksdk.photosModel.size !== vksdk.photosModel.count) {
+                     //   visible = false
+                    //}
+                }
             }
         }
 

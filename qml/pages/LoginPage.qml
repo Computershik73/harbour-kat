@@ -33,7 +33,7 @@ Page {
 
     Label {
         id: label1
-        text: qsTr("Email:")
+        text: qsTr("Email/Phone:")
         color: Theme.primaryColor
     }
 

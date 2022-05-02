@@ -35,17 +35,17 @@ Page {
         id: drawer
         anchors.fill: parent
 
-        open: true
+        open: false
 
         background: SilicaListView {
             anchors.fill: parent
 
             model: ListModel {
 
-                ListElement { title: "Save" }
-                ListElement { title: "Like" }
-                ListElement { title: "Share" }
-                ListElement { title: "Copy link" }
+                ListElement { title: qsTr("Save") }
+                ListElement { title: qsTr("Like") }
+                ListElement { title: qsTr("Share") }
+                ListElement { title: qsTr("Copy link") }
             }
 
             header: PageHeader {

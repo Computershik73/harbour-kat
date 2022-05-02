@@ -69,6 +69,7 @@ void Photos::get(QString ownerId, QString albumId, int offset) {
     query.addQueryItem("owner_id", ownerId);
     query.addQueryItem("album_id", albumId);
     query.addQueryItem("count", "21");
+    query.addQueryItem("rev", "1");
     if (offset != 0) query.addQueryItem("offset", QString::number(offset));
     _api->makeApiGetRequest("photos.get", query, ApiRequest::PHOTOS_GET );
 }

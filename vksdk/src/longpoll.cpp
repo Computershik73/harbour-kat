@@ -41,7 +41,7 @@ void LongPoll::getLongPollServer() {
     query.addQueryItem("v", "5.93");
     url.setQuery(query);
     QNetworkRequest request(url);
-    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+    request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
 
     _manager->get(request);
 }
@@ -81,11 +81,11 @@ void LongPoll::doLongPollRequest() {
     query.addQueryItem("act", "a_check");
     query.addQueryItem("key", _key);
     query.addQueryItem("ts", QString("%1").arg(_ts));
-    query.addQueryItem("wait", "25");
+    query.addQueryItem("wait", "125");
     query.addQueryItem("mode", "10");
     url.setQuery(query);
     QNetworkRequest request(url);
-    request.setRawHeader("User-Agent", "com.vk.vkclient/12 (unknown, iPhone OS 9.3.5, iPhone, Scale/2.000000)");
+    request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
 
 
     _manager->get(request);

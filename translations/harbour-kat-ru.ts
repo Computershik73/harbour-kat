@@ -77,37 +77,37 @@
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="133"/>
         <source>Single</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет пары</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="136"/>
         <source>In a relationship</source>
-        <translation type="unfinished"></translation>
+        <translation>Встречается</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="139"/>
         <source>Engaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Помовлен(а)</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="142"/>
         <source>Married</source>
-        <translation type="unfinished"></translation>
+        <translation>В браке</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="145"/>
         <source>It&apos;s complicated</source>
-        <translation type="unfinished"></translation>
+        <translation>Всё сложно</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="148"/>
         <source>Actively searching</source>
-        <translation type="unfinished"></translation>
+        <translation>В активном поиске</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="151"/>
         <source>In love</source>
-        <translation type="unfinished"></translation>
+        <translation>Влюблен(а)</translation>
     </message>
     <message>
         <location filename="../qml/views/CollapsedView.qml" line="206"/>
@@ -158,18 +158,18 @@
 <context>
     <name>DialogPage</name>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="85"/>
+        <location filename="../qml/pages/DialogPage.qml" line="86"/>
         <source>typing...</source>
         <translation>набирает...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="108"/>
         <location filename="../qml/pages/DialogPage.qml" line="109"/>
+        <location filename="../qml/pages/DialogPage.qml" line="110"/>
         <source>Your message</source>
         <translation>Ваше сообщение</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="187"/>
+        <location filename="../qml/pages/DialogPage.qml" line="188"/>
         <source>Photo</source>
         <translation>Фотография</translation>
     </message>
@@ -249,11 +249,34 @@
     </message>
 </context>
 <context>
+    <name>ImageViewPage</name>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="46"/>
+        <source>Like</source>
+        <translation>Мне нравится</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="47"/>
+        <source>Share</source>
+        <translation>Поделиться</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="45"/>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="48"/>
+        <source>Copy link</source>
+        <translation>Копировать ссылку</translation>
+    </message>
+</context>
+<context>
     <name>LoginPage</name>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="36"/>
-        <source>Email:</source>
-        <translation>Email или номер телефона:</translation>
+        <source>Email/Phone:</source>
+        <translation>Email/Телефон</translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="52"/>
@@ -263,17 +286,17 @@
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="70"/>
         <source>Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Код</translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="90"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Войти</translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="107"/>
         <source>Logged to vk.com with Kat</source>
-        <translation type="unfinished"></translation>
+        <translation>Вошёл в ВК через Кат</translation>
     </message>
 </context>
 <context>
@@ -285,33 +308,33 @@
     </message>
     <message>
         <location filename="../qml/pages/MainMenuPage.qml" line="30"/>
-        <source>News</source>
-        <translation>Новости</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="31"/>
         <source>Messages</source>
         <translation>Сообщения</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="32"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="31"/>
         <source>Friends</source>
         <translation>Друзья</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="33"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="32"/>
         <source>Groups</source>
         <translation>Сообщества</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="95"/>
-        <source>About</source>
-        <translation>О программе</translation>
+        <location filename="../qml/pages/MainMenuPage.qml" line="33"/>
+        <source>Photos</source>
+        <translation>Фотографии</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="100"/>
-        <source>Logout</source>
-        <translation>Выйти</translation>
+        <location filename="../qml/pages/MainMenuPage.qml" line="34"/>
+        <source>Music</source>
+        <translation>Музыка</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainMenuPage.qml" line="99"/>
+        <source>About</source>
+        <translation>О программе</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainMenuPage.qml" line="105"/>
@@ -330,7 +353,12 @@
 <context>
     <name>NewsfeedPage</name>
     <message>
-        <location filename="../qml/pages/NewsfeedPage.qml" line="43"/>
+        <location filename="../qml/pages/NewsfeedPage.qml" line="42"/>
+        <source>Refresh newsfeed</source>
+        <translation>Обновить</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewsfeedPage.qml" line="55"/>
         <source>Newsfeed</source>
         <translation>Новости</translation>
     </message>
@@ -453,17 +481,22 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="15"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="23"/>
+        <source>Logout</source>
+        <translation>Выйти</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="34"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="21"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="40"/>
         <source>Be offline if possible</source>
         <translation>По возможности быть offline</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="22"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="41"/>
         <source>Your status will be online only if you publish something on the wall or in the group.</source>
         <translation>Вы будете offline пока не опубликуете что-нибудь на стене или в группе.</translation>
     </message>
