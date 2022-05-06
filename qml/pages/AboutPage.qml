@@ -106,6 +106,7 @@ Page {
                 text: qsTr("Localization") + ":<br>" +
                       qsTr("Italian") + ": <a href=\"https://github.com/fravaccaro\">Fra</a><br>" +
                       qsTr("Dutch") + ": <a href=\"https://github.com/richdb\">Richard</a><br>"
+                      qsTr("Azerbaijani") + ": <a href=\"https://github.com/khazarli\">Khazarli</a><br>"
             }
         }
 
