@@ -44,6 +44,11 @@
         <translation>Hollandca</translation>
     </message>
     <message>
+        <location filename="../qml/pages/AboutPage.qml" line="109"/>
+        <source>Azerbaijani</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AboutPage.qml" line="81"/>
         <source>Donate</source>
         <translation>İanə</translation>
@@ -57,9 +62,14 @@
         <translation>Musiqi axtarışı...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AudioPlayerPage.qml" line="58"/>
+        <location filename="../qml/pages/AudioPlayerPage.qml" line="69"/>
         <source>My audios</source>
         <translation>Musiqim</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioPlayerPage.qml" line="76"/>
+        <source>Recommendations</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -153,18 +163,18 @@
 <context>
     <name>DialogPage</name>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="85"/>
+        <location filename="../qml/pages/DialogPage.qml" line="86"/>
         <source>typing...</source>
         <translation>yazır...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="108"/>
         <location filename="../qml/pages/DialogPage.qml" line="109"/>
+        <location filename="../qml/pages/DialogPage.qml" line="110"/>
         <source>Your message</source>
         <translation>Sizin mesajıvız</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="187"/>
+        <location filename="../qml/pages/DialogPage.qml" line="188"/>
         <source>Photo</source>
         <translation>Şəkil</translation>
     </message>
@@ -244,11 +254,34 @@
     </message>
 </context>
 <context>
+    <name>ImageViewPage</name>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="45"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="46"/>
+        <source>Like</source>
+        <translation type="unfinished">Bəyəndim</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="47"/>
+        <source>Share</source>
+        <translation type="unfinished">Paylaş</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImageViewPage.qml" line="48"/>
+        <source>Copy link</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LoginPage</name>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="36"/>
-        <source>Email:</source>
-        <translation>Email və ya telefon nömrəsi:</translation>
+        <source>Email/Phone:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="52"/>
@@ -280,36 +313,36 @@
     </message>
     <message>
         <location filename="../qml/pages/MainMenuPage.qml" line="30"/>
-        <source>News</source>
-        <translation>Xəbərlər</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="31"/>
         <source>Messages</source>
         <translation>Söhbətlər</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="32"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="31"/>
         <source>Friends</source>
         <translation>Dostlar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="33"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="32"/>
         <source>Groups</source>
         <translation>Cəmiyyətlər</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="94"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="33"/>
+        <source>Photos</source>
+        <translation type="unfinished">Şəkillər</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainMenuPage.qml" line="34"/>
+        <source>Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainMenuPage.qml" line="99"/>
         <source>About</source>
         <translation>Haqqında</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="99"/>
-        <source>Logout</source>
-        <translation>Çıx</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="104"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="105"/>
         <source>Settings</source>
         <translation>Seçimlər</translation>
     </message>
@@ -325,7 +358,12 @@
 <context>
     <name>NewsfeedPage</name>
     <message>
-        <location filename="../qml/pages/NewsfeedPage.qml" line="43"/>
+        <location filename="../qml/pages/NewsfeedPage.qml" line="42"/>
+        <source>Refresh newsfeed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewsfeedPage.qml" line="55"/>
         <source>Newsfeed</source>
         <translation>Xəbərlər</translation>
     </message>
@@ -448,17 +486,22 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="15"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="23"/>
+        <source>Logout</source>
+        <translation type="unfinished">Çıx</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="34"/>
         <source>Settings</source>
         <translation>Seçimlər</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="21"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="40"/>
         <source>Be offline if possible</source>
         <translation>Mümkündürsə offline ol</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="22"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="41"/>
         <source>Your status will be online only if you publish something on the wall or in the group.</source>
         <translation>Divarda və ya qrupda nəsə yazana qədər offline olacaqsınız.</translation>
     </message>
@@ -516,7 +559,7 @@
         <translation>Video yüklənir...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/VideoPlayerPage.qml" line="91"/>
+        <location filename="../qml/pages/VideoPlayerPage.qml" line="103"/>
         <source>The video is opened in a browser</source>
         <translation>Video brauzerdə açıldı...</translation>
     </message>

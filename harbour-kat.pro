@@ -53,7 +53,8 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += \
     translations/harbour-kat-ru.ts \
     translations/harbour-kat-it.ts \
-    translations/harbour-kat-nl.ts
+    translations/harbour-kat-nl.ts \
+    translations/harbour-kat-az.ts
 
 DISTFILES += \
     qml/pages/MainMenuPage.qml \

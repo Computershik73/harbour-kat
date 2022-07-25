@@ -53,13 +53,13 @@ Page {
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: "v0.5.3"
+                text: "v0.6.0"
             }
 
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: "© 2015-2017 Petr Vytovtov\nPatched in 2022 by Ilya Vysotsky"
+                text: "© 2015-2017 Petr Vytovtov\nPatched to work again in 2022 by Ilya Vysotsky"
             }
 
             Label {
@@ -72,21 +72,21 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Theme.buttonWidthMedium
                 text: qsTr("Homepage")
-                onClicked: Qt.openUrlExternally("https://vk.com/kat_sailfishos")
+                onClicked: Qt.openUrlExternally("https://vk.com/mobilevika")
             }
 
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Theme.buttonWidthMedium
                 text: qsTr("Donate")
-                onClicked: Qt.openUrlExternally("https://money.yandex.ru/to/410013326290845")
+                onClicked: Qt.openUrlExternally("https://www.tinkoff.ru/cf/pzrIBCMfpu")
             }
 
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Theme.buttonWidthMedium
                 text: qsTr("Source code")
-                onClicked: Qt.openUrlExternally("https://github.com/osanwe/Kat")
+                onClicked: Qt.openUrlExternally("https://github.com/Computershik73/harbour-kat")
             }
 
             Label {
@@ -105,7 +105,7 @@ Page {
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: qsTr("Localization") + ":<br>" +
                       qsTr("Italian") + ": <a href=\"https://github.com/fravaccaro\">Fra</a><br>" +
-                      qsTr("Dutch") + ": <a href=\"https://github.com/richdb\">Richard</a><br>"
+                      qsTr("Dutch") + ": <a href=\"https://github.com/richdb\">Richard</a><br>" +
                       qsTr("Azerbaijani") + ": <a href=\"https://github.com/khazarli\">Khazarli</a><br>"
             }
         }
