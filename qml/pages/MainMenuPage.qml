@@ -24,7 +24,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id: mainMenuPage
-
+   
     property var menuItems: [
         { itemText: qsTr("My profile"), counter: 0 },
         { itemText: qsTr("Messages"),   counter: 0 },
@@ -32,10 +32,6 @@ Page {
         { itemText: qsTr("Groups"),   counter: 0 },
         { itemText: qsTr("Photos"),   counter: 0 },
         { itemText: qsTr("Music"),   counter: 0 },
-
-
-
-
     ]
 
     /**
@@ -141,7 +137,7 @@ Page {
 
     Connections {
         target: vksdk.longPoll
-        onUnreadDialogsCounterUpdated: menuList.model.setProperty(2, "counter", value)
+        onUnreadDialogsCounterUpdated: menuList.model.setProperty(1, "counter", value)
     }
 
     Connections {
@@ -153,7 +149,7 @@ Page {
             }
         }
         onGotUnreadCounter: {
-            menuList.model.setProperty(2, "counter", value)
+            menuList.model.setProperty(1, "counter", value)
         }
         onGotUserAudios: {
 
