@@ -150,7 +150,7 @@ Page {
 
     Connections {
         target: vksdk.longPoll
-        onUnreadDialogsCounterUpdated: menuList.model.setProperty(Category.Messages, "counter", value)
+        onUnreadDialogsCounterUpdated: menuList.model.setProperty(Page.Category.Messages, "counter", value)
     }
 
     Connections {
@@ -162,7 +162,7 @@ Page {
             }
         }
         onGotUnreadCounter: {
-            menuList.model.setProperty(Category.Messages, "counter", value)
+            menuList.model.setProperty(Page.Category.Messages, "counter", value)
         }
         onGotUserAudios: {
 
