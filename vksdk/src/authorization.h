@@ -43,9 +43,11 @@ public:
 
     QString authUrl();
 
-    Q_INVOKABLE void tryToGetAccessToken(QString namepass, QString code);
+    Q_INVOKABLE void tryToGetAccessToken(QString namepass, QString code, QString captcha, QString captcha_sid);
 
     Q_INVOKABLE bool codeisrequired;
+
+    Q_INVOKABLE void sendAnswer(QString url);
 QNetworkAccessManager* _manager;
 public slots:
     void finished(QNetworkReply *reply);
@@ -53,7 +55,8 @@ signals:
     void authorized(QString accessToken, int userId);
     void error(QString errorCode, QString errorMessage);
 
-   void coderequired();
+    void coderequired(QString redirectUri);
+    void captcharequired(QString imgUrl, QString capthcaSid);
 };
 
 #endif // AUTHORIZATION_H

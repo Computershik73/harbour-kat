@@ -62,7 +62,7 @@ QString Authorization::authUrl() {
  *        or error code and error message.
  * @param url - URL for checking.
  */
-void Authorization::tryToGetAccessToken(QString namepass, QString code) {
+void Authorization::tryToGetAccessToken(QString namepass, QString code, QString captcha, QString captcha_sid) {
     QStringList w=namepass.split(" ", QString::SkipEmptyParts);
     QUrl urll("https://oauth.vk.com/token");
     QUrlQuery query;
@@ -78,14 +78,19 @@ void Authorization::tryToGetAccessToken(QString namepass, QString code) {
     query.addQueryItem("password", w.at(1));
     query.addQueryItem("2fa_supported", "1");
     query.addQueryItem("force_sms", "1");
-    query.addQueryItem("device_id", "8DB2CDDB-0D89-4262-A91F-3A945DD63BF5");
-    query.addQueryItem("external_device_id", "8DB2CDDB-0D89-4262-A91F-3A945DD63BF5");
+//    query.addQueryItem("device_id", "8DB2CDDB-0D89-4262-A91F-3A945DD63BF5");
+//    query.addQueryItem("external_device_id", "8DB2CDDB-0D89-4262-A91F-3A945DD63BF5");
 
     if (code!="") {
        query.addQueryItem("code", code);
     }
+    if (captcha!="") {
+        query.addQueryItem("captcha_sid", captcha_sid);
+        query.addQueryItem("captcha_key", captcha);
+    }
     query.addQueryItem("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline");
     query.addQueryItem("v", "5.153");
+//    query.addQueryItem("v", "5.153");
     urll.setQuery(query);
     QNetworkRequest request(urll);
     request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
@@ -99,6 +104,15 @@ void Authorization::tryToGetAccessToken(QString namepass, QString code) {
 
 }
 
+void Authorization::sendAnswer(QString url)
+{
+    auto parts = url.split('#')[1];
+    auto arr = parts.split("&");
+    auto accessToken = arr[1].split("=")[1];
+    auto userId = arr[2].split("=")[1];
+    emit authorized(accessToken, userId.toInt());
+}
+
 void Authorization::finished(QNetworkReply *reply) {
 
         QJsonDocument jDoc = QJsonDocument::fromJson(reply->readAll());
@@ -109,36 +123,39 @@ void Authorization::finished(QNetworkReply *reply) {
 
 
             emit authorized(jObj.value("access_token").toString(), jObj.value("user_id").toInt());
-        } else {
-             if (strFromObj.contains("2fa")) {
 
-                     QString validation_sid = jObj.value("validation_sid").toString();
-                     QUrl urll("https://api.vk.com/method/auth.validatePhone");
-                     QUrlQuery query;
+         } else {
+//             strFromObj.contains("2fa")
+                     emit captcharequired(jObj.value("error").toString(),jObj.value("1").toString());
+                     if (jObj.value("error").toString() == "need_validation") {
 
-                     query.addQueryItem("sid", validation_sid);
-                     query.addQueryItem("v", "5.131");
-                     urll.setQuery(query);
-                     QNetworkRequest request(urll);
-                     request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
+//                             QString validation_sid = jObj.value("validation_sid").toString();
+//                             QUrl urll("https://api.vk.com/method/auth.validatePhone");
+//                             QUrlQuery query;
 
-                     QNetworkReply *reply = _manager->get(request);
-                     char TASK_TYPE_K[] = "taskType";
-                     reply->setProperty(TASK_TYPE_K, 0);
+//                             query.addQueryItem("sid", validation_sid);
+//                             query.addQueryItem("v", "5.131");
+//                             urll.setQuery(query);
+//                             QNetworkRequest request(urll);
+//                             request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
 
+//                             QNetworkReply *reply = _manager->get(request);
+//                             char TASK_TYPE_K[] = "taskType";
+//                             reply->setProperty(TASK_TYPE_K, 0);
 
+                            emit coderequired(jObj.value("redirect_uri").toString());
 
-                emit coderequired();
+                     } else if (strFromObj.contains("captcha")) {
+                            emit captcharequired(jObj.value("captcha_img").toString(),jObj.value("captcha_sid").toString());
 
-
-        } else {
-                 if (strFromObj.contains("invalid")) {
-                 qDebug() << "VK said: " << strFromObj;
-                emit error(QString("Капча или неверный пароль"),QString("Капча или неверный пароль"));
-                 }
-             }
-    }
+                     } else if (jObj.value("error").toString() == "need_captcha"){
+                             if (strFromObj.contains("invalid")) {
+                                qDebug() << "VK said: " << strFromObj;
+//                                emit error(QString("Капча или неверный пароль"),QString("Капча или неверный пароль"));
+                             }
+                     }
+         }
     reply->deleteLater();
 }
 
-
+// https://oauth.vk.com/blank.html#success=1&access_token=xxx&user_id=111

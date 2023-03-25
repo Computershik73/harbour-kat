@@ -25,6 +25,10 @@ import Nemo.Notifications 1.0
 
 Page {
     id: loginPage
+    property string capthca_sid: "" ;
+    property string captcha_img: "" ;
+    property string redirect_uri: "" ;
+    property string answer_back: "";
 
     Notification {
         id: loginNotification
@@ -82,14 +86,37 @@ Page {
         text: ""
     }
 
+    Label {
+        id: label4
+        anchors.top: textField3.bottom
+//        text: captcha_img
+        Image {
+            id: name
+            fillMode: Image.PreserveAspectFit
+            source: captcha_img
+        }
+        visible: false
+        color: Theme.primaryColor
+    }
+
+    TextField {
+        id: textField4
+        width: parent.width
+        anchors.top: label4.bottom
+        color: Theme.primaryColor
+        visible: false
+        EnterKey.enabled: false
+        text: ""
+    }
+
     Button {
         id: enterButton
-        anchors.top: textField3.bottom
+        anchors.top: textField4.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         text: qsTr("Login")
         onClicked: {
-            vksdk.auth.tryToGetAccessToken(textField1.text+ " "+ textField2.text, textField3.text)
+            vksdk.auth.tryToGetAccessToken(textField1.text+ " "+ textField2.text, textField3.text, textField4.text, capthca_sid)
             //textField1.text = ""
             //textField2.text = ""
             //enterButton.enabled = false
@@ -115,8 +142,15 @@ Page {
         }
 
         onCoderequired: {
-           label3.visible = true;
-           textField3.visible = true
+            redirect_uri = redirectUri;
+            var dialog = pageStack.push("AuthTwoFactor.qml", {"redirect_uri": redirect_uri})
+        }
+
+        onCaptcharequired: {
+           label4.visible = true;
+           textField4.visible = true;
+           capthca_sid = capthcaSid;
+           captcha_img = imgUrl;
         }
     }
 }

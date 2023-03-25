@@ -284,27 +284,27 @@
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="36"/>
+        <location filename="../qml/pages/LoginPage.qml" line="40"/>
         <source>Email/Phone:</source>
         <translation>Email/Телефон</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="52"/>
+        <location filename="../qml/pages/LoginPage.qml" line="56"/>
         <source>Password:</source>
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="70"/>
+        <location filename="../qml/pages/LoginPage.qml" line="74"/>
         <source>Code:</source>
         <translation>Код</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="90"/>
+        <location filename="../qml/pages/LoginPage.qml" line="117"/>
         <source>Login</source>
         <translation>Войти</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="107"/>
+        <location filename="../qml/pages/LoginPage.qml" line="134"/>
         <source>Logged to vk.com with Kat</source>
         <translation>Вошёл в ВК через Кат</translation>
     </message>
