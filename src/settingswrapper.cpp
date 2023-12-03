@@ -23,7 +23,7 @@
 
 SettingsWrapper::SettingsWrapper(QObject *parent) : QObject(parent) {
     _settings = new QSettings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                              "/ru.ilyavysotsky/aurora-kat/aurora-kat.conf", QSettings::NativeFormat);
+                              "/org.ilyavysotsky/kat/harbour-kat.conf", QSettings::NativeFormat);
 }
 
 SettingsWrapper::~SettingsWrapper() {

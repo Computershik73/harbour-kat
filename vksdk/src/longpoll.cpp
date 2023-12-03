@@ -47,31 +47,29 @@ void LongPoll::getLongPollServer() {
 }
 
 void LongPoll::finished(QNetworkReply *reply) {
-   if (reply->error() == QNetworkReply::NetworkError::NoError) {
-        QJsonDocument jDoc = QJsonDocument::fromJson(reply->readAll());
-        if (_server.isNull() || _server.isEmpty()) {
-            QJsonObject jObj = jDoc.object().value("response").toObject();
-            _server = jObj.value("server").toString();
-            _key = jObj.value("key").toString();
-            _ts = jObj.value("ts").toInt();
-            doLongPollRequest();
-        } else {
-            QJsonObject jObj = jDoc.object();
-            if (jObj.contains("failed")) {
-                if (jObj.value("failed").toInt() == 1) {
-                    _ts = jObj.value("ts").toInt();
-                    doLongPollRequest();
-                } else {
-                    _server.clear();
-                    _key.clear();
-                    _ts = 0;
-                    getLongPollServer();
-                }
-            } else {
+    QJsonDocument jDoc = QJsonDocument::fromJson(reply->readAll());
+    if (_server.isNull() || _server.isEmpty()) {
+        QJsonObject jObj = jDoc.object().value("response").toObject();
+        _server = jObj.value("server").toString();
+        _key = jObj.value("key").toString();
+        _ts = jObj.value("ts").toInt();
+        doLongPollRequest();
+    } else {
+        QJsonObject jObj = jDoc.object();
+        if (jObj.contains("failed")) {
+            if (jObj.value("failed").toInt() == 1) {
                 _ts = jObj.value("ts").toInt();
-                parseLongPollUpdates(jObj.value("updates").toArray());
                 doLongPollRequest();
+            } else {
+                _server.clear();
+                _key.clear();
+                _ts = 0;
+                getLongPollServer();
             }
+        } else {
+            _ts = jObj.value("ts").toInt();
+            parseLongPollUpdates(jObj.value("updates").toArray());
+            doLongPollRequest();
         }
     }
     reply->deleteLater();
@@ -83,7 +81,7 @@ void LongPoll::doLongPollRequest() {
     query.addQueryItem("act", "a_check");
     query.addQueryItem("key", _key);
     query.addQueryItem("ts", QString("%1").arg(_ts));
-    query.addQueryItem("wait", "25");
+    query.addQueryItem("wait", "125");
     query.addQueryItem("mode", "10");
     url.setQuery(query);
     QNetworkRequest request(url);

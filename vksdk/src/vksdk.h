@@ -99,7 +99,7 @@ public:
     explicit VkSDK(QObject *parent = 0);
     ~VkSDK();
 
-    Q_INVOKABLE void setAccessToken(QString value);
+    Q_INVOKABLE void setAccessTocken(QString value);
     Q_INVOKABLE void setUserId(int value);
     Q_INVOKABLE bool checkToken(QString token);
 
