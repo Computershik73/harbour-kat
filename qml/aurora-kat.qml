@@ -24,8 +24,7 @@ import Sailfish.Silica 1.0
 import Nemo.Notifications 1.0
 import Amber.Mpris 1.0
 import QtMultimedia 5.0
-
-
+import Nemo.DBus 2.0
 
 ApplicationWindow
 {
@@ -49,7 +48,7 @@ ApplicationWindow
         if (settings.accessToken()) {
 
             if (vksdk.checkToken(settings.accessToken())) {
-                vksdk.setAccessTocken(settings.accessToken())
+                vksdk.setAccessToken(settings.accessToken())
                 vksdk.setUserId(settings.userId())
             return Qt.createComponent(Qt.resolvedUrl("pages/MainMenuPage.qml"))
             } else {
@@ -64,18 +63,18 @@ ApplicationWindow
 
     Notification {
         id: commonNotification
-        category: "harbour-kat"
+        appName: "aurora-kat"
+        appIcon: "aurora-kat"
+        category: "aurora-kat"
+        expireTimeout: 0
         remoteActions: [
             { "name":    "default",
-              "service": "nothing",
-              "path":    "nothing",
-              "iface":   "nothing",
-              "method":  "nothing" }
+              "service": "ru.ilyavysotsky.aurora-kat",
+              "path":    "ru/ilyavysotsky/aurora-kat",
+              "iface":   "ru.ilyavysotsky.aurora-kat",
+              "method":  "activateApp" }
         ]
-    }
-
-    MediaPlayer {
-          id: rootPlayer
+        onClicked: application.activate()
     }
 
     MprisPlayer {
@@ -158,11 +157,12 @@ ApplicationWindow
     Connections {
         target: vksdk
         onGotNewMessage: {
+            commonNotification.close()
             commonNotification.summary = name
             commonNotification.previewSummary = name
             commonNotification.body = preview
             commonNotification.previewBody = preview
-            commonNotification.close()
+            commonNotification.category = "x-nemo.messaging.im"
             commonNotification.publish()
         }
     }
@@ -174,6 +174,33 @@ ApplicationWindow
             //messagesCounter.text = value
         }
     }
+
+    Connections {
+            target: netcfgmgr
+            onConfigurationChanged: {
+                console.log("onConfigurationChanged")
+                vksdk.longPoll.getLongPollServer()
+            }
+        }
+
+        DBusAdaptor {
+            id: dbus
+
+            service: "ru.ilyavysotsky.aurora-kat"
+            iface: "ru.ilyavysotsky.aurora-kat"
+            path: "/ru/ilyavysotsky/aurora-kat"
+
+            xml: '  <interface name="ru.ilyavysotsky.aurora-kat">\n' +
+                 '  <method name="activateApp" />\n' +
+                 '  </interface>\n'
+
+            function activateApp()
+            {
+                if ( !application.applicationActive ) {
+                    application.activate()
+                }
+            }
+        }
 
     Connections {
         target: player

@@ -32,7 +32,7 @@ Page {
 
     Notification {
         id: loginNotification
-        category: "harbour-kat"
+        category: "aurora-kat"
     }
 
     Label {
@@ -126,7 +126,7 @@ Page {
     Connections {
         target: vksdk.auth
         onAuthorized: {
-            vksdk.setAccessTocken(accessToken)
+            vksdk.setAccessToken(accessToken)
             vksdk.setUserId(userId)
             settings.setAccessToken(accessToken)
             settings.setUserId(userId)

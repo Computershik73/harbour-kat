@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # The name of your application
-TARGET = harbour-kat
+TARGET = aurora-kat
 
 CONFIG += \
     auroraapp
@@ -32,7 +32,7 @@ HEADERS += \
     src/utils.h
 
 SOURCES += \
-    src/harbour-kat.cpp \
+    src/aurora-kat.cpp \
     src/settingswrapper.cpp \
     src/mediaplayerwrapper.cpp \
     src/playlistmodel.cpp \
@@ -40,13 +40,13 @@ SOURCES += \
     src/utils.cpp
 
 OTHER_FILES += \
-    qml/harbour-kat.qml \
+    qml/aurora-kat.qml \
     qml/cover/*.qml \
     qml/pages/*.qml \
     qml/views/*.qml \
+    rpm/aurora-kat.spec \
     translations/*.ts \
-    rpm/harbour-kat.spec \
-    rpm/harbour-kat.changes.in \
+    rpm/aurora-kat.changes.in \
     LICENSE \
     README.md
 
@@ -54,10 +54,10 @@ AURORAAPP_ICONS = 86x86 108x108 128x128 172x172
 
 CONFIG += auroraapp_i18n
 TRANSLATIONS += \
-    translations/harbour-kat-ru.ts \
-    translations/harbour-kat-it.ts \
-    translations/harbour-kat-nl.ts \
-    translations/harbour-kat-az.ts
+    translations/aurora-kat-ru.ts \
+    translations/aurora-kat-it.ts \
+    translations/aurora-kat-nl.ts \
+    translations/aurora-kat-az.ts
 
 DISTFILES += \
     qml/pages/MainMenuPage.qml \
