@@ -9,3 +9,5 @@ Name=AuroraKat
 Permissions=Internet;Audio;Microphone;Pictures;UserDirs;MediaIndexing
 OrganizationName=ru.ilyavysotsky
 ApplicationName=aurorakat
+ExecDBus=/usr/bin/harbour-kat
+ExportDBusInterfaces=ru.ilyavysotsky.aurorakat

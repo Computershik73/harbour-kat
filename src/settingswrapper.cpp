@@ -23,7 +23,7 @@
 
 SettingsWrapper::SettingsWrapper(QObject *parent) : QObject(parent) {
     _settings = new QSettings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                              "/org.ilyavysotsky/kat/harbour-kat.conf", QSettings::NativeFormat);
+                              "/ru.ilyavysotsky/aurorakat/harbour-kat.conf", QSettings::NativeFormat);
 }
 
 SettingsWrapper::~SettingsWrapper() {

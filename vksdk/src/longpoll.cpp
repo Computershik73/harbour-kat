@@ -75,6 +75,8 @@ void LongPoll::finished(QNetworkReply *reply) {
     reply->deleteLater();
 }
 
+
+
 void LongPoll::doLongPollRequest() {
     QUrl url("https://" + _server);
     QUrlQuery query;

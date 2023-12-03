@@ -38,6 +38,7 @@
 #include "mediaplayerwrapper.h"
 #include "settingswrapper.h"
 #include "vksdk/src/vksdk.h"
+#include <QNetworkConfigurationManager>
 
 /*void myMessageOutputt(QtMsgType type, const char *msg)
  {
@@ -79,20 +80,20 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     }*/
 
     QFile fileOut("/home/nemo/log.txt");
-        if(fileOut.open(QIODevice::Append | QIODevice::Text))
-        {
-            fileOut.write(localMsg);
-            fileOut.flush();
-            fileOut.close();
+    if(fileOut.open(QIODevice::Append | QIODevice::Text))
+    {
+        fileOut.write(localMsg);
+        fileOut.flush();
+        fileOut.close();
     }
 }
 
 
 int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> application(Aurora::Application::application(argc, argv));
-    application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
-    application->setApplicationName(QStringLiteral("kat"));
-   //     qInstallMessageHandler(myMessageOutput);
+    application->setOrganizationName(QStringLiteral("ru.ilyavysotsky"));
+    application->setApplicationName(QStringLiteral("aurorakat"));
+    //     qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(Aurora::Application::createView());
 
     QScopedPointer<FileSaver> fileSaver(new FileSaver(view.data()));
@@ -103,6 +104,11 @@ int main(int argc, char *argv[]) {
 
     QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
     view->rootContext()->setContextProperty("settings", settings.data());
+
+    QScopedPointer<QNetworkConfigurationManager> netcfgmgr(new QNetworkConfigurationManager(view.data()));
+    netcfgmgr->updateConfigurations();
+    view->rootContext()->setContextProperty("netcfgmgr", netcfgmgr.data());
+
 
     QScopedPointer<VkSDK> vksdk(new VkSDK(view.data()));
     view->rootContext()->setContextProperty("vksdk", vksdk.data());

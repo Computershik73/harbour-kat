@@ -24,13 +24,13 @@ import Sailfish.Silica 1.0
 import Nemo.Notifications 1.0
 import Amber.Mpris 1.0
 import QtMultimedia 5.0
-
+import Nemo.DBus 2.0
 
 
 ApplicationWindow
 {
     id: application
-     //property alias mprisPlayer: mprisPlayer
+    //property alias mprisPlayer: mprisPlayer
 
     function convertUnixtimeToString(unixtime) {
         var d = new Date(unixtime * 1000)
@@ -51,11 +51,11 @@ ApplicationWindow
             if (vksdk.checkToken(settings.accessToken())) {
                 vksdk.setAccessTocken(settings.accessToken())
                 vksdk.setUserId(settings.userId())
-            return Qt.createComponent(Qt.resolvedUrl("pages/MainMenuPage.qml"))
+                return Qt.createComponent(Qt.resolvedUrl("pages/MainMenuPage.qml"))
             } else {
-            settings.removeAccessToken()
-            settings.removeUserId()
-            return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
+                settings.removeAccessToken()
+                settings.removeUserId()
+                return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
             }
         } else {
             return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
@@ -67,102 +67,108 @@ ApplicationWindow
         category: "harbour-kat"
         remoteActions: [
             { "name":    "default",
-              "service": "nothing",
-              "path":    "nothing",
-              "iface":   "nothing",
-              "method":  "nothing" }
+                "service": "ru.ilyavysotsky.aurorakat",
+                "path":    "ru/ilyavysotsky/aurorakat",
+                "iface":   "ru.ilyavysotsky.aurorakat",
+                "method":  "activateApp" }
+
         ]
+        onClicked: application.activate()
+
     }
 
     MediaPlayer {
-          id: rootPlayer
+        id: rootPlayer
     }
 
     MprisPlayer {
-            id: mprisPlayer
-            property string artist
-            property string song
+        id: mprisPlayer
+        property string artist
+        property string song
 
-           // property string artist: "Loading"
-          //  property string song: "tags..."
-          //  artist: "test"
-          //  song: "testt"
+        // property string artist: "Loading"
+        //  property string song: "tags..."
+        //  artist: "test"
+        //  song: "testt"
 
-            serviceName: "kat-music"
-            identity: "Kat Music"
-            supportedUriSchemes: ["file", "http"]
-            supportedMimeTypes: ["audio/x-wav", "audio/x-vorbis+ogg", "audio/mpeg"]
+        serviceName: "kat-music"
+        identity: "Kat Music"
+        supportedUriSchemes: ["file", "http"]
+        supportedMimeTypes: ["audio/x-wav", "audio/x-vorbis+ogg", "audio/mpeg"]
 
-            canControl: true
+        canControl: true
 
-            canGoNext: true
-            canGoPrevious: true
-            canPause: true
-            canPlay: true
-            canSeek: false
+        canGoNext: true
+        canGoPrevious: true
+        canPause: true
+        canPlay: true
+        canSeek: false
 
 
-            playbackStatus: player.isPlaying ? Mpris.Playing : Mpris.Paused
+        playbackStatus: player.isPlaying ? Mpris.Playing : Mpris.Paused
 
-          //  onMetaDataChanged: {
-                /*var metadata = mprisPlayer.metaData
+        //  onMetaDataChanged: {
+        /*var metadata = mprisPlayer.metaData
                 metadata[Mpris.metadataToString(Mpris.albumArtist)] = player.author
                 metadata[Mpris.metadataToString(Mpris.Title)] = player.title
                 //mprisPlayer.metadata = metadata
                 mprisPlayer.setMetadata(metadata)*/
-           // }
+        // }
 
-            onArtistChanged: {
-                        var metadata = mprisPlayer.metadata
+        onArtistChanged: {
+            var metadata = mprisPlayer.metadata
 
-                        metadata[Mpris.metadataToString(Mpris.Artist)] = [artist] // List of strings
+            metadata[Mpris.metadataToString(Mpris.Artist)] = [artist] // List of strings
 
-                        mprisPlayer.metadata = metadata
-                    }
-
-                    onSongChanged: {
-                        var metadata = mprisPlayer.metadata
-
-                        metadata[Mpris.metadataToString(Mpris.Title)] = song // String
-
-                        mprisPlayer.metadata = metadata
-                    }
-
-            onPauseRequested: {
-                    player.pause()
-                }
-                onPlayRequested: {
-                    player.play()
-                }
-                onPlayPauseRequested: {
-                    if (player.isPlaying) {
-                    player.pause()
-                    } else {
-                    player.play()
-                    }
-                }
-                onStopRequested: {
-                    player.stop()
-                }
-
-                onNextRequested: {
-                    player.next()
-                }
-                onPreviousRequested: {
-                    player.prev()
-                }
+            mprisPlayer.metadata = metadata
         }
+
+        onSongChanged: {
+            var metadata = mprisPlayer.metadata
+
+            metadata[Mpris.metadataToString(Mpris.Title)] = song // String
+
+            mprisPlayer.metadata = metadata
+        }
+
+        onPauseRequested: {
+            player.pause()
+        }
+        onPlayRequested: {
+            player.play()
+        }
+        onPlayPauseRequested: {
+            if (player.isPlaying) {
+                player.pause()
+            } else {
+                player.play()
+            }
+        }
+        onStopRequested: {
+            player.stop()
+        }
+
+        onNextRequested: {
+            player.next()
+        }
+        onPreviousRequested: {
+            player.prev()
+        }
+    }
 
 
 
     Connections {
         target: vksdk
         onGotNewMessage: {
+            commonNotification.close()
             commonNotification.summary = name
             commonNotification.previewSummary = name
             commonNotification.body = preview
             commonNotification.previewBody = preview
-            commonNotification.close()
+
+            commonNotification.category = "x-nemo.messaging.im"
+
             commonNotification.publish()
         }
     }
@@ -176,6 +182,34 @@ ApplicationWindow
     }
 
     Connections {
+            target: netcfgmgr
+            onConfigurationChanged: {
+                console.log("onConfigurationChanged")
+                vksdk.longPoll.getLongPollServer()
+            }
+        }
+
+        DBusAdaptor {
+            id: dbus
+
+            service: "ru.ilyavysotsky.aurorakat"
+            iface: "ru.ilyavysotsky.aurorakat"
+            path: "/ru/ilyavysotsky/aurorakat"
+
+            xml: '  <interface name="ru.ilyavysotsky.aurorakat">\n' +
+                 '  <method name="activateApp" />\n' +
+                 '  </interface>\n'
+
+            function activateApp()
+            {
+                if ( !application.applicationActive ) {
+                    application.activate()
+                }
+            }
+        }
+
+
+    Connections {
         target: player
         onMediaChanged: {
             //qDebug() << "mediachanged"
@@ -187,14 +221,14 @@ ApplicationWindow
             //metaData['mpris:albumArtist'] = "test"
             //metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
             //metaData[Mpris.metadataToString(Mpris.Title)] = "test"
-           //mprisPlayer.metaData = metaData
+            //mprisPlayer.metaData = metaData
             //metaData['xesam:title'] = "test"
             // metaData['xesam:albumArtist'] = "test"
-             //mprisPlayer.setMetadata(metaData)
+            //mprisPlayer.setMetadata(metaData)
 
         }
 
-       /* onStateChanged: {
+        /* onStateChanged: {
             // qDebug() << "statechanged"
             var metaData = mprisPlayer.metaData
             // metaData['mpris:title'] = "app.streamMetaText1"
