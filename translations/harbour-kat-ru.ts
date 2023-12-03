@@ -9,47 +9,47 @@
         <translation>О</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="68"/>
+        <location filename="../qml/pages/AboutPage.qml" line="69"/>
         <source>The unofficial client for vk.com, distributed under the terms of the GNU GPLv3.</source>
         <translation>Неофициальный клиент для vk.com, распространяемый по лицензии GNU GPL v3.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="74"/>
+        <location filename="../qml/pages/AboutPage.qml" line="75"/>
         <source>Homepage</source>
         <translation>Домашняя страница</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="88"/>
+        <location filename="../qml/pages/AboutPage.qml" line="89"/>
         <source>Source code</source>
         <translation>Исходный код</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="97"/>
+        <location filename="../qml/pages/AboutPage.qml" line="98"/>
         <source>Thanks for features</source>
         <translation>Спасибо за участие:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="106"/>
+        <location filename="../qml/pages/AboutPage.qml" line="107"/>
         <source>Localization</source>
         <translation>Локализация</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="107"/>
+        <location filename="../qml/pages/AboutPage.qml" line="108"/>
         <source>Italian</source>
         <translation>Итальянский</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="108"/>
+        <location filename="../qml/pages/AboutPage.qml" line="109"/>
         <source>Dutch</source>
         <translation>Голландский</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="109"/>
+        <location filename="../qml/pages/AboutPage.qml" line="110"/>
         <source>Azerbaijani</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="81"/>
+        <location filename="../qml/pages/AboutPage.qml" line="82"/>
         <source>Donate</source>
         <translation>Пожертвование</translation>
     </message>
@@ -57,17 +57,17 @@
 <context>
     <name>AudioPlayerPage</name>
     <message>
-        <location filename="../qml/pages/AudioPlayerPage.qml" line="37"/>
+        <location filename="../qml/pages/AudioPlayerPage.qml" line="38"/>
         <source>Search audio...</source>
         <translation>Поиск аудиозаписей...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AudioPlayerPage.qml" line="69"/>
+        <location filename="../qml/pages/AudioPlayerPage.qml" line="72"/>
         <source>My audios</source>
         <translation>Мои аудиозаписи</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AudioPlayerPage.qml" line="76"/>
+        <location filename="../qml/pages/AudioPlayerPage.qml" line="79"/>
         <source>Recommendations</source>
         <translation>Рекомендации</translation>
     </message>
@@ -163,20 +163,25 @@
 <context>
     <name>DialogPage</name>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="86"/>
+        <location filename="../qml/pages/DialogPage.qml" line="87"/>
         <source>typing...</source>
         <translation>набирает...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="109"/>
-        <location filename="../qml/pages/DialogPage.qml" line="110"/>
+        <location filename="../qml/pages/DialogPage.qml" line="112"/>
+        <location filename="../qml/pages/DialogPage.qml" line="113"/>
         <source>Your message</source>
         <translation>Ваше сообщение</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DialogPage.qml" line="188"/>
+        <location filename="../qml/pages/DialogPage.qml" line="191"/>
         <source>Photo</source>
         <translation>Фотография</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/DialogPage.qml" line="273"/>
+        <source>Document</source>
+        <translation>Файл</translation>
     </message>
 </context>
 <context>
@@ -337,12 +342,12 @@
         <translation>Музыка</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="99"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="95"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainMenuPage.qml" line="105"/>
+        <location filename="../qml/pages/MainMenuPage.qml" line="101"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>

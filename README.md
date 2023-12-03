@@ -1,6 +1,7 @@
 # Kat
 
-This is an unofficial vk.com client for Jolla Sailfish OS.
+Неофициальный клиент ВКонтакте для Аврора ОС.
+Изначальная версия починена @okabe2011, портировано на Аврору by Danyok.
 
 __You can:__
  + Viewing profiles

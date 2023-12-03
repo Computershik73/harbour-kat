@@ -28,6 +28,7 @@ import "../views"
 Page {
     id: dialogPage
 
+
     property bool chat
     property var historyId
     property var profiles
@@ -93,6 +94,8 @@ Page {
                 onTriggered: typingLabel.visible = false
             }
         }
+
+
 
         Row {
             id: newmessagerow
@@ -163,17 +166,17 @@ Page {
                 width: parent.width
                 height: childrenRect.height
 
-                Row {
-                    width: parent.width
-                    height: childrenRect.height
+               // Row {
+                 //   width: parent.width
+                   // height: childrenRect.height
 
-                    BackgroundItem {
-                        width: parent.width / 2
-                        height: Theme.itemSizeSmall
+                    MenuItem {
+                        width: parent.width
+                        height: Theme.itemSizeMedium
 
                         Row {
-                            anchors.centerIn: parent
-                            spacing: Theme.paddingSmall
+                            //anchors.centerIn: parent
+                            spacing: Theme.paddingMedium
 
                             Image {
                                 width: Theme.iconSizeSmallPlus
@@ -220,11 +223,11 @@ Page {
 //                            }
 //                        }
 //                    }
-                }
+               // }
 
-//                Row {
-//                    width: parent.width
-//                    height: childrenRect.height
+              //  Row {
+                //    width: parent.width
+                  //  height: childrenRect.height
 
 //                    BackgroundItem {
 //                        width: parent.width / 2
@@ -249,29 +252,37 @@ Page {
 //                        }
 //                    }
 
-//                    BackgroundItem {
-//                        width: parent.width / 2
-//                        height: Theme.itemSizeSmall
+                    MenuItem {
+                        width: parent.width
+                        height: Theme.itemSizeMedium
 
-//                        Row {
-//                            anchors.centerIn: parent
-//                            spacing: Theme.paddingSmall
+                        Row {
+                            //anchors.centerIn: parent
+                            spacing: Theme.paddingMedium
 
-//                            Image {
-//                                width: Theme.iconSizeSmallPlus
-//                                height: Theme.iconSizeSmallPlus
-//                                source: "image://theme/icon-m-document"
-//                            }
+                            Image {
+                                width: Theme.iconSizeSmallPlus
+                                height: Theme.iconSizeSmallPlus
+                                source: "image://theme/icon-m-document"
+                            }
 
-//                            Label {
-//                                anchors.verticalCenter: parent.verticalCenter
-//                                width: contentWidth
-//                                font.pixelSize: Theme.fontSizeTiny
-//                                text: qsTr("Document")
-//                            }
-//                        }
-//                    }
-//                }
+                            Label {
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: contentWidth
+                                font.pixelSize: Theme.fontSizeTiny
+                                text: qsTr("Document")
+                            }
+                        }
+
+                        onClicked: if (!attachmentsBusy.running) {
+                                       var imagePicker = pageStack.push("Sailfish.Pickers.ContentPickerPage")
+                                       imagePicker.selectedContentChanged.connect(function () {
+                                           attachmentsBusy.running = true
+                                           vksdk.attachDocToMessage(imagePicker.selectedContent)
+                                       })
+                                   }
+                    }
+               // }
 
 //                Row {
 //                    width: parent.width
@@ -298,7 +309,7 @@ Page {
 //                                text: qsTr("Gift")
 //                            }
 //                        }
-//                    }
+//                   }
 
 //                    BackgroundItem {
 //                        width: parent.width / 2
@@ -343,6 +354,10 @@ Page {
     Connections {
         target: vksdk
         onSavedPhoto: {
+            attachmentsList += name + ","
+            attachmentsBusy.running = false;
+        }
+        onSavedDoc: {
             attachmentsList += name + ","
             attachmentsBusy.running = false;
         }

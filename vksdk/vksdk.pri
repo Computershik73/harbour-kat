@@ -1,6 +1,7 @@
 HEADERS += \
     $$PWD/src/authorization.h \
     $$PWD/src/longpoll.h \
+    $$PWD/src/requests/docs.h \
     $$PWD/src/vksdk.h \
     $$PWD/src/models/dialogslistmodel.h \
     $$PWD/src/models/friendslistmodel.h \
@@ -41,6 +42,7 @@ HEADERS += \
 SOURCES += \
     $$PWD/src/authorization.cpp \
     $$PWD/src/longpoll.cpp \
+    $$PWD/src/requests/docs.cpp \
     $$PWD/src/vksdk.cpp \
     $$PWD/src/models/dialogslistmodel.cpp \
     $$PWD/src/models/friendslistmodel.cpp \

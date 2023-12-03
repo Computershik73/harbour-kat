@@ -21,7 +21,8 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Sailfish.Media 1.0
+import "../pages"
+
 
 Page {
 
@@ -57,6 +58,8 @@ Page {
 
             onClicked: {
                 player.jumpTo(index)
+                //console.log(audios[index].url)
+
                 if (!player.isPlaying) {
                     player.play()
                 }

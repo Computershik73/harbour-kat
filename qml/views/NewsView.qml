@@ -30,7 +30,7 @@ Item {
         width: parent.width
 
         Repeater {
-            model: news.length
+            model: news ? news.length : 0
 
             BackgroundItem {
                 width: maximumWidth

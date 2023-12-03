@@ -13,7 +13,7 @@ Name:       harbour-kat
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    The unofficial client for vk.com
-Version:    0.6.0
+Version:    0.6.3
 Release:    2
 Group:      Qt/Qt
 License:    GNU GPLv3
@@ -61,12 +61,6 @@ desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
    %{buildroot}%{_datadir}/applications/*.desktop
 
-mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/108x108/apps/
-cp %{buildroot}/%{_datadir}/icons/hicolor/86x86/apps/%{name}.png %{buildroot}/%{_datadir}/icons/hicolor/108x108/apps/
-mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/128x128/apps/
-cp %{buildroot}/%{_datadir}/icons/hicolor/86x86/apps/%{name}.png %{buildroot}/%{_datadir}/icons/hicolor/128x128/apps/
-mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/172x172/apps/
-cp %{buildroot}/%{_datadir}/icons/hicolor/86x86/apps/%{name}.png %{buildroot}/%{_datadir}/icons/hicolor/172x172/apps/
 
 %files
 %defattr(-,root,root,-)

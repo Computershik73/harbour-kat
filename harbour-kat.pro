@@ -12,7 +12,8 @@
 # The name of your application
 TARGET = harbour-kat
 
-CONFIG += sailfishapp
+CONFIG += \
+    auroraapp
 greaterThan(QT_VERSION, 5.5) {
     CONFIG += C++11
 } else {
@@ -49,7 +50,9 @@ OTHER_FILES += \
     LICENSE \
     README.md
 
-CONFIG += sailfishapp_i18n
+AURORAAPP_ICONS = 86x86 108x108 128x128 172x172
+
+CONFIG += auroraapp_i18n
 TRANSLATIONS += \
     translations/harbour-kat-ru.ts \
     translations/harbour-kat-it.ts \
@@ -94,5 +97,8 @@ DISTFILES += \
     qml/pages/SettingsPage.qml \
     qml/pages/PhotoAlbumPage.qml \
     qml/pages/TopicsPage.qml \
-    qml/pages/TopicPage.qml
+    qml/pages/TopicPage.qml \
+    qml/pages/MediaListItem.qml \
+    qml/pages/MediaPlayerPanelBackground.qml \
+    qml/pages/MediaPlayerControlPanel
 

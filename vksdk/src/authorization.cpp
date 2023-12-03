@@ -43,7 +43,7 @@ Authorization::~Authorization()
 QString Authorization::authUrl() {
     QUrl url("https://oauth.vk.com/authorize");
     QUrlQuery query;
-    query.addQueryItem("client_id", "3140623");
+    query.addQueryItem("client_id", "6146827");
                        //"4803503");
     query.addQueryItem("redirect_uri", "https://oauth.vk.com/blank.html");
     query.addQueryItem("display", "mobile");

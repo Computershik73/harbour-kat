@@ -21,8 +21,8 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import org.nemomobile.notifications 1.0
-import org.nemomobile.mpris 1.0
+import Nemo.Notifications 1.0
+import Amber.Mpris 1.0
 import QtMultimedia 5.0
 
 
@@ -72,6 +72,10 @@ ApplicationWindow
               "iface":   "nothing",
               "method":  "nothing" }
         ]
+    }
+
+    MediaPlayer {
+          id: rootPlayer
     }
 
     MprisPlayer {
@@ -167,7 +171,7 @@ ApplicationWindow
         target: vksdk.longPoll
         onUnreadDialogsCounterUpdated: {
             console.log("onUnreadDialogsCounterUpdated", value)
-            messagesCounter.text = value
+            //messagesCounter.text = value
         }
     }
 

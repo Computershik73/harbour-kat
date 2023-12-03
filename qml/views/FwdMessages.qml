@@ -30,7 +30,7 @@ Column {
 
     Repeater {
         id: messagesRepeater
-        model: messages.length
+        model: messages ? messages.length : 0
 
         Row {
             width: fwdColumn.width

@@ -33,7 +33,7 @@ Page {
 
         PageHeader {
             id: header
-            title: qsTr("About") + " Kat"
+            title: qsTr("About") + "AuroraKat"
         }
 
         Column {
@@ -53,13 +53,14 @@ Page {
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: "v0.6.0"
+                text: "v0.6.3"
             }
 
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: "© 2015-2017 Petr Vytovtov\nPatched to work again in 2022 by Ilya Vysotsky"
+                text: "© 2015-2017 Petr Vytovtov\nPatched to work again in 2022 by Ilya Vysotsky\nAurora porting in 2023\nby Ilya Vysotsky (@okabe2011)"
+
             }
 
             Label {
@@ -79,7 +80,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Theme.buttonWidthMedium
                 text: qsTr("Donate")
-                onClicked: Qt.openUrlExternally("https://www.tinkoff.ru/cf/pzrIBCMfpu")
+                onClicked: Qt.openUrlExternally("http://vikamobile.ru/donate.php")
             }
 
             Button {

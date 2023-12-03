@@ -74,7 +74,7 @@ Column {
     Loader {
         property int maximumWidth: parent.width
         property var news: anews
-        active: anews.length > 0
+        active: anews ? (anews.length > 0) : false
         source: "NewsView.qml"
     }
 
@@ -89,7 +89,7 @@ Column {
     Loader {
         property int maximumWidth: parent.width
         property var messages: amessages
-        active: amessages.length > 0
+        active: amessages ? (amessages.length > 0) : false
         source: "FwdMessages.qml"
     }
 }

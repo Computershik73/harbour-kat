@@ -40,7 +40,11 @@ ApiRequest::~ApiRequest() {
 void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, TaskType type) {
     QUrlQuery query = q;
     query.addQueryItem("access_token", _accessToken);
-    query.addQueryItem("v", API_VERSION);
+    if (method.contains("audio")) {
+        query.addQueryItem("v", "5.91");
+    } else {
+        query.addQueryItem("v", API_VERSION);
+    }
     QUrl url(API_URL + method);
     url.setQuery(query.query());
     qDebug() << "URL: " << url.toString();
@@ -52,6 +56,7 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, Ta
 }
 
 void ApiRequest::makePostRequest(const QUrl &u, const QUrlQuery &query, QHttpMultiPart *multipart, TaskType type) {
+    qDebug() << u.toString();
     QUrl url = u;
     if (!query.isEmpty()) url.setQuery(query.query());
     QNetworkReply *reply = _manager->post(QNetworkRequest(url), multipart);
@@ -69,12 +74,12 @@ void ApiRequest::finished(QNetworkReply *reply) {
         const TaskType taskType = type.value<TaskType>();
         QJsonDocument jDoc = QJsonDocument::fromJson(reply->readAll());
         QJsonObject jObj = jDoc.object();
-        if (taskType == PHOTOS_UPLOAD_TO_SERVER) {
+        if ((taskType == PHOTOS_UPLOAD_TO_SERVER) || (taskType == DOCS_UPLOAD_TO_SERVER)) {
             emit gotResponse(jObj, taskType);
         } else if (jObj.contains("response")) {
             QJsonValue jVal = jObj.value("response");
             QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
-                qDebug() << "Reply: " << strFromObj << "\n";
+             //qDebug() << "Reply: " << strFromObj << "\n";
             emit gotResponse(jVal, taskType);
         } else if (jObj.contains("error")) {
             qDebug() << "Error in API request!";

@@ -46,6 +46,7 @@ VkSDK::VkSDK(QObject *parent) : QObject(parent) {
     _messages = new Messages(this);
     _newsfeed = new Newsfeed(this);
     _photos = new Photos(this);
+    _docs = new Docs(this);
     _stats = new Stats(this);
     _users = new Users(this);
     _videos = new Videos(this);
@@ -60,6 +61,7 @@ VkSDK::VkSDK(QObject *parent) : QObject(parent) {
     _messages->setApi(_api);
     _newsfeed->setApi(_api);
     _photos->setApi(_api);
+    _docs->setApi(_api);
     _stats->setApi(_api);
     _users->setApi(_api);
     _videos->setApi(_api);
@@ -74,6 +76,7 @@ VkSDK::VkSDK(QObject *parent) : QObject(parent) {
     qRegisterMetaType<Messages*>("Messages*");
     qRegisterMetaType<Newsfeed*>("Newsfeed*");
     qRegisterMetaType<Photos*>("Photos*");
+    qRegisterMetaType<Docs*>("Docs*");
     qRegisterMetaType<Stats*>("Stats*");
     qRegisterMetaType<Users*>("Users*");
     qRegisterMetaType<Videos*>("Videos*");
@@ -123,6 +126,7 @@ VkSDK::~VkSDK() {
     delete _messages;
     delete _newsfeed;
     delete _photos;
+    delete _docs;
     delete _stats;
     delete _users;
     delete _videos;
@@ -151,7 +155,7 @@ bool VkSDK::checkToken(QString token) {
 
     query.addQueryItem("count", "1");
     query.addQueryItem("access_token", token);
-    query.addQueryItem("v", "5.153");
+    query.addQueryItem("v", "5.91");
     urll.setQuery(query);
     QNetworkRequest request(urll);
     request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
@@ -220,6 +224,10 @@ Photos *VkSDK::photos() const {
     return _photos;
 }
 
+Docs *VkSDK::docs() const {
+    return _docs;
+}
+
 Stats *VkSDK::stats() const {
     return _stats;
 }
@@ -281,6 +289,11 @@ void VkSDK::attachPhotoToMessage(QString path) {
     _photos->getMessagesUploadServer();
 }
 
+void VkSDK::attachDocToMessage(QString path) {
+    _pathToDoc = path;
+    _docs->getMessagesUploadServer();
+}
+
 void VkSDK::gotResponse(const QJsonValue &value, ApiRequest::TaskType type) {
     switch (type) {
     case ApiRequest::ACCOUNT_BAN_USER:
@@ -331,11 +344,20 @@ void VkSDK::gotResponse(const QJsonValue &value, ApiRequest::TaskType type) {
     case ApiRequest::PHOTOS_GET_MESSAGES_UPLOAD_SERVER:
         parseUploadServerData(value.toObject());
         break;
+    case ApiRequest::DOCS_GET_MESSAGES_UPLOAD_SERVER:
+        parseUploadServerDataDoc(value.toObject());
+        break;
     case ApiRequest::PHOTOS_SAVE_MESSAGES_PHOTO:
         parseSavedPhotoData(value.toArray());
         break;
+    case ApiRequest::DOCS_SAVE_MESSAGES_DOC:
+        parseSavedDocData(value.toObject());
+        break;
     case ApiRequest::PHOTOS_UPLOAD_TO_SERVER:
         parseUploadedPhotoData(value.toObject());
+        break;
+    case ApiRequest::DOCS_UPLOAD_TO_SERVER:
+        parseUploadedDocData(value.toObject());
         break;
     case ApiRequest::STATS_GET:
         parseStatistics(value.toArray());
@@ -595,6 +617,12 @@ void VkSDK::parseSavedPhotoData(QJsonArray array) {
                     .arg(QString::number(photo.value("id").toInt())));
 }
 
+void VkSDK::parseSavedDocData(QJsonObject doc) {
+    QJsonObject docdoc = doc.value("doc").toObject();
+    emit savedDoc(QString("doc%1_%2").arg(QString::number(docdoc.value("owner_id").toInt()))
+                    .arg(QString::number(docdoc.value("id").toInt())));
+}
+
 void VkSDK::parseStatistics(QJsonArray array) {
     QList<int> data;
     foreach (QJsonValue val, array) {
@@ -624,11 +652,26 @@ void VkSDK::parseUploadedPhotoData(QJsonObject object) {
     _photos->saveMessagesPhoto(photo, server, hash);
 }
 
+void VkSDK::parseUploadedDocData(QJsonObject object) {
+    QJsonDocument docc(object);
+    qDebug() << docc.toJson(QJsonDocument::Compact);
+    QString doc = object.value("file").toString();
+    _docs->saveMessagesDoc(doc);
+}
+
 void VkSDK::parseUploadServerData(QJsonObject object) {
     QString uploadUrl = object.value("upload_url").toString();
     QString albumId = QString::number(object.value("album_id").toInt());
     QString userId = QString::number(object.value("user_id").toInt());
     _photos->uploadPhotoToServer(uploadUrl, albumId, userId, _pathToPhoto);
+}
+
+void VkSDK::parseUploadServerDataDoc(QJsonObject object) {
+    QString uploadUrl = object.value("upload_url").toString();
+    qDebug() << uploadUrl;
+    //QString albumId = QString::number(object.value("album_id").toInt());
+    //QString userId = QString::number(object.value("user_id").toInt());
+    _docs->uploadDocToServer(uploadUrl, _pathToDoc);
 }
 
 User *VkSDK::parseUserProfile(QJsonArray array) {

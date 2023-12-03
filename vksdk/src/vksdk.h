@@ -48,6 +48,7 @@
 #include "requests/messages.h"
 #include "requests/newsfeed.h"
 #include "requests/photos.h"
+#include "requests/docs.h"
 #include "requests/stats.h"
 #include "requests/users.h"
 #include "requests/videos.h"
@@ -115,6 +116,7 @@ public:
     Messages* messages() const;
     Newsfeed* newsfeed() const;
     Photos* photos() const;
+    Docs* docs() const;
     Stats* stats() const;
     Users* users() const;
     Videos* videos() const;
@@ -132,6 +134,7 @@ public:
     bool isNewsfeedEmpty();
 
     Q_INVOKABLE void attachPhotoToMessage(QString path);
+    Q_INVOKABLE void attachDocToMessage(QString path);
 
 //    User* selfProfile() const;
 
@@ -148,6 +151,7 @@ signals:
     void gotUserAudios(QVariantList audios);
     void gotWallpost(News *wallpost);
     void savedPhoto(QString name);
+    void savedDoc(QString name);
     void gotStats(QList<int> data);
     void userTyping(int userId, int chatId);
 //    void gotSelfProfile();
@@ -191,6 +195,7 @@ private:
     Messages *_messages;
     Newsfeed *_newsfeed;
     Photos *_photos;
+    Docs *_docs;
     Stats *_stats;
     Users *_users;
     Videos *_videos;
@@ -207,6 +212,7 @@ private:
 
     QString _messagePreview;
     QString _pathToPhoto;
+    QString _pathToDoc;
     QStringList _chatUsersIds;
     QStringList _usersIds;
     QStringList _chatsIds;
@@ -226,10 +232,13 @@ private:
     void parsePhotoAlbums(QJsonArray array);
     void parsePhotosList(QJsonObject object);
     void parseSavedPhotoData(QJsonArray array);
+    void parseSavedDocData(QJsonObject doc);
     void parseStatistics(QJsonArray array);
     void parseTopicsList(QJsonArray array);
     void parseUploadedPhotoData(QJsonObject object);
+    void parseUploadedDocData(QJsonObject object);
     void parseUploadServerData(QJsonObject object);
+    void parseUploadServerDataDoc(QJsonObject object);
     User* parseUserProfile(QJsonArray array);
     Video* parseVideoInfo(QJsonArray array);
     News* parseWallpost(QJsonArray array);

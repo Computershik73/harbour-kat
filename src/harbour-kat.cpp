@@ -32,7 +32,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sailfishapp.h>
+#include <auroraapp.h>
 
 #include "filesaver.h"
 #include "mediaplayerwrapper.h"
@@ -89,11 +89,11 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 
 
 int main(int argc, char *argv[]) {
-    QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
+    QScopedPointer<QGuiApplication> application(Aurora::Application::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("kat"));
-        qInstallMessageHandler(myMessageOutput);
-    QScopedPointer<QQuickView> view(SailfishApp::createView());
+   //     qInstallMessageHandler(myMessageOutput);
+    QScopedPointer<QQuickView> view(Aurora::Application::createView());
 
     QScopedPointer<FileSaver> fileSaver(new FileSaver(view.data()));
     view->rootContext()->setContextProperty("fileSaver", fileSaver.data());
@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
     QScopedPointer<VkSDK> vksdk(new VkSDK(view.data()));
     view->rootContext()->setContextProperty("vksdk", vksdk.data());
 
-    view->setSource(SailfishApp::pathTo("qml/harbour-kat.qml"));
+    view->setSource(Aurora::Application::pathTo("qml/harbour-kat.qml"));
     view->show();
 
     return application->exec();
