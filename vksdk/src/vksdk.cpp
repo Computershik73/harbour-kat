@@ -144,7 +144,7 @@ VkSDK::~VkSDK() {
 //    delete _selfProfile;
 }
 
-void VkSDK::setAccessTocken(QString value) {
+void VkSDK::setAccessToken(QString value) {
     _api->setAccessToken(value);
     _longPoll->setAccessToken(value);
 }

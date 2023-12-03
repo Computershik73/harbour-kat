@@ -2,10 +2,14 @@
 Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=harbour-kat
-Exec=harbour-kat
+Exec=aurora-kat
 Name=AuroraKat
+
+Name[ru]=AuroraKat
 
 [X-Application]
 Permissions=Internet;Audio;Microphone;Pictures;UserDirs;MediaIndexing
 OrganizationName=ru.ilyavysotsky
-ApplicationName=aurorakat
+ApplicationName=aurora-kat
+ExecDBus=/usr/bin/aurora-kat
+ExportDBusInterfaces=ru.ilyavysotsky.aurora-kat

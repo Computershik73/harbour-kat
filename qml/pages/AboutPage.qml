@@ -33,7 +33,7 @@ Page {
 
         PageHeader {
             id: header
-            title: qsTr("About") + "AuroraKat"
+            title: qsTr("About") + "aurora-kat"
         }
 
         Column {
@@ -47,7 +47,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Theme.iconSizeExtraLarge
                 height: Theme.iconSizeExtraLarge
-                source: "../harbour-kat.png"
+                source: "../aurora-kat.png"
             }
 
             Label {
@@ -87,7 +87,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Theme.buttonWidthMedium
                 text: qsTr("Source code")
-                onClicked: Qt.openUrlExternally("https://github.com/Computershik73/harbour-kat")
+                onClicked: Qt.openUrlExternally("https://github.com/Computershik73/aurora-kat")
             }
 
             Label {
