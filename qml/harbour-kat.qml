@@ -185,7 +185,7 @@ ApplicationWindow
             target: netcfgmgr
             onConfigurationChanged: {
                 console.log("onConfigurationChanged")
-                vksdk.longPoll.getLongPollServer()
+                //vksdk.longPoll.getLongPollServer()
             }
         }
 
