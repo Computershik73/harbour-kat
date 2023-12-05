@@ -79,7 +79,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
         abort();
     }*/
 
-    QFile fileOut("/home/nemo/log.txt");
+    QFile fileOut(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)+"/log.txt");
     if(fileOut.open(QIODevice::Append | QIODevice::Text))
     {
         fileOut.write(localMsg);
@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> application(Aurora::Application::application(argc, argv));
     application->setOrganizationName(QStringLiteral("ru.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("aurorakat"));
-    //     qInstallMessageHandler(myMessageOutput);
+    //qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(Aurora::Application::createView());
 
     QScopedPointer<FileSaver> fileSaver(new FileSaver(view.data()));

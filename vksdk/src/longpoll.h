@@ -33,6 +33,8 @@
 #include <QUrl>
 #include <QUrlQuery>
 
+#include <QNetworkConfigurationManager>
+
 #include <QDebug>
 
 class LongPoll : public QObject
@@ -55,6 +57,7 @@ signals:
 
 public slots:
     void finished(QNetworkReply *reply);
+    void configurationChanged(const QNetworkConfiguration&);
 
 private:
     QString _accessToken;
@@ -62,10 +65,14 @@ private:
     QString _key;
     int _ts;
 
+    QNetworkConfigurationManager *_netcfg_manager;
     QNetworkAccessManager *_manager;
+
+    QString _net_name;
 
     void doLongPollRequest();
     void parseLongPollUpdates(QJsonArray updates);
+    void setOffline(bool offline = true);
 };
 
 #endif // LONGPOLL_H
