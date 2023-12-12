@@ -36,7 +36,7 @@ Video::Video(QObject *parent) : QObject(parent)
 Video *Video::fromJsonObject(QJsonObject object) {
     Video *video = new Video();
     QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
-    qDebug() << "Video: " << strFromObj << "\n";
+    //qDebug() << "Video: " << strFromObj << "\n";
     if (object.contains("id")) video->setId(object.value("id").toInt());
     if (object.contains("owner_id")) video->setOwnerId(object.value("owner_id").toInt());
     if (object.contains("duration")) video->setDuration(object.value("duration").toInt());

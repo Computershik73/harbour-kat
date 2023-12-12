@@ -34,12 +34,19 @@ Page {
 
         model: vksdk.dialogsListModel
 
-//        PullDownMenu {
+        PullDownMenu {
 
-//            MenuItem {
-//                text: qsTr("New message")
-//            }
-//        }
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    //var ind = vksdk.dialogsListModel.size
+                    vksdk.dialogsListModel.clear();
+                    vksdk.messages.getDialogs();
+                    //vksdk.dialogsListModel.updateModel();
+
+                }
+            }
+        }
 
         header: PageHeader {
             title: qsTr("Dialogs")

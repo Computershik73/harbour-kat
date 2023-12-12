@@ -47,7 +47,7 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, Ta
     }
     QUrl url(API_URL + method);
     url.setQuery(query.query());
-    qDebug() << "URL: " << url.toString();
+  //  qDebug() << "URL: " << url.toString();
     QNetworkRequest request(url);
     request.setRawHeader("Authorization", "Bearer "+_accessToken.toUtf8());
     request.setRawHeader("User-Agent", "com.vk.vkclient/1654 (iPhone, iOS 12.2, iPhone8,4, Scale/2.0)");
@@ -56,7 +56,7 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, Ta
 }
 
 void ApiRequest::makePostRequest(const QUrl &u, const QUrlQuery &query, QHttpMultiPart *multipart, TaskType type) {
-    qDebug() << u.toString();
+    //qDebug() << u.toString();
     QUrl url = u;
     if (!query.isEmpty()) url.setQuery(query.query());
     QNetworkReply *reply = _manager->post(QNetworkRequest(url), multipart);

@@ -30,7 +30,7 @@ Friend::~Friend()
 
 Friend *Friend::fromJsonObject(QJsonObject object, bool isGroup) {
     QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
-    qDebug() << "User: " << strFromObj << "\n";
+   // qDebug() << "User: " << strFromObj << "\n";
     Friend *frnd = new Friend();
     frnd->setId(object.value("id").toInt());
     if ((object.value("id").toInt()>0) && (!isGroup)) {

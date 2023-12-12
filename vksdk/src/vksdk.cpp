@@ -51,7 +51,7 @@ VkSDK::VkSDK(QObject *parent) : QObject(parent) {
     _users = new Users(this);
     _videos = new Videos(this);
     _wall = new Wall(this);
-//    _longPoll->setApi(_api);
+   // _longPoll->setApi(_api);
     _account->setApi(_api);
     _audios->setApi(_api);
     _board->setApi(_api);
@@ -170,7 +170,7 @@ bool VkSDK::checkToken(QString token) {
     looppp.exec();
      QByteArray dataaa = reply->readAll();
      QString DataAsString     = QString::fromUtf8(dataaa);
-     qDebug() << DataAsString;
+    // qDebug() << DataAsString;
      if (DataAsString.contains("error")) {
          return false;
      } else if (DataAsString.contains("authorization failed")) {
@@ -480,6 +480,11 @@ void VkSDK::parseDialogsInfo(QJsonObject object) {
     } else _messages->getChat(_chatsIds);
 }
 
+void VkSDK::resetDialogsModel() {
+
+   // _dialogsListModel->modelReset(QAbstractItemModel);
+}
+
 void VkSDK::parseEntireFriendsList(QJsonArray array) {
     for (int index = 0; index < array.size(); ++index) {
         Friend *profile = Friend::fromJsonObject(array.at(index).toObject(), false);
@@ -565,7 +570,7 @@ void VkSDK::parseNewMessage(QJsonObject object) {
     if (message->out()) return;
     _messagePreview = (message->hasAttachments() ? "[ 📎 ] " : "") + message->body();
     //_users->getUserProfile(message->fromId());
-    qDebug() << "...finished...";
+   // qDebug() << "...finished...";
 }
 
 void VkSDK::parseNewsfeed(QJsonObject object, bool isWall) {
@@ -654,7 +659,7 @@ void VkSDK::parseUploadedPhotoData(QJsonObject object) {
 
 void VkSDK::parseUploadedDocData(QJsonObject object) {
     QJsonDocument docc(object);
-    qDebug() << docc.toJson(QJsonDocument::Compact);
+    //qDebug() << docc.toJson(QJsonDocument::Compact);
     QString doc = object.value("file").toString();
     _docs->saveMessagesDoc(doc);
 }

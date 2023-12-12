@@ -64,6 +64,7 @@ private:
     QString _server;
     QString _key;
     int _ts;
+    int _pts;
 
     QNetworkConfigurationManager *_netcfg_manager;
     QNetworkAccessManager *_manager;
@@ -71,6 +72,7 @@ private:
     QString _net_name;
 
     void doLongPollRequest();
+    void getLongPollHistoryRequest();
     void parseLongPollUpdates(QJsonArray updates);
     void setOffline(bool offline = true);
 };

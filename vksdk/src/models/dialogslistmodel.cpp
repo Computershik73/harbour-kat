@@ -223,14 +223,20 @@ void DialogsListModel::update(Message *message) {
 
 void DialogsListModel::clear() {
     beginRemoveRows(QModelIndex(), 0, _dialogsIds.size());
-    //_dialogsIds.clear();
-    //_chats.clear();
-   // _dialogs.clear();
-    //_profiles.clear();
+    _dialogsIds.clear();
+    _chats.clear();
+   _dialogs.clear();
+    _profiles.clear();
     endRemoveRows();
 
     QModelIndex index = createIndex(0, 0, static_cast<void *>(0));
     emit dataChanged(index, index);
+}
+
+void DialogsListModel::updateModel() {
+    QModelIndex startIndex = createIndex(0, 0, static_cast<void *>(0));
+    QModelIndex endIndex = createIndex(_dialogsIds.size(), 0, static_cast<void *>(0));
+    emit dataChanged(startIndex, endIndex);
 }
 
 qint64 DialogsListModel::size() const {

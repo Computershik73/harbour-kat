@@ -61,6 +61,7 @@ public:
     Q_INVOKABLE void readMessages(qint64 peerId, qint64 localId, bool out);
     Q_INVOKABLE void update(Message *message);
     Q_INVOKABLE void clear();
+    Q_INVOKABLE void updateModel();
 
     qint64 size() const;
 
