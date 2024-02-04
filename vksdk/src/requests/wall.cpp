@@ -47,6 +47,7 @@ void Wall::getComments(int ownerId, int postId, int offset) {
     query.addQueryItem("count", "100");
     query.addQueryItem("sort", "asc");
     query.addQueryItem("extended", "1");
+    query.addQueryItem("fields", "photo_50");
     if (offset != 0) query.addQueryItem("offset", QString::number(offset));
     _api->makeApiGetRequest("wall.getComments", query, ApiRequest::WALL_GET_COMMENTS);
 }

@@ -20,6 +20,7 @@
 */
 
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 import Sailfish.Silica 1.0
 
 import "../views"
@@ -77,6 +78,12 @@ Page {
                 source: "../views/WallPostView.qml"
             }
 
+            Rectangle {
+                color:Theme.darkPrimaryColor
+                width: parent.width
+                height:2
+            }
+
             Column {
                 width: parent.width
                 spacing: Theme.paddingMedium
@@ -91,22 +98,52 @@ Page {
                             id: commentAvatar
                             anchors.top: parent.top
                             anchors.left: parent.left
-                            width: Theme.iconSizeSmall
-                            height: Theme.iconSizeSmall
+
+                            width: 50  //Theme.iconSizeSmall
+                            height: 50 //Theme.iconSizeSmall
                             source: avatarSource
-                        }
 
-                        Label {
-                            anchors.top: parent.top
-                            anchors.left: commentAvatar.right
-                            anchors.right: parent.right
-                            anchors.leftMargin: Theme.paddingMedium
-                            font.pixelSize: Theme.fontSizeSmall
-                            wrapMode: Text.WordWrap
-                            text: commentText
+                            layer.enabled: true
+                                    layer.effect: OpacityMask {
+                                        maskSource: commentAvatarMask
+                                    }
                         }
+                        Rectangle {
+                                id: commentAvatarMask
+                                width: 50
+                                height: 50
+                                radius: 50
+                                visible: false
+                        }
+                        Column {
+                            anchors {
+                                left: commentAvatar.right
+                                right: parent.right
+                                leftMargin: Theme.paddingMedium
+                            }
+                            Label {
+                                id: commentUserName
+                                //anchors.top: parent.top
+                                //anchors.left: commentAvatar.right
+                                color: Theme.highlightColor
+                                width: parent.width
+                                //anchors.leftMargin: Theme.paddingMedium
+                                font.pixelSize: Theme.fontSizeSmall
+                                wrapMode: Text.WordWrap
+                                text: title
+                            }
 
-                        Component.onCompleted: console.log(commentText)
+                            Label {
+                                //anchors.top: parent.top
+                                //anchors.left: commentAvatar.right
+                                width: parent.width
+                                //anchors.leftMargin: Theme.paddingMedium
+                                font.pixelSize: Theme.fontSizeSmall
+                                wrapMode: Text.WordWrap
+                                text: commentText
+                            }
+                        }
+                        Component.onCompleted: console.log(avatarSource, commentText)
                     }
                 }
             }

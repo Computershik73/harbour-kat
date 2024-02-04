@@ -658,7 +658,7 @@ void VkSDK::parseUploadedPhotoData(QJsonObject object) {
 }
 
 void VkSDK::parseUploadedDocData(QJsonObject object) {
-    QJsonDocument docc(object);
+    //QJsonDocument docc(object);
     //qDebug() << docc.toJson(QJsonDocument::Compact);
     QString doc = object.value("file").toString();
     _docs->saveMessagesDoc(doc);
