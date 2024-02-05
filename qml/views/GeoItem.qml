@@ -31,7 +31,7 @@ Item {
         width: parent.width / 2
         fillMode: Image.PreserveAspectFit
         source: geoTile
-        LayoutMirroring.enabled: isOut
+        //LayoutMirroring.enabled: isOut
 
         MouseArea {
             anchors.fill: parent

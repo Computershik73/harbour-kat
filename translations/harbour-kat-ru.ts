@@ -590,18 +590,18 @@
 <context>
     <name>WallPostPage</name>
     <message>
-        <location filename="../qml/pages/WallPostPage.qml" line="40"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="41"/>
         <source>Share</source>
         <translation>Поделиться</translation>
     </message>
     <message>
-        <location filename="../qml/pages/WallPostPage.qml" line="49"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="50"/>
         <source>Like</source>
         <translation>Мне нравится</translation>
     </message>
     <message>
-        <location filename="../qml/pages/WallPostPage.qml" line="116"/>
-        <location filename="../qml/pages/WallPostPage.qml" line="117"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="153"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="154"/>
         <source>Your comment</source>
         <translation>Ваш комментарий</translation>
     </message>
