@@ -90,9 +90,10 @@ Page {
 
                 Repeater {
                     model: vksdk.commentsModel
-                    delegate: Item {
+                    delegate: ListItem {
                         width: parent.width
-                        height: childrenRect.height
+                        //height: childrenRect.height
+                        contentHeight: commentContent.height
                         property real avatarSize : Theme.iconSizeMedium
                         Image {
                             id: commentAvatar
@@ -116,6 +117,7 @@ Page {
                                 visible: false
                         }
                         Column {
+                            id: commentContent
                             anchors {
                                 left: commentAvatar.right
                                 right: parent.right
@@ -132,6 +134,7 @@ Page {
                                     text: title
                                 }
                                 Image {
+                                    id: commnetLikeIcon
                                     width: Theme.fontSizeTiny
                                     height: Theme.fontSizeTiny
                                     source: "image://theme/icon-s-like?" +
@@ -139,9 +142,10 @@ Page {
                                 }
 
                                 Label {
+                                    id: commentLikeCounter
                                     color: Theme.secondaryColor
                                     font.pixelSize: Theme.fontSizeTiny
-                                    text: likeCont
+                                    text: likeCount
                                 }
                             }
                             Label {
@@ -151,6 +155,17 @@ Page {
                                 text: commentText
                             }
 
+                        }
+                        menu: ContextMenu {
+
+                            MenuItem {
+                                text: qsTr("Like")
+                                onClicked: {
+                                    vksdk.likes.addComment(wallpost.toId, commentId)
+                                    commentLikeCounter.text = parseInt(commentLikeCounter.text) +1
+                                    commnetLikeIcon.source = "image://theme/icon-s-like?" + Theme.secondaryHighlightColor
+                                }
+                            }
                         }
                         Component.onCompleted: console.log(avatarSource, commentText)
                     }

@@ -13,6 +13,8 @@ QVariant CommentsModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid()) return QVariant();
     Comment * comment = _comments.at(index.row());
     switch (role) {
+    case IdRole:
+        return QVariant(comment->id());
     case AvatarRole:
         return QVariant(_getAvatarSource(comment->fromId()));
     case TitleRole:
@@ -34,11 +36,12 @@ QVariant CommentsModel::data(const QModelIndex &index, int role) const {
 
 QHash<int, QByteArray> CommentsModel::roleNames() const {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
+    roles[IdRole] = "commentId";
     roles[AvatarRole] = "avatarSource";
     roles[TitleRole] = "title";
     roles[TextRole] = "commentText";
     roles[DateRole] = "datetime";
-    roles[LikeCountRole] = "likeCont";
+    roles[LikeCountRole] = "likeCount";
     roles[UserLikedRole] = "userLiked";
     roles[AttachmentsRole] = "attachments";
     return roles;
