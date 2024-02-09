@@ -119,6 +119,9 @@ void Authorization::finished(QNetworkReply *reply) {
         QJsonObject jObj = jDoc.object();
         QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
         qDebug() << strFromObj;
+        if (jObj.contains("invalid_client")) {
+            emit error(QString("Неверный пароль"),QString("Неверный пароль"));
+        }
          if (jObj.contains("access_token")) {
 
 
