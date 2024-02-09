@@ -600,8 +600,8 @@
         <translation>Like</translation>
     </message>
     <message>
-        <location filename="../qml/pages/WallPostPage.qml" line="153"/>
-        <location filename="../qml/pages/WallPostPage.qml" line="154"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="162"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="163"/>
         <source>Your comment</source>
         <translation>Jouw commentaar</translation>
     </message>

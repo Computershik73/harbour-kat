@@ -21,6 +21,8 @@ public:
         TitleRole,
         TextRole,
         DateRole,
+        LikeCountRole,
+        UserLikedRole,
         AttachmentsRole,
     };
 
