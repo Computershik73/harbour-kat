@@ -91,6 +91,12 @@ Message *Message::fromJsonObject(QJsonObject object) {
                 message->addVideo(Video::fromJsonObject(attachment.value("video").toObject()));
             } else if (attachment.value("type").toString() == "audio") {
                 message->addAudio(Audio::fromJsonObject(attachment.value("audio").toObject()));
+            } else if (attachment.value("type").toString() == "audio_playlist") {
+                QJsonArray messageAudios = attachment.value("audio_playlist").toObject().value("audios").toArray();
+                foreach(QJsonValue messageAudioVal, messageAudios) {
+                    QJsonObject messageAudio = messageAudioVal.toObject();
+                    message->addAudio(Audio::fromJsonObject(messageAudio));
+                }
             } else if (attachment.value("type").toString() == "audio_message") {
                 message->addAudio(Audio::fromJsonObject(attachment.value("audio_message").toObject()));
             } else if (attachment.value("type").toString() == "doc") {

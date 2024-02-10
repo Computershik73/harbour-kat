@@ -601,8 +601,8 @@
         <translation>Bəyəndim</translation>
     </message>
     <message>
-        <location filename="../qml/pages/WallPostPage.qml" line="179"/>
-        <location filename="../qml/pages/WallPostPage.qml" line="180"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="177"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="178"/>
         <source>Your comment</source>
         <translation>Sizin şərhiviz</translation>
     </message>
