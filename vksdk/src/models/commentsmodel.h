@@ -18,9 +18,12 @@ class CommentsModel : public QAbstractListModel
 public:
     enum Roles {
         AvatarRole = Qt::UserRole + 1,
+        IdRole,
         TitleRole,
         TextRole,
         DateRole,
+        LikeCountRole,
+        UserLikedRole,
         AttachmentsRole,
     };
 

@@ -45,6 +45,7 @@ void Wall::getComments(int ownerId, int postId, int offset) {
     query.addQueryItem("owner_id", QString::number(ownerId));
     query.addQueryItem("post_id", QString::number(postId));
     query.addQueryItem("count", "100");
+    query.addQueryItem("need_likes", "1");
     query.addQueryItem("sort", "asc");
     query.addQueryItem("extended", "1");
     query.addQueryItem("fields", "photo_50");
