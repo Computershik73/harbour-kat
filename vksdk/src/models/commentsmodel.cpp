@@ -11,16 +11,22 @@ int CommentsModel::rowCount(const QModelIndex &parent) const {
 
 QVariant CommentsModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid()) return QVariant();
-
+    Comment * comment = _comments.at(index.row());
     switch (role) {
+    case IdRole:
+        return QVariant(comment->id());
     case AvatarRole:
-        return QVariant(_getAvatarSource(_comments.at(index.row())->fromId()));
+        return QVariant(_getAvatarSource(comment->fromId()));
     case TitleRole:
-        return QVariant(_getTitle(_comments.at(index.row())->fromId()));
+        return QVariant(_getTitle(comment->fromId()));
     case TextRole:
-        return QVariant(_comments.at(index.row())->text());
+        return QVariant(comment->text());
     case DateRole:
-        return QVariant(_comments.at(index.row())->date());
+        return QVariant(comment->date());
+    case LikeCountRole:
+        return QVariant(comment->likesCount());
+    case UserLikedRole:
+        return QVariant(comment->userLiked());
     case AttachmentsRole:
         return QVariant();
     default:
@@ -30,10 +36,13 @@ QVariant CommentsModel::data(const QModelIndex &index, int role) const {
 
 QHash<int, QByteArray> CommentsModel::roleNames() const {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
+    roles[IdRole] = "commentId";
     roles[AvatarRole] = "avatarSource";
     roles[TitleRole] = "title";
     roles[TextRole] = "commentText";
     roles[DateRole] = "datetime";
+    roles[LikeCountRole] = "likeCount";
+    roles[UserLikedRole] = "userLiked";
     roles[AttachmentsRole] = "attachments";
     return roles;
 }

@@ -90,17 +90,18 @@ Page {
 
                 Repeater {
                     model: vksdk.commentsModel
-                    delegate: Item {
+                    delegate: ListItem {
                         width: parent.width
-                        height: childrenRect.height
-
+                        //height: childrenRect.height
+                        contentHeight: commentContent.height
+                        property real avatarSize : Theme.iconSizeMedium
                         Image {
                             id: commentAvatar
                             anchors.top: parent.top
                             anchors.left: parent.left
 
-                            width: 50  //Theme.iconSizeSmall
-                            height: 50 //Theme.iconSizeSmall
+                            width: avatarSize
+                            height: avatarSize
                             source: avatarSource
 
                             layer.enabled: true
@@ -110,37 +111,60 @@ Page {
                         }
                         Rectangle {
                                 id: commentAvatarMask
-                                width: 50
-                                height: 50
-                                radius: 50
+                                width: avatarSize
+                                height: avatarSize
+                                radius: avatarSize
                                 visible: false
                         }
                         Column {
+                            id: commentContent
                             anchors {
                                 left: commentAvatar.right
                                 right: parent.right
                                 leftMargin: Theme.paddingMedium
                             }
-                            Label {
-                                id: commentUserName
-                                //anchors.top: parent.top
-                                //anchors.left: commentAvatar.right
-                                color: Theme.highlightColor
+                            Row {
                                 width: parent.width
-                                //anchors.leftMargin: Theme.paddingMedium
-                                font.pixelSize: Theme.fontSizeSmall
-                                wrapMode: Text.WordWrap
-                                text: title
-                            }
+                                spacing: Theme.paddingSmall
+                                Label {
+                                    id: commentUserName
+                                    color: Theme.highlightColor
+                                    font.pixelSize: Theme.fontSizeSmall
+                                    wrapMode: Text.WordWrap
+                                    text: title
+                                }
+                                Image {
+                                    id: commnetLikeIcon
+                                    width: Theme.fontSizeTiny
+                                    height: Theme.fontSizeTiny
+                                    source: "image://theme/icon-s-like?" +
+                                            (userLiked ? Theme.secondaryHighlightColor : Theme.secondaryColor)
+                                }
 
+                                Label {
+                                    id: commentLikeCounter
+                                    color: Theme.secondaryColor
+                                    font.pixelSize: Theme.fontSizeTiny
+                                    text: likeCount
+                                }
+                            }
                             Label {
-                                //anchors.top: parent.top
-                                //anchors.left: commentAvatar.right
                                 width: parent.width
-                                //anchors.leftMargin: Theme.paddingMedium
                                 font.pixelSize: Theme.fontSizeSmall
                                 wrapMode: Text.WordWrap
                                 text: commentText
+                            }
+
+                        }
+                        menu: ContextMenu {
+
+                            MenuItem {
+                                text: qsTr("Like")
+                                onClicked: {
+                                    vksdk.likes.addComment(wallpost.toId, commentId)
+                                    commentLikeCounter.text = parseInt(commentLikeCounter.text) +1
+                                    commnetLikeIcon.source = "image://theme/icon-s-like?" + Theme.secondaryHighlightColor
+                                }
                             }
                         }
                         Component.onCompleted: console.log(avatarSource, commentText)

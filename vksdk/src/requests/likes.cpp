@@ -32,6 +32,14 @@ void Likes::addPost(int ownerId, int itemId) {
     _api->makeApiGetRequest("likes.add", query, ApiRequest::LIKES_ADD);
 }
 
+void Likes::addComment(int ownerId, int itemId) {
+    QUrlQuery query;
+    query.addQueryItem("type", "comment");
+    query.addQueryItem("owner_id", QString::number(ownerId));
+    query.addQueryItem("item_id", QString::number(itemId));
+    _api->makeApiGetRequest("likes.add", query, ApiRequest::LIKES_ADD);
+}
+
 void Likes::addPhoto(int ownerId, int itemId) {
     QUrlQuery query;
     query.addQueryItem("type", "photo");

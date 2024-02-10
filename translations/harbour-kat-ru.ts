@@ -596,12 +596,13 @@
     </message>
     <message>
         <location filename="../qml/pages/WallPostPage.qml" line="50"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="162"/>
         <source>Like</source>
         <translation>Мне нравится</translation>
     </message>
     <message>
-        <location filename="../qml/pages/WallPostPage.qml" line="153"/>
-        <location filename="../qml/pages/WallPostPage.qml" line="154"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="179"/>
+        <location filename="../qml/pages/WallPostPage.qml" line="180"/>
         <source>Your comment</source>
         <translation>Ваш комментарий</translation>
     </message>

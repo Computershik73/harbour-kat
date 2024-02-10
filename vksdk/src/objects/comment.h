@@ -38,6 +38,13 @@ public:
     int replyToComment() const;
     void setReplyToComment(int replyToComment);
 
+    int likesCount() const;
+    void setLikesCount(int count);
+
+    bool userLiked() const ;
+    void setUserLiked(bool liked);
+
+
     QVariant audios() const;
     QList<QObject *> audiosList() const;
     void addAudio(Audio *audio);
@@ -65,6 +72,8 @@ private:
     QString _text = 0;
     int _replyToUser = 0;
     int _replyToComment = 0;
+    int _likeCount = 0;
+    bool _userLiked = false;
     QList<QObject*> _audios;
     QList<QObject*> _documents;
     QList<QObject*> _links;

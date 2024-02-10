@@ -24,6 +24,11 @@ Comment *Comment::fromJsonObject(QJsonObject object) {
     if (object.contains("text")) comment->setText(object.value("text").toString());
     if (object.contains("reply_to_user")) comment->setReplyToUser(object.value("reply_to_user").toInt());
     if (object.contains("reply_to_comment")) comment->setReplyToComment(object.value("reply_to_comment").toInt());
+    if (object.contains("likes")) {
+        QJsonObject likes = object.value("likes").toObject();
+        if (likes.contains("count")) comment->setLikesCount(likes.value("count").toInt());
+        if (likes.contains("user_likes")) comment->setUserLiked(likes.value("user_likes").toInt() == 1);
+    }
     if (object.contains("attachments")) {
         QJsonArray attachments = object.value("attachments").toArray();
         for (int index = 0; index < attachments.size(); ++index) {
@@ -122,6 +127,25 @@ int Comment::replyToComment() const
 void Comment::setReplyToComment(int replyToComment)
 {
     _replyToComment = replyToComment;
+}
+
+int Comment::likesCount() const
+{
+    return _likeCount;
+}
+
+void Comment::setLikesCount(int count) {
+    _likeCount=count;
+}
+
+bool Comment::userLiked() const
+{
+    return _userLiked;
+}
+
+void Comment::setUserLiked(bool liked)
+{
+    _userLiked = liked;
 }
 
 QVariant Comment::audios() const
