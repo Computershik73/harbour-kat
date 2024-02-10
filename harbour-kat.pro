@@ -20,7 +20,7 @@ greaterThan(QT_VERSION, 5.5) {
     QMAKE_CXXFLAGS += -std=gnu++11
 }
 
-QT += multimedia core gui
+QT += multimedia core gui qml quick
 
 include("vksdk/vksdk.pri")
 

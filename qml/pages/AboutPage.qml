@@ -53,7 +53,7 @@ Page {
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: "v0.6.3"
+                text: "v0.6.6"
             }
 
             Label {
