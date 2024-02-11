@@ -1,12 +1,15 @@
 name: Github CI build
 
 on:
+  workflow_dispatch:
+    inputs: {}
   push:
+    branches:
+     - master
     tags:
       - '*'
   pull_request:
     branches:
-    
       - master
 env:
   RELEASE: 4.4.0.68
