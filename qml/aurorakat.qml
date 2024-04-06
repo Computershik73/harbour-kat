@@ -64,7 +64,11 @@ ApplicationWindow
 
     Notification {
         id: commonNotification
-        category: "harbour-kat"
+        appIcon: "ru.ilyavysotsky.aurorakat"
+        category: "AuroraKat"
+        appName: "AuroraKat"
+        urgency: Notification.Critical
+        //replacesId: 0
         remoteActions: [
             { "name":    "default",
                 "service": "ru.ilyavysotsky.aurorakat",
@@ -102,8 +106,8 @@ ApplicationWindow
         canGoPrevious: true
         canPause: true
         canPlay: true
-        canSeek: false
-
+        canSeek: true
+        desktopEntry: "AuroraKat"
 
         playbackStatus: player.isPlaying ? Mpris.Playing : Mpris.Paused
 
@@ -115,21 +119,33 @@ ApplicationWindow
                 mprisPlayer.setMetadata(metadata)*/
         // }
 
-        onArtistChanged: {
-            var metadata = mprisPlayer.metadata
+        //  onArtistChanged: {
+        /*var metadata = mprisPlayer.metadata
 
-            metadata[Mpris.metadataToString(Mpris.Artist)] = [artist] // List of strings
+            console.log(artist)
 
-            mprisPlayer.metadata = metadata
-        }
+            metadata['xesam:artist'] = [artist] // List of strings
 
-        onSongChanged: {
-            var metadata = mprisPlayer.metadata
+            mprisPlayer.metadata = metadata*/
 
-            metadata[Mpris.metadataToString(Mpris.Title)] = song // String
+        //  mprisPlayer.artist = artist
+        //}
 
-            mprisPlayer.metadata = metadata
-        }
+        // onSongChanged: {
+        /* var metadata = mprisPlayer.metadata
+            metaData.title = track.title*/
+        /*var metadata = mprisPlayer.metadata
+
+            console.log(song)
+
+            metadata['xesam:title'] = song // String
+
+            mprisPlayer.metadata = metadata*/
+
+        //   console.log(mprisPlayer.song)
+
+        //mprisPlayer.song = song
+        //}
 
         onPauseRequested: {
             player.pause()
@@ -161,12 +177,15 @@ ApplicationWindow
     Connections {
         target: vksdk
         onGotNewMessage: {
-            commonNotification.close()
+            //commonNotification.close()
+            commonNotification.replacesId = 0
             commonNotification.summary = name
             commonNotification.previewSummary = name
             commonNotification.body = preview
             commonNotification.previewBody = preview
-
+            commonNotification.appIcon = "ru.ilyavysotsky.aurorakat"
+            commonNotification.appName = "AuroraKat"
+            commonNotification.urgency = Notification.Critical
             commonNotification.category = "x-nemo.messaging.im"
 
             commonNotification.publish()
@@ -182,63 +201,46 @@ ApplicationWindow
     }
 
     Connections {
-            target: netcfgmgr
-            onConfigurationChanged: {
-                console.log("onConfigurationChanged")
-                //vksdk.longPoll.getLongPollServer()
+        target: netcfgmgr
+        onConfigurationChanged: {
+            console.log("onConfigurationChanged")
+            //vksdk.longPoll.getLongPollServer()
+        }
+    }
+
+    DBusAdaptor {
+        id: dbus
+
+        service: "ru.ilyavysotsky.aurorakat"
+        iface: "ru.ilyavysotsky.aurorakat"
+        path: "/ru/ilyavysotsky/aurorakat"
+
+        xml: '  <interface name="ru.ilyavysotsky.aurorakat">\n' +
+             '  <method name="activateApp" />\n' +
+             '  </interface>\n'
+
+        function activateApp()
+        {
+            if ( !application.applicationActive ) {
+                application.activate()
             }
         }
-
-        DBusAdaptor {
-            id: dbus
-
-            service: "ru.ilyavysotsky.aurorakat"
-            iface: "ru.ilyavysotsky.aurorakat"
-            path: "/ru/ilyavysotsky/aurorakat"
-
-            xml: '  <interface name="ru.ilyavysotsky.aurorakat">\n' +
-                 '  <method name="activateApp" />\n' +
-                 '  </interface>\n'
-
-            function activateApp()
-            {
-                if ( !application.applicationActive ) {
-                    application.activate()
-                }
-            }
-        }
+    }
 
 
     Connections {
         target: player
         onMediaChanged: {
-            //qDebug() << "mediachanged"
+            var metaData = mprisPlayer.metadata
+           // console.log(metaData)
+            //console.log(player.title)
 
-            mprisPlayer.song = player.title
-            mprisPlayer.artist = player.author
-            //var metaData = mprisPlayer.metaData
-            //metaData['mpris:title'] = "test"
-            //metaData['mpris:albumArtist'] = "test"
-            //metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
-            //metaData[Mpris.metadataToString(Mpris.Title)] = "test"
-            //mprisPlayer.metaData = metaData
-            //metaData['xesam:title'] = "test"
-            // metaData['xesam:albumArtist'] = "test"
-            //mprisPlayer.setMetadata(metaData)
+            mprisPlayer.metaData.title = player.title
+            mprisPlayer.metaData.contributingArtist = player.author
 
         }
 
-        /* onStateChanged: {
-            // qDebug() << "statechanged"
-            var metaData = mprisPlayer.metaData
-            // metaData['mpris:title'] = "app.streamMetaText1"
-            // metaData['mpris:albumArtist'] = "app.stationName"
-            //metadata[Mpris.metadataToString(Mpris.albumArtist)] = player.author
-            //metadata[Mpris.metadataToString(Mpris.Title)] = player.title
-            metaData[Mpris.metadataToString(Mpris.albumArtist)] = "test"
-            metaData[Mpris.metadataToString(Mpris.Title)] = "test"
-             mprisPlayer.setMetadata(metaData)
-        }*/
+
     }
 
 

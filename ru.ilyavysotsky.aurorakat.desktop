@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.ilyavysotsky.aurorakat
+Exec=/usr/bin/ru.ilyavysotsky.aurorakat
+Name=aurorakat
+Name[ru]=AuroraKat
+
+[X-Application]
+Permissions=PushNotifications;Audio;Camera;Internet;Location;MediaIndexing;Microphone;UserDirs;WebView
+OrganizationName=ru.ilyavysotsky
+ApplicationName=aurorakat
+ExecDBus=/usr/bin/ru.ilyavysotsky.aurorakat
+ExportDBusInterfaces=ru.ilyavysotsky.aurorakat

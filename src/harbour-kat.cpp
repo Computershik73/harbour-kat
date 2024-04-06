@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
     QScopedPointer<VkSDK> vksdk(new VkSDK(view.data()));
     view->rootContext()->setContextProperty("vksdk", vksdk.data());
 
-    view->setSource(Aurora::Application::pathTo("qml/harbour-kat.qml"));
+    view->setSource(Aurora::Application::pathTo("qml/aurorakat.qml"));
     view->show();
 
     return application->exec();

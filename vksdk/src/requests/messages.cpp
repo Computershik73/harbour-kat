@@ -23,6 +23,7 @@
 #include <QTime>
 #include "src/utils.h"
 #include <QDebug>
+#include "vksdk/src/vksdk.h"
 
 Messages::Messages(QObject *parent) : RequestBase(parent)
 {}
@@ -41,6 +42,7 @@ void Messages::getChat(const QStringList &ids) {
 }
 
 void Messages::getDialogs(int offset) {
+    VkSDK::mutedChats.clear();
     QUrlQuery query;
     query.addQueryItem("offset", QString::number(offset));
     query.addQueryItem("extended", "1");

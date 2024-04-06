@@ -136,6 +136,8 @@ public:
     Q_INVOKABLE void attachPhotoToMessage(QString path);
     Q_INVOKABLE void attachDocToMessage(QString path);
 
+    static QList<qint64> mutedChats;
+
 //    User* selfProfile() const;
 
 signals:

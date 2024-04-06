@@ -21,15 +21,17 @@
 
 #include "vksdk.h"
 
+QList<qint64> VkSDK::mutedChats = QList<qint64>();
+
 VkSDK::VkSDK(QObject *parent) : QObject(parent) {
     // basic:
     _api = new ApiRequest(this);
     _auth = new Authorization(this);
     qRegisterMetaType<Authorization*>("Authorization*");
     connect(_api, &ApiRequest::gotResponse, this, &VkSDK::gotResponse);
-//    connect(_api, &ApiRequest::gotResponse,
-//            [this] (QJsonValue value, ApiRequest::TaskType type) { QtConcurrent::run(this, &VkSDK::gotResponse, value, type); });
-//            [this] (QJsonValue value, ApiRequest::TaskType type) { gotResponse(value, type); });
+    //    connect(_api, &ApiRequest::gotResponse,
+    //            [this] (QJsonValue value, ApiRequest::TaskType type) { QtConcurrent::run(this, &VkSDK::gotResponse, value, type); });
+    //            [this] (QJsonValue value, ApiRequest::TaskType type) { gotResponse(value, type); });
 
     _longPoll = new LongPoll(this);
     connect(_longPoll, SIGNAL(gotNewMessage(int)), this, SLOT(_gotNewMessage(int)));
@@ -51,7 +53,7 @@ VkSDK::VkSDK(QObject *parent) : QObject(parent) {
     _users = new Users(this);
     _videos = new Videos(this);
     _wall = new Wall(this);
-   // _longPoll->setApi(_api);
+    // _longPoll->setApi(_api);
     _account->setApi(_api);
     _audios->setApi(_api);
     _board->setApi(_api);
@@ -105,11 +107,11 @@ VkSDK::VkSDK(QObject *parent) : QObject(parent) {
     qRegisterMetaType<PhotosModel*>("PhotosModel*");
 
 
-//    qRegisterMetaType<Audio*>("Audio*");
-//    qRegisterMetaType<Document*>("Document*");
-//    qRegisterMetaType<Photo*>("Photo*");
-//    qRegisterMetaType<Friend*>("Friend*");
-//    qRegisterMetaType<Video*>("Video*");
+    //    qRegisterMetaType<Audio*>("Audio*");
+    //    qRegisterMetaType<Document*>("Document*");
+    //    qRegisterMetaType<Photo*>("Photo*");
+    //    qRegisterMetaType<Friend*>("Friend*");
+    //    qRegisterMetaType<Video*>("Video*");
 }
 
 VkSDK::~VkSDK() {
@@ -141,7 +143,7 @@ VkSDK::~VkSDK() {
     delete _wallModel;
     delete _photosModel;
 
-//    delete _selfProfile;
+    //    delete _selfProfile;
 }
 
 void VkSDK::setAccessTocken(QString value) {
@@ -163,21 +165,21 @@ bool VkSDK::checkToken(QString token) {
     request.setRawHeader("Authorization", "Bearer "+token.toUtf8());
     qDebug () << request.rawHeader("Authorization");
     QNetworkAccessManager* _manager = new QNetworkAccessManager(this);
-   // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+    // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
     QNetworkReply *reply = _manager->get(request);
     QEventLoop looppp;
     QObject::connect(reply, SIGNAL(finished()) , &looppp, SLOT(quit()));
     looppp.exec();
-     QByteArray dataaa = reply->readAll();
-     QString DataAsString     = QString::fromUtf8(dataaa);
+    QByteArray dataaa = reply->readAll();
+    QString DataAsString     = QString::fromUtf8(dataaa);
     // qDebug() << DataAsString;
-     if (DataAsString.contains("error")) {
-         return false;
-     } else if (DataAsString.contains("authorization failed")) {
-         return false;
-     } else {
-         return true;
-     }
+    if (DataAsString.contains("error")) {
+        return false;
+    } else if (DataAsString.contains("authorization failed")) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 void VkSDK::setUserId(int value) {
@@ -369,7 +371,7 @@ void VkSDK::gotResponse(const QJsonValue &value, ApiRequest::TaskType type) {
         if (_messagePreview.isEmpty()) emit gotProfile(parseUserProfile(value.toArray()));
         else {
             emit gotNewMessage(QString("%1 %2").arg(parseUserProfile(value.toArray())->getFirstName())
-                                               .arg(parseUserProfile(value.toArray())->getLastName()),
+                               .arg(parseUserProfile(value.toArray())->getLastName()),
                                _messagePreview);
             _messagePreview.clear();
         }
@@ -427,7 +429,7 @@ void VkSDK::parseChatsInfo(QJsonArray array) {
     for (int index = 0; index < array.size(); ++index) {
         Chat *chat = Chat::fromJsonObject(array.at(index).toObject());
         if (chat->users().size()>0) {
-        foreach (QVariant user, chat->users()) _usersIds.append(user.toString());
+            foreach (QVariant user, chat->users()) _usersIds.append(user.toString());
         }
 
         //foreach (QVariant user, chat->users()) _usersIds.append(user.toString());
@@ -435,8 +437,8 @@ void VkSDK::parseChatsInfo(QJsonArray array) {
         _dialogsListModel->addChat(chat);
     }
     if (array.size()>0) {
-    _usersIds.removeDuplicates();
-    _users->getUsersByIds(_usersIds);
+        _usersIds.removeDuplicates();
+        _users->getUsersByIds(_usersIds);
     }
 }
 
@@ -459,6 +461,8 @@ void VkSDK::parseComments(QJsonObject object) {
 }
 
 void VkSDK::parseDialogsInfo(QJsonObject object) {
+    QString strFromObj = QJsonDocument(object).toJson(QJsonDocument::Compact).toStdString().c_str();
+    // qDebug() << "parseDialogsInfo" << strFromObj;
     if (object.contains("unread_count")) emit gotUnreadCounter(object.value("unread_count").toInt());
     parseFriendsInfo(object.value("profiles").toArray());
     parseGroupsInfo(object.value("groups").toArray());
@@ -469,20 +473,20 @@ void VkSDK::parseDialogsInfo(QJsonObject object) {
         else _usersIds.append(QString::number(dialog->lastMessage()->peerId()));
         _dialogsListModel->add(dialog);
     }
-   if (_chatsIds.empty()) {
-       //if (!(_usersIds.empty())) {
+    if (_chatsIds.empty()) {
+        //if (!(_usersIds.empty())) {
         _usersIds.removeDuplicates();
 
         _users->getUsersByIds(_usersIds);
 
 
-         //}
+        //}
     } else _messages->getChat(_chatsIds);
 }
 
 void VkSDK::resetDialogsModel() {
 
-   // _dialogsListModel->modelReset(QAbstractItemModel);
+    // _dialogsListModel->modelReset(QAbstractItemModel);
 }
 
 void VkSDK::parseEntireFriendsList(QJsonArray array) {
@@ -554,6 +558,7 @@ void VkSDK::parseMessages(QJsonArray array) {
 
 void VkSDK::parseNewMessage(QJsonObject object) {
     Message *message = Message::fromJsonObject(object);
+    qDebug() << "parsing " << QJsonDocument(object).toJson(QJsonDocument::Compact);
     /*if (message->chat()) {
         message->setFromId(message->fromId());
         message->setPeerId(message->peerId());
@@ -566,11 +571,13 @@ void VkSDK::parseNewMessage(QJsonObject object) {
     // Update chat
     _messagesModel->addToBegin(message);
     // Show notification
-     _users->getUserProfile(message->fromId());
+    _users->getUserProfile(message->fromId());
+   // qDebug() << VkSDK::mutedChats;
+    if (VkSDK::mutedChats.contains(message->peerId())) return;
     if (message->out()) return;
     _messagePreview = (message->hasAttachments() ? "[ 📎 ] " : "") + message->body();
     //_users->getUserProfile(message->fromId());
-   // qDebug() << "...finished...";
+    // qDebug() << "...finished...";
 }
 
 void VkSDK::parseNewsfeed(QJsonObject object, bool isWall) {
@@ -625,7 +632,7 @@ void VkSDK::parseSavedPhotoData(QJsonArray array) {
 void VkSDK::parseSavedDocData(QJsonObject doc) {
     QJsonObject docdoc = doc.value("doc").toObject();
     emit savedDoc(QString("doc%1_%2").arg(QString::number(docdoc.value("owner_id").toInt()))
-                    .arg(QString::number(docdoc.value("id").toInt())));
+                  .arg(QString::number(docdoc.value("id").toInt())));
 }
 
 void VkSDK::parseStatistics(QJsonArray array) {

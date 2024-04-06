@@ -32,7 +32,7 @@ Page {
 
     Notification {
         id: loginNotification
-        category: "harbour-kat"
+        category: "aurorakat"
     }
 
     Label {

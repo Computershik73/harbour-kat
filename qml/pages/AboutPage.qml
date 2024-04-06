@@ -33,7 +33,7 @@ Page {
 
         PageHeader {
             id: header
-            title: qsTr("About") + "AuroraKat"
+            title: qsTr("About") + " AuroraKat"
         }
 
         Column {
@@ -53,7 +53,7 @@ Page {
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: "v0.6.7"
+                text: "v0.6.8"
             }
 
             Label {

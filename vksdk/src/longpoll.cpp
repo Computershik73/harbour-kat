@@ -148,9 +148,9 @@ void LongPoll::finished(QNetworkReply *reply) {
         return;
     }
     QByteArray qb = reply->readAll();
-    qDebug() << " err7 ";
+
     if (qb.isEmpty() || qb.isNull()) { return; }
-    qDebug() << "\n" << qb << "\n";
+
     QJsonDocument jDoc = QJsonDocument::fromJson(qb);
     if (reply->request().url().query().contains("need_pts") && (jDoc.object().contains("response"))) {
         QJsonObject jObj = jDoc.object().value("response").toObject();

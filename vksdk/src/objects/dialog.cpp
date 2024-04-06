@@ -20,6 +20,7 @@
 */
 
 #include "dialog.h"
+#include "vksdk/src/vksdk.h"
 
 Dialog::Dialog(QObject *parent) : QObject(parent) {
     qRegisterMetaType<Message*>("Message*");
@@ -34,6 +35,8 @@ Dialog *Dialog::fromJsonObject(QJsonObject object) {
     dialog->setLastMessage(Message::fromJsonObject(object.value("last_message").toObject()));
     dialog->setIsChat(dialog->lastMessage()->chat());
     dialog->setUnread(object.contains("unread") || !dialog->lastMessage()->readState());
+    dialog->setMuted(object.value("conversation").toObject().contains("push_settings") ? (object.value("conversation").toObject().value("push_settings").toObject().value("disabled_forever").toBool() || object.value("conversation").toObject().value("push_settings").toObject().value("no_sound").toBool()) : false);
+    if (dialog->muted()) { VkSDK::mutedChats.append(dialog->lastMessage()->peerId()); }
     return dialog;
 }
 
@@ -45,6 +48,16 @@ bool Dialog::unread() const
 void Dialog::setUnread(bool unread)
 {
     _unread = unread;
+}
+
+bool Dialog::muted() const
+{
+    return _muted;
+}
+
+void Dialog::setMuted(bool muted)
+{
+    _muted = muted;
 }
 
 bool Dialog::isChat() const

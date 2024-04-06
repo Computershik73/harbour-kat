@@ -42,6 +42,9 @@ public:
     bool unread() const;
     void setUnread(bool unread);
 
+    bool muted() const;
+    void setMuted(bool muted);
+
     bool isChat() const;
     void setIsChat(bool isChat);
 
@@ -50,6 +53,7 @@ public:
 
 private:
     bool _unread;
+    bool _muted;
     bool _isChat;
     Message *_lastMessage;
 };

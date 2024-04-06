@@ -119,14 +119,17 @@ void Authorization::finished(QNetworkReply *reply) {
         QJsonObject jObj = jDoc.object();
         QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
         qDebug() << strFromObj;
-        if (jObj.contains("invalid_client")) {
+        if (strFromObj.contains("invalid_client")) {
             emit error(QString("Неверный пароль"),QString("Неверный пароль"));
+            reply->deleteLater();
+            return;
         }
          if (jObj.contains("access_token")) {
 
 
             emit authorized(jObj.value("access_token").toString(), jObj.value("user_id").toInt());
-
+            reply->deleteLater();
+            return;
          } else {
 //             strFromObj.contains("2fa")
                      emit captcharequired(jObj.value("error").toString(),jObj.value("1").toString());
